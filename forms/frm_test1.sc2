@@ -20,10 +20,27 @@ ENDDEFINE
 DEFINE CLASS Form1 AS form 
  	*< CLASSDATA: Baseclass="form" Timestamp="" Scale="" Uniqueid="" />
 
-	Caption = "Form1"
+	*-- OBJECTDATA items order determines ZOrder / El orden de los items OBJECTDATA determina el ZOrder 
+	*< OBJECTDATA: ObjPath="Command1" UniqueID="" Timestamp="" />
+
+	Caption = "Formulario de Prueba"
 	DoCreate = .T.
 	Left = 24
 	Name = "Form1"
 	Top = 9
+
+	ADD OBJECT 'Command1' AS commandbutton WITH ;
+		Cancel = .T., ;
+		Caption = "Salir", ;
+		Height = 27, ;
+		Left = 276, ;
+		Name = "Command1", ;
+		Top = 216, ;
+		Width = 84
+		*< END OBJECT: BaseClass="commandbutton" />
+
+	PROCEDURE Command1.Click
+		thisform.Release
+	ENDPROC
 
 ENDDEFINE
