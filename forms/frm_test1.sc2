@@ -62,12 +62,12 @@ DEFINE CLASS frmTest1 AS form
 
 	ADD OBJECT 'lblPrueba' AS label WITH ;
 		AutoSize = .T., ;
-		Caption = "Texto de Prueba ---------------------------->", ;
+		Caption = "Otro Texto de Prueba ---------------------------->", ;
 		Height = 17, ;
 		Left = 36, ;
 		Name = "lblPrueba", ;
 		Top = 60, ;
-		Width = 213
+		Width = 239
 		*< END OBJECT: BaseClass="label" />
 
 	PROCEDURE cmdFondoForm.Click
