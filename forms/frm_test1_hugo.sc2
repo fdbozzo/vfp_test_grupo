@@ -22,6 +22,7 @@ DEFINE CLASS Form1 AS form
 
 	*-- OBJECTDATA items order determines ZOrder / El orden de los items OBJECTDATA determina el ZOrder 
 	*< OBJECTDATA: ObjPath="Command1" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Pageframe1" UniqueID="" Timestamp="" />
 
 	Caption = "Form1"
 	DoCreate = .T.
@@ -40,6 +41,20 @@ DEFINE CLASS Form1 AS form
 		Top = 396, ;
 		Width = 84
 		*< END OBJECT: BaseClass="commandbutton" />
+
+	ADD OBJECT 'Pageframe1' AS pageframe WITH ;
+		ErasePage = .T., ;
+		Height = 300, ;
+		Left = 36, ;
+		Name = "Pageframe1", ;
+		PageCount = 2, ;
+		Top = 60, ;
+		Width = 576, ;
+		Page1.Caption = "Page1", ;
+		Page1.Name = "Page1", ;
+		Page2.Caption = "Page2", ;
+		Page2.Name = "Page2"
+		*< END OBJECT: BaseClass="pageframe" />
 
 	PROCEDURE Command1.Click
 		thisform.release
