@@ -24,10 +24,11 @@ DEFINE CLASS Form1 AS form
 	*< OBJECTDATA: ObjPath="pgfPaginas" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdPag1" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdPag2" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="cmdSalir" UniqueID="" Timestamp="" />
 
 	Caption = "Form1"
 	DoCreate = .T.
-	Height = 222
+	Height = 231
 	Left = 0
 	Name = "Form1"
 	Top = 0
@@ -48,6 +49,15 @@ DEFINE CLASS Form1 AS form
 		Left = 16, ;
 		Name = "cmdPag2", ;
 		Top = 80, ;
+		Width = 84
+		*< END OBJECT: BaseClass="commandbutton" />
+
+	ADD OBJECT 'cmdSalir' AS commandbutton WITH ;
+		Caption = "Salir", ;
+		Height = 27, ;
+		Left = 480, ;
+		Name = "cmdSalir", ;
+		Top = 192, ;
 		Width = 84
 		*< END OBJECT: BaseClass="commandbutton" />
 
@@ -72,6 +82,12 @@ DEFINE CLASS Form1 AS form
 
 	PROCEDURE cmdPag2.Click
 		THISFORM.pgfPaginas.ActivePage = 2
+		
+	ENDPROC
+
+	PROCEDURE cmdSalir.Click
+		THISFORM.Hide()
+		THISFORM.Release()
 		
 	ENDPROC
 
