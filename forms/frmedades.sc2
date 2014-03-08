@@ -42,6 +42,12 @@ DEFINE CLASS frmedades AS form
 	*< OBJECTDATA: ObjPath="shpDes6" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="lblCalifi" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="txtCalifi" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="shpDes7" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="lblIngreso" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="txtIngreso" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="txtEdadIngreso" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="shpDes8" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="lblEdadIngreso" UniqueID="" Timestamp="" />
 
 	*<DefinedPropArrayMethod>
 		*m: *calcedad
@@ -54,7 +60,7 @@ DEFINE CLASS frmedades AS form
 	BackColor = 184,201,197
 	Caption = "Edades"
 	DoCreate = .T.
-	Height = 226
+	Height = 179
 	Left = 0
 	Name = "frmedades"
 	Top = 0
@@ -67,7 +73,7 @@ DEFINE CLASS frmedades AS form
 		Height = 21, ;
 		Left = 350, ;
 		Name = "CmdCalcular", ;
-		TabIndex = 3, ;
+		TabIndex = 4, ;
 		Top = 7, ;
 		Width = 50
 		*< END OBJECT: BaseClass="commandbutton" />
@@ -79,7 +85,7 @@ DEFINE CLASS frmedades AS form
 		Height = 21, ;
 		Left = 350, ;
 		Name = "CmdLimpiar", ;
-		TabIndex = 4, ;
+		TabIndex = 5, ;
 		Top = 27, ;
 		Width = 50
 		*< END OBJECT: BaseClass="commandbutton" />
@@ -92,8 +98,8 @@ DEFINE CLASS frmedades AS form
 		Height = 16, ;
 		Left = 11, ;
 		Name = "lblCalifi", ;
-		TabIndex = 6, ;
-		Top = 70, ;
+		TabIndex = 10, ;
+		Top = 112, ;
 		Width = 103
 		*< END OBJECT: BaseClass="label" />
 
@@ -105,9 +111,22 @@ DEFINE CLASS frmedades AS form
 		Height = 16, ;
 		Left = 11, ;
 		Name = "lblEdad", ;
-		TabIndex = 6, ;
-		Top = 30, ;
+		TabIndex = 11, ;
+		Top = 50, ;
 		Width = 76
+		*< END OBJECT: BaseClass="label" />
+
+	ADD OBJECT 'lblEdadIngreso' AS label WITH ;
+		AutoSize = .T., ;
+		BackStyle = 0, ;
+		Caption = "Edad al Ingresar", ;
+		FontSize = 8, ;
+		Height = 16, ;
+		Left = 11, ;
+		Name = "lblEdadIngreso", ;
+		TabIndex = 8, ;
+		Top = 70, ;
+		Width = 80
 		*< END OBJECT: BaseClass="label" />
 
 	ADD OBJECT 'lblFeCalc' AS label WITH ;
@@ -118,7 +137,7 @@ DEFINE CLASS frmedades AS form
 		Height = 16, ;
 		Left = 183, ;
 		Name = "lblFeCalc", ;
-		TabIndex = 10, ;
+		TabIndex = 18, ;
 		Top = 10, ;
 		Width = 98
 		*< END OBJECT: BaseClass="label" />
@@ -131,9 +150,22 @@ DEFINE CLASS frmedades AS form
 		Height = 16, ;
 		Left = 11, ;
 		Name = "lblFeNac", ;
-		TabIndex = 5, ;
+		TabIndex = 7, ;
 		Top = 10, ;
 		Width = 87
+		*< END OBJECT: BaseClass="label" />
+
+	ADD OBJECT 'lblIngreso' AS label WITH ;
+		AutoSize = .T., ;
+		BackStyle = 0, ;
+		Caption = "Fecha de Ingreso", ;
+		FontSize = 8, ;
+		Height = 16, ;
+		Left = 11, ;
+		Name = "lblIngreso", ;
+		TabIndex = 6, ;
+		Top = 30, ;
+		Width = 86
 		*< END OBJECT: BaseClass="label" />
 
 	ADD OBJECT 'lblNeBirth' AS label WITH ;
@@ -144,8 +176,8 @@ DEFINE CLASS frmedades AS form
 		Height = 16, ;
 		Left = 11, ;
 		Name = "lblNeBirth", ;
-		TabIndex = 7, ;
-		Top = 50, ;
+		TabIndex = 12, ;
+		Top = 92, ;
 		Width = 102
 		*< END OBJECT: BaseClass="label" />
 
@@ -157,8 +189,8 @@ DEFINE CLASS frmedades AS form
 		Height = 16, ;
 		Left = 182, ;
 		Name = "lblZodiaco", ;
-		TabIndex = 6, ;
-		Top = 50, ;
+		TabIndex = 9, ;
+		Top = 92, ;
 		Width = 71
 		*< END OBJECT: BaseClass="label" />
 
@@ -178,7 +210,7 @@ DEFINE CLASS frmedades AS form
 		Height = 21, ;
 		Left = 7, ;
 		Name = "shpDes2", ;
-		Top = 27, ;
+		Top = 47, ;
 		Width = 110
 		*< END OBJECT: BaseClass="shape" />
 
@@ -188,7 +220,7 @@ DEFINE CLASS frmedades AS form
 		Height = 21, ;
 		Left = 7, ;
 		Name = "shpDes3", ;
-		Top = 47, ;
+		Top = 89, ;
 		Width = 110
 		*< END OBJECT: BaseClass="shape" />
 
@@ -208,7 +240,7 @@ DEFINE CLASS frmedades AS form
 		Height = 21, ;
 		Left = 178, ;
 		Name = "shpDes5", ;
-		Top = 47, ;
+		Top = 89, ;
 		Width = 110
 		*< END OBJECT: BaseClass="shape" />
 
@@ -218,13 +250,33 @@ DEFINE CLASS frmedades AS form
 		Height = 21, ;
 		Left = 7, ;
 		Name = "shpDes6", ;
+		Top = 109, ;
+		Width = 110
+		*< END OBJECT: BaseClass="shape" />
+
+	ADD OBJECT 'shpDes7' AS shape WITH ;
+		BackColor = 220,228,224, ;
+		BorderColor = 114,136,141, ;
+		Height = 21, ;
+		Left = 7, ;
+		Name = "shpDes7", ;
+		Top = 27, ;
+		Width = 110
+		*< END OBJECT: BaseClass="shape" />
+
+	ADD OBJECT 'shpDes8' AS shape WITH ;
+		BackColor = 220,228,224, ;
+		BorderColor = 114,136,141, ;
+		Height = 21, ;
+		Left = 7, ;
+		Name = "shpDes8", ;
 		Top = 67, ;
 		Width = 110
 		*< END OBJECT: BaseClass="shape" />
 
 	ADD OBJECT 'shpMarco' AS shape WITH ;
 		BackColor = 221,226,222, ;
-		Height = 90, ;
+		Height = 132, ;
 		Left = 3, ;
 		Name = "shpMarco", ;
 		SpecialEffect = 0, ;
@@ -243,8 +295,8 @@ DEFINE CLASS frmedades AS form
 		Left = 116, ;
 		Name = "txtCalifi", ;
 		SpecialEffect = 1, ;
-		TabIndex = 8, ;
-		Top = 67, ;
+		TabIndex = 16, ;
+		Top = 109, ;
 		Width = 140
 		*< END OBJECT: BaseClass="textbox" />
 
@@ -259,8 +311,24 @@ DEFINE CLASS frmedades AS form
 		Left = 116, ;
 		Name = "txtEdad", ;
 		SpecialEffect = 1, ;
-		TabIndex = 8, ;
-		Top = 27, ;
+		TabIndex = 13, ;
+		Top = 47, ;
+		Width = 233
+		*< END OBJECT: BaseClass="textbox" />
+
+	ADD OBJECT 'txtEdadIngreso' AS textbox WITH ;
+		Alignment = 3, ;
+		BorderColor = 114,136,141, ;
+		DisabledBackColor = 231,237,234, ;
+		DisabledForeColor = 0,0,0, ;
+		Enabled = .F., ;
+		FontSize = 8, ;
+		Height = 21, ;
+		Left = 116, ;
+		Name = "txtEdadIngreso", ;
+		SpecialEffect = 1, ;
+		TabIndex = 14, ;
+		Top = 67, ;
 		Width = 233
 		*< END OBJECT: BaseClass="textbox" />
 
@@ -275,7 +343,7 @@ DEFINE CLASS frmedades AS form
 		Left = 286, ;
 		Name = "txtFeCalc", ;
 		SpecialEffect = 1, ;
-		TabIndex = 2, ;
+		TabIndex = 3, ;
 		Top = 7, ;
 		Value = (Ctod("")), ;
 		Width = 63
@@ -298,6 +366,23 @@ DEFINE CLASS frmedades AS form
 		Width = 63
 		*< END OBJECT: BaseClass="textbox" />
 
+	ADD OBJECT 'txtIngreso' AS textbox WITH ;
+		Alignment = 3, ;
+		BorderColor = 114,136,141, ;
+		DisabledBackColor = 231,237,234, ;
+		DisabledForeColor = 0,0,0, ;
+		FontSize = 8, ;
+		Format = "D", ;
+		Height = 21, ;
+		Left = 116, ;
+		Name = "txtIngreso", ;
+		SpecialEffect = 1, ;
+		TabIndex = 2, ;
+		Top = 27, ;
+		Value = (Ctod("")), ;
+		Width = 63
+		*< END OBJECT: BaseClass="textbox" />
+
 	ADD OBJECT 'txtNeBirth' AS textbox WITH ;
 		Alignment = 3, ;
 		BorderColor = 114,136,141, ;
@@ -309,8 +394,8 @@ DEFINE CLASS frmedades AS form
 		Left = 116, ;
 		Name = "txtNeBirth", ;
 		SpecialEffect = 1, ;
-		TabIndex = 9, ;
-		Top = 47, ;
+		TabIndex = 17, ;
+		Top = 89, ;
 		Width = 63
 		*< END OBJECT: BaseClass="textbox" />
 
@@ -325,8 +410,8 @@ DEFINE CLASS frmedades AS form
 		Left = 255, ;
 		Name = "txtZodiaco", ;
 		SpecialEffect = 1, ;
-		TabIndex = 8, ;
-		Top = 47, ;
+		TabIndex = 15, ;
+		Top = 89, ;
 		Width = 94
 		*< END OBJECT: BaseClass="textbox" />
 	
@@ -589,6 +674,10 @@ DEFINE CLASS frmedades AS form
 			.cmdLimpiar.Enabled=.t.
 		ENDWITH
 		objRet=null
+		objRet=Thisform.Calcedad( thisform.txtFeNac.Value,thisform.txtIngreso.Value)
+		thisform.txtEdadIngreso.Value=objRet.Tiempo
+		objret=null
+		
 		
 		
 	ENDPROC
@@ -622,7 +711,11 @@ DEFINE CLASS frmedades AS form
 	ENDPROC
 
 	PROCEDURE txtFeNac.ProgrammaticChange
-		Thisform.cmdCalcular.Enabled=!EMPTY(this.Value)
+		WITH Thisform
+			.cmdCalcular.Enabled=!EMPTY(this.Value)
+			.txtIngreso.Enabled=!EMPTY(this.Value)
+		ENDWITH
+		
 		
 	ENDPROC
 
@@ -646,7 +739,32 @@ DEFINE CLASS frmedades AS form
 					RETURN 0
 			ENDCASE
 		ENDIF
-		Thisform.cmdCalcular.Enabled=!EMPTY(this.Value)
+		WITH Thisform
+			.cmdCalcular.Enabled=!EMPTY(this.Value)
+			.txtIngreso.Enabled=!EMPTY(this.Value)
+		ENDWITH
+		
+	ENDPROC
+
+	PROCEDURE txtIngreso.Valid
+		IF !EMPTY(this.Value)
+			DO case
+				CASE this.Value>DATE()
+					MESSAGEBOX("No puede ingresar a futuro",0,LOWER(PROGRAM()))
+					this.Value=CTOD("")
+					RETURN 0
+				CASE this.Value<thisform.txtfeNac.Value
+					MESSAGEBOX("No puede ingresar antes de nacer",0,LOWER(PROGRAM()))
+					this.Value=CTOD("")
+					RETURN 0
+				
+				CASE YEAR(this.value)-YEAR(thisform.txtFeNac.value)<16
+					MESSAGEBOX("Menor de 16 años",0,LOWER(PROGRAM()))
+					this.Value=CTOD("")
+					RETURN 0
+			ENDCASE
+		ENDIF
+		
 	ENDPROC
 
 ENDDEFINE
