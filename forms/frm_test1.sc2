@@ -20,8 +20,59 @@ ENDDEFINE
 DEFINE CLASS Form1 AS form 
  	*< CLASSDATA: Baseclass="form" Timestamp="" Scale="" Uniqueid="" />
 
+	*-- OBJECTDATA items order determines ZOrder / El orden de los items OBJECTDATA determina el ZOrder 
+	*< OBJECTDATA: ObjPath="pgfPaginas" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="cmdPag1" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="cmdPag2" UniqueID="" Timestamp="" />
+
 	Caption = "Form1"
 	DoCreate = .T.
+	Height = 222
+	Left = 0
 	Name = "Form1"
+	Top = 0
+	Width = 592
+
+	ADD OBJECT 'cmdPag1' AS commandbutton WITH ;
+		Caption = "Pag.1", ;
+		Height = 27, ;
+		Left = 16, ;
+		Name = "cmdPag1", ;
+		Top = 48, ;
+		Width = 84
+		*< END OBJECT: BaseClass="commandbutton" />
+
+	ADD OBJECT 'cmdPag2' AS commandbutton WITH ;
+		Caption = "Pag.2", ;
+		Height = 27, ;
+		Left = 16, ;
+		Name = "cmdPag2", ;
+		Top = 80, ;
+		Width = 84
+		*< END OBJECT: BaseClass="commandbutton" />
+
+	ADD OBJECT 'pgfPaginas' AS pageframe WITH ;
+		ErasePage = .T., ;
+		Height = 169, ;
+		Left = 116, ;
+		Name = "pgfPaginas", ;
+		PageCount = 2, ;
+		Top = 12, ;
+		Width = 460, ;
+		Page1.Caption = "Page1", ;
+		Page1.Name = "pagPrincipal", ;
+		Page2.Caption = "Page2", ;
+		Page2.Name = "pagSecundaria"
+		*< END OBJECT: BaseClass="pageframe" />
+
+	PROCEDURE cmdPag1.Click
+		THISFORM.pgfPaginas.ActivePage = 1
+		
+	ENDPROC
+
+	PROCEDURE cmdPag2.Click
+		THISFORM.pgfPaginas.ActivePage = 2
+		
+	ENDPROC
 
 ENDDEFINE
