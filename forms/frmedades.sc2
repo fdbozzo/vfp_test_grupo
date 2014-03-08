@@ -613,6 +613,8 @@ DEFINE CLASS frmedades AS form
 			.txtEdad.value=""
 			.txtNeBirth.VAlue=CTOD("")
 			.txtZodiaco.Value=""
+			.txtEdadIngreso.value=""
+			.txtIngreso.VAlue=CTOD("")
 			.txtCalifi.Value=.mozedad(-1)
 			.txtFeNac.Enabled=.t.
 			.txtFeCalc.Enabled=.t.
@@ -674,9 +676,12 @@ DEFINE CLASS frmedades AS form
 			.cmdLimpiar.Enabled=.t.
 		ENDWITH
 		objRet=null
-		objRet=Thisform.Calcedad( thisform.txtFeNac.Value,thisform.txtIngreso.Value)
-		thisform.txtEdadIngreso.Value=objRet.Tiempo
-		objret=null
+		IF !EMPTY(thisform.txtIngreso.Value)
+			objRet=Thisform.Calcedad( thisform.txtFeNac.Value,thisform.txtIngreso.Value)
+			thisform.txtEdadIngreso.Value=objRet.Tiempo
+			objret=null
+		ENDIF
+		
 		
 		
 		
@@ -693,6 +698,19 @@ DEFINE CLASS frmedades AS form
 			thisform.txtFeCalc.Value=DATE()
 		ENDIF
 		
+	ENDPROC
+
+	PROCEDURE txtEdad.ProgrammaticChange
+		LOCAL lclabel
+		lclabel="lbl"+SUBSTR(this.Name,4)
+		This.Parent.&lcLabel..Enabled=!EMPTY(this.Value)
+		
+	ENDPROC
+
+	PROCEDURE txtEdadIngreso.ProgrammaticChange
+		LOCAL lclabel
+		lclabel="lbl"+SUBSTR(this.Name,4)
+		This.Parent.&lcLabel..Enabled=!EMPTY(this.Value)
 	ENDPROC
 
 	PROCEDURE txtFeCalc.ProgrammaticChange
