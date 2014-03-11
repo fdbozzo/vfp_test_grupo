@@ -24,4 +24,7 @@ ON PAD _40L192ZE5 OF _MSYSMENU ACTIVATE POPUP Aplicacion
 	DEFINE BAR 3 OF Aplicacion PROMPT "Salir"
 	ON SELECTION BAR 3 OF Aplicacion SET SYSMENUS TO DEFAULT
 
+	DEFINE BAR 4 OF Aplicacion PROMPT "Opcion vacía"
+	ON SELECTION BAR 4 OF Aplicacion wait window "Esta es para provocar un merge manual a Fran :)"
+
 *</MenuCode>

@@ -25,6 +25,7 @@ DEFINE CLASS Form1 AS form
 	*< OBJECTDATA: ObjPath="cmdPag1" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdPag2" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdSalir" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="cmdPag3" UniqueID="" Timestamp="" />
 
 	Caption = "Form1"
 	DoCreate = .T.
@@ -52,6 +53,15 @@ DEFINE CLASS Form1 AS form
 		Width = 84
 		*< END OBJECT: BaseClass="commandbutton" />
 
+	ADD OBJECT 'cmdPag3' AS commandbutton WITH ;
+		Caption = "Pag.3", ;
+		Height = 27, ;
+		Left = 16, ;
+		Name = "cmdPag3", ;
+		Top = 112, ;
+		Width = 84
+		*< END OBJECT: BaseClass="commandbutton" />
+
 	ADD OBJECT 'cmdSalir' AS commandbutton WITH ;
 		Caption = "Salir", ;
 		Height = 27, ;
@@ -66,13 +76,15 @@ DEFINE CLASS Form1 AS form
 		Height = 169, ;
 		Left = 116, ;
 		Name = "pgfPaginas", ;
-		PageCount = 2, ;
+		PageCount = 3, ;
 		Top = 12, ;
 		Width = 460, ;
 		Page1.Caption = "Principal", ;
 		Page1.Name = "pagPrincipal", ;
 		Page2.Caption = "Secundaria", ;
-		Page2.Name = "pagSecundaria"
+		Page2.Name = "pagSecundaria", ;
+		Page3.Caption = "Nueva", ;
+		Page3.Name = "pagNueva"
 		*< END OBJECT: BaseClass="pageframe" />
 
 	PROCEDURE cmdPag1.Click
@@ -82,6 +94,11 @@ DEFINE CLASS Form1 AS form
 
 	PROCEDURE cmdPag2.Click
 		THISFORM.pgfPaginas.ActivePage = 2
+		
+	ENDPROC
+
+	PROCEDURE cmdPag3.Click
+		THISFORM.pgfPaginas.ActivePage = 3
 		
 	ENDPROC
 
