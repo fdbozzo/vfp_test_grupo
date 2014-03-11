@@ -12,6 +12,7 @@ SIZE WINDOW COMMAND TO 25,100
 *WAIT WINDOW NOWAIT "VFP Inicializado en directorio '" + lcCurDir + "'"
 
 *-- Configuro el entorno
+I=0
 _SCREEN.CAPTION = lcLastDir + ':' + LEFT(SYS(5),1) + IIF(EMPTY(I), '', ' (' + STR(I,1) + ')')
 
 *SET RESOURCE TO (HOME(7)+"FOXUSER.DBF")
@@ -23,3 +24,4 @@ _SCREEN.CAPTION = lcLastDir + ':' + LEFT(SYS(5),1) + IIF(EMPTY(I), '', ' (' + ST
 ?? SYS(3050,2,10485760)
 ? "Directorio: " + SYS(5) + CURDIR()
 ? REPLICATE("-", 80)
+
