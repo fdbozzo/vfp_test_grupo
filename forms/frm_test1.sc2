@@ -26,7 +26,7 @@ DEFINE CLASS frmTest1 AS form
 	*< OBJECTDATA: ObjPath="cmdFondoTexto" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdFrenteTexto" UniqueID="" Timestamp="" />
 
-	Caption = "Test"
+	Caption = "Test de colores interactivos"
 	DoCreate = .T.
 	Name = "frmTest1"
 
@@ -62,12 +62,12 @@ DEFINE CLASS frmTest1 AS form
 
 	ADD OBJECT 'lblPrueba' AS label WITH ;
 		AutoSize = .T., ;
-		Caption = "Otro Texto de Prueba ---------------------------->", ;
+		Caption = "Texto de Prueba ---------------------------->", ;
 		Height = 17, ;
 		Left = 36, ;
 		Name = "lblPrueba", ;
 		Top = 60, ;
-		Width = 239
+		Width = 213
 		*< END OBJECT: BaseClass="label" />
 
 	PROCEDURE cmdFondoForm.Click
