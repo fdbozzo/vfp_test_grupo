@@ -21,12 +21,13 @@ DEFINE CLASS frmTest1 AS form
  	*< CLASSDATA: Baseclass="form" Timestamp="" Scale="" Uniqueid="" />
 
 	*-- OBJECTDATA items order determines ZOrder / El orden de los items OBJECTDATA determina el ZOrder 
+	*< OBJECTDATA: ObjPath="shpRecuadroBotones" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdFondoForm" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="lblPrueba" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdFondoTexto" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdFrenteTexto" UniqueID="" Timestamp="" />
 
-	Caption = "Test de colores interactivos"
+	Caption = "Test"
 	DoCreate = .T.
 	Name = "frmTest1"
 
@@ -62,13 +63,22 @@ DEFINE CLASS frmTest1 AS form
 
 	ADD OBJECT 'lblPrueba' AS label WITH ;
 		AutoSize = .T., ;
-		Caption = "Texto de Prueba ---------------------------->", ;
+		Caption = "Otro Texto de Prueba ---------------------------->", ;
 		Height = 17, ;
 		Left = 36, ;
 		Name = "lblPrueba", ;
 		Top = 60, ;
-		Width = 213
+		Width = 239
 		*< END OBJECT: BaseClass="label" />
+
+	ADD OBJECT 'shpRecuadroBotones' AS shape WITH ;
+		Height = 113, ;
+		Left = 8, ;
+		Name = "shpRecuadroBotones", ;
+		SpecialEffect = 0, ;
+		Top = 120, ;
+		Width = 353
+		*< END OBJECT: BaseClass="shape" />
 
 	PROCEDURE cmdFondoForm.Click
 		ThisForm.BackColor=GETCOLOR()
@@ -82,6 +92,12 @@ DEFINE CLASS frmTest1 AS form
 
 	PROCEDURE cmdFrenteTexto.Click
 		ThisForm.lblPrueba.ForeColor=GETCOLOR()
+		
+	ENDPROC
+
+	PROCEDURE shpRecuadroBotones.Click
+		this.BackColor = RGB(255,255,198)
+		
 		
 	ENDPROC
 
