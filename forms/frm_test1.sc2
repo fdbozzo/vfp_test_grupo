@@ -21,6 +21,7 @@ DEFINE CLASS frmTest1 AS form
  	*< CLASSDATA: Baseclass="form" Timestamp="" Scale="" Uniqueid="" />
 
 	*-- OBJECTDATA items order determines ZOrder / El orden de los items OBJECTDATA determina el ZOrder 
+	*< OBJECTDATA: ObjPath="shpRecuadroBotones" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdFondoForm" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="lblPrueba" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdFondoTexto" UniqueID="" Timestamp="" />
@@ -70,6 +71,15 @@ DEFINE CLASS frmTest1 AS form
 		Width = 239
 		*< END OBJECT: BaseClass="label" />
 
+	ADD OBJECT 'shpRecuadroBotones' AS shape WITH ;
+		Height = 113, ;
+		Left = 8, ;
+		Name = "shpRecuadroBotones", ;
+		SpecialEffect = 0, ;
+		Top = 120, ;
+		Width = 353
+		*< END OBJECT: BaseClass="shape" />
+
 	PROCEDURE cmdFondoForm.Click
 		ThisForm.BackColor=GETCOLOR()
 		
@@ -82,6 +92,12 @@ DEFINE CLASS frmTest1 AS form
 
 	PROCEDURE cmdFrenteTexto.Click
 		ThisForm.lblPrueba.ForeColor=GETCOLOR()
+		
+	ENDPROC
+
+	PROCEDURE shpRecuadroBotones.Click
+		this.BackColor = RGB(255,255,198)
+		
 		
 	ENDPROC
 
