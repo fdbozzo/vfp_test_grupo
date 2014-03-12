@@ -22,10 +22,16 @@ DEFINE CLASS Form1 AS form
 
 	*-- OBJECTDATA items order determines ZOrder / El orden de los items OBJECTDATA determina el ZOrder 
 	*< OBJECTDATA: ObjPath="pgfPaginas" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pgfPaginas.pagPrincipal.tmrColor" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pgfPaginas.pagPrincipal.shpLuz" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdPag1" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdPag2" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdSalir" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdPag3" UniqueID="" Timestamp="" />
+
+	*<DefinedPropArrayMethod>
+		*m: *randmath
+	*</DefinedPropArrayMethod>
 
 	Caption = "Form1"
 	DoCreate = .T.
@@ -87,6 +93,29 @@ DEFINE CLASS Form1 AS form
 		Page3.Name = "pagNueva"
 		*< END OBJECT: BaseClass="pageframe" />
 
+	ADD OBJECT 'pgfPaginas.pagPrincipal.shpLuz' AS shape WITH ;
+		Curvature = 99, ;
+		Height = 17, ;
+		Left = 7, ;
+		Name = "shpLuz", ;
+		Top = 113, ;
+		Width = 20
+		*< END OBJECT: BaseClass="shape" />
+
+	ADD OBJECT 'pgfPaginas.pagPrincipal.tmrColor' AS timer WITH ;
+		Height = 23, ;
+		Interval = 500, ;
+		Left = 6, ;
+		Name = "tmrColor", ;
+		Top = 110, ;
+		Width = 23
+		*< END OBJECT: BaseClass="timer" />
+	
+	PROCEDURE randmath
+		LPARAMETERS lnLimite
+		RETURN (INT(VAL(SYS(2007,SYS(2015),0,1))/4294967296*lnLimite))
+	ENDPROC
+
 	PROCEDURE cmdPag1.Click
 		THISFORM.pgfPaginas.ActivePage = 1
 		
@@ -106,6 +135,16 @@ DEFINE CLASS Form1 AS form
 		THISFORM.Hide()
 		THISFORM.Release()
 		
+	ENDPROC
+
+	PROCEDURE pgfPaginas.pagPrincipal.tmrColor.Timer
+		LOCAL lnR,lnG,lnB
+		This.Enabled=.f.
+		lnR=Thisform.RandMath(255)
+		lnG=Thisform.RandMath(255)
+		lnB=Thisform.RandMath(255)
+		This.Parent.shpLuz.BackColor=RGB(lnR,lnG,lnB)
+		This.Enabled=.t.
 	ENDPROC
 
 ENDDEFINE
