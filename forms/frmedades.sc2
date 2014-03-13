@@ -48,11 +48,13 @@ DEFINE CLASS frmedades AS form
 	*< OBJECTDATA: ObjPath="txtEdadIngreso" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="shpDes8" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="lblEdadIngreso" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="cmdCalculadora" UniqueID="" Timestamp="" />
 
 	*<DefinedPropArrayMethod>
 		*m: *calcedad
 		*m: *getzodiaco
 		*m: *limpiar
+		*m: *micurdir
 		*m: *mozedad
 		*m: *nextbirthday
 	*</DefinedPropArrayMethod>
@@ -65,6 +67,20 @@ DEFINE CLASS frmedades AS form
 	Name = "frmedades"
 	Top = 0
 	Width = 411
+
+	ADD OBJECT 'cmdCalculadora' AS commandbutton WITH ;
+		AutoSize = .F., ;
+		Caption = "", ;
+		FontSize = 8, ;
+		Height = 23, ;
+		Left = 375, ;
+		Name = "cmdCalculadora", ;
+		Picture = ..\graphics\zcalcu_mini.bmp, ;
+		TabIndex = 5, ;
+		ToolTipText = "Calculadora de Theodore", ;
+		Top = 108, ;
+		Width = 27
+		*< END OBJECT: BaseClass="commandbutton" />
 
 	ADD OBJECT 'CmdCalcular' AS commandbutton WITH ;
 		AutoSize = .F., ;
@@ -470,6 +486,16 @@ DEFINE CLASS frmedades AS form
 		
 	ENDPROC
 
+	PROCEDURE Destroy
+		LOCAL lcSafety
+		lcSafety=thisform.stSafety
+		SET SAFETY &lcSafety
+		IF VARTYPE(_Screen.theocalc)="O"
+			_Screen.theocalc.release
+		ENDIF
+		
+	ENDPROC
+
 	PROCEDURE getzodiaco
 		LPARAMETERS xdFecha
 		LOCAL lnDia,lnMes,lcResp
@@ -591,6 +617,9 @@ DEFINE CLASS frmedades AS form
 	ENDPROC
 
 	PROCEDURE Init
+		ADDPROPERTY(thisform,"stsafety",SET("Safety"))
+		SET SAFETY OFF
+		
 		WITH thisform
 			.Width=.shpMarco.left*2+.shpMarco.Width
 			.Height=.shpMarco.top*2+.shpMarco.Height
@@ -621,6 +650,22 @@ DEFINE CLASS frmedades AS form
 			.cmdLimpiar.Enabled=.f.
 		ENDWITH
 		
+		
+	ENDPROC
+
+	PROCEDURE micurdir
+		LPARAMETERS lVerbose
+		* lVerbose .t. informa
+		* Determinar el directorio actual por Wscript
+		**********************************************
+		LOCAL cdir,objShell
+		objShell=CreateObject("Wscript.Shell")
+		cDir=objShell.CurrentDirectory
+		if lVerbose
+			Messagebox(cDir,0,"Directorio Actual")
+		endif
+		objShell=null
+		return cDir
 		
 	ENDPROC
 
@@ -657,6 +702,29 @@ DEFINE CLASS frmedades AS form
 			ldReturn=DATE(lnAno+1,lnMes,lnDia)
 		ENDIF
 		RETURN ldReturn
+		
+		
+		
+	ENDPROC
+
+	PROCEDURE cmdCalculadora.Click
+		LOCAL lcDir
+		lcDir=thisform.micurdir(.f.)
+		SET DEFAULT TO &lcDir
+		IF !PEMSTATUS(_screen,"ClassDir",5)
+			ADDPROPERTY(_Screen,"ClassDir","Clases")
+		ENDIF
+		
+		IF !PEMSTATUS(_screen,"theoCalc",5)
+			ADDPROPERTY(_screen,"theoCalc",null)
+		ENDIF
+		IF VARTYPE(_screen.theoCalc)="O"
+			_Screen.TheoCalc.WindowSTate=0
+		ELSE
+			_screen.theoCalc=NEWOBJECT("frmzCalcu2",LOCFILE(ADDBS(lcDir)+"clases\thcalc.vcx"))
+		ENDIF
+		_Screen.TheoCalc.Show()
+		
 		
 		
 		
