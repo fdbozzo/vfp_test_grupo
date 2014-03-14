@@ -24,10 +24,6 @@ DEFINE CLASS Form1 AS form
 	*< OBJECTDATA: ObjPath="pgfPaginas" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pgfPaginas.pagPrincipal.tmrColor" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pgfPaginas.pagPrincipal.shpLuz" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pgfPaginas.pagNueva.lblNombre" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pgfPaginas.pagNueva.lblColor" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pgfPaginas.pagNueva.txtNombre" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pgfPaginas.pagNueva.txtColor" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdPag1" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdPag2" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdSalir" UniqueID="" Timestamp="" />
@@ -97,44 +93,6 @@ DEFINE CLASS Form1 AS form
 		Page3.Name = "pagNueva"
 		*< END OBJECT: BaseClass="pageframe" />
 
-	ADD OBJECT 'pgfPaginas.pagNueva.lblColor' AS label WITH ;
-		BackStyle = 0, ;
-		Caption = "Color", ;
-		Height = 17, ;
-		Left = 19, ;
-		Name = "lblColor", ;
-		Top = 48, ;
-		Width = 72
-		*< END OBJECT: BaseClass="label" />
-
-	ADD OBJECT 'pgfPaginas.pagNueva.lblNombre' AS label WITH ;
-		BackStyle = 0, ;
-		Caption = "Nombre", ;
-		Height = 17, ;
-		Left = 19, ;
-		Name = "lblNombre", ;
-		Top = 24, ;
-		Width = 72
-		*< END OBJECT: BaseClass="label" />
-
-	ADD OBJECT 'pgfPaginas.pagNueva.txtColor' AS textbox WITH ;
-		Height = 23, ;
-		Left = 119, ;
-		Name = "txtColor", ;
-		SelectOnEntry = .T., ;
-		Top = 44, ;
-		Width = 164
-		*< END OBJECT: BaseClass="textbox" />
-
-	ADD OBJECT 'pgfPaginas.pagNueva.txtNombre' AS textbox WITH ;
-		Height = 23, ;
-		Left = 119, ;
-		Name = "txtNombre", ;
-		SelectOnEntry = .T., ;
-		Top = 20, ;
-		Width = 164
-		*< END OBJECT: BaseClass="textbox" />
-
 	ADD OBJECT 'pgfPaginas.pagPrincipal.shpLuz' AS shape WITH ;
 		Curvature = 99, ;
 		Height = 17, ;
@@ -176,14 +134,6 @@ DEFINE CLASS Form1 AS form
 	PROCEDURE cmdSalir.Click
 		THISFORM.Hide()
 		THISFORM.Release()
-		
-	ENDPROC
-
-	PROCEDURE pgfPaginas.pagNueva.txtColor.Valid
-		IF ALLTRIM(UPPER(THIS.Value)) = 'ROJO'
-			MESSAGEBOX( 'Lo siento, pero rojo no... Cámbielo' )
-			RETURN .F.
-		ENDIF
 		
 	ENDPROC
 
