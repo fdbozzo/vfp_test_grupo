@@ -192,7 +192,7 @@ DEFINE CLASS cmprintform AS commandbutton
 	PROCEDURE printform
 		LPARAMETERS xoObjeto
 		LOCAL fcr,nfop,i,o,lnMIn,lcCaption,ni,lnPad,nmAcum,lcAdd,lcText,;
-			nDivide,lnVisible,lnRepli,lcSaprint
+			nDivide,lnVisible,lnRepli
 		lnvisible=0
 		FOR i=1 TO ALEN(this.gavisib,1)
 			IF !ISNULL(this.gavisib[i,1])
@@ -214,11 +214,13 @@ DEFINE CLASS cmprintform AS commandbutton
 			SELECT SAPRINT
 			USE
 		ENDIF
-		lcSaprint=addbs(fullpath(""))+"saprint"
-		CREATE TABLE &lcSaprint FREE ;
+		
+		
+		create CURSOR saprint ;
 			("ntop" I,"nleft" I,"NWIDTH" I,"TEXTO" M,"NUMERO" N(14,2),"FECHA" D, "FECHALL" T,;
 			"CCONTROL" C(40),"trutop" i,"MARGEN" I,;
 			"MASKARA" C(40))
+			
 		
 		DIMENSION This.gatop(1)
 		this.gatop[1]=0
@@ -229,6 +231,7 @@ DEFINE CLASS cmprintform AS commandbutton
 		SELECT saprint
 		GO top
 		IF EOF()
+			USE
 			MESSAGEBOX("No se generó el informe")
 			RETURN .f.
 		ENDIF
