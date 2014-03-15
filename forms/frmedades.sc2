@@ -49,6 +49,19 @@ DEFINE CLASS frmedades AS form
 	*< OBJECTDATA: ObjPath="shpDes8" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="lblEdadIngreso" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdCalculadora" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Txtcalc1" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Shape9" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Label1" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Shape10" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Label2" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Txfecha1" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Shape11" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Label3" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Txfechan1" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Shape12" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Label4" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Shape13" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Label6" UniqueID="" Timestamp="" />
 
 	*<DefinedPropArrayMethod>
 		*m: *calcedad
@@ -62,7 +75,7 @@ DEFINE CLASS frmedades AS form
 	BackColor = 184,201,197
 	Caption = "Edades"
 	DoCreate = .T.
-	Height = 179
+	Height = 265
 	Left = 0
 	Name = "frmedades"
 	Top = 0
@@ -78,7 +91,7 @@ DEFINE CLASS frmedades AS form
 		Picture = ..\graphics\zcalcu_mini.bmp, ;
 		TabIndex = 5, ;
 		ToolTipText = "Calculadora de Theodore", ;
-		Top = 108, ;
+		Top = 131, ;
 		Width = 27
 		*< END OBJECT: BaseClass="commandbutton" />
 
@@ -105,6 +118,77 @@ DEFINE CLASS frmedades AS form
 		Top = 27, ;
 		Width = 50
 		*< END OBJECT: BaseClass="commandbutton" />
+
+	ADD OBJECT 'Label1' AS label WITH ;
+		AutoSize = .T., ;
+		BackStyle = 0, ;
+		Caption = "Prueba de Calculadora   [+] y [Shift][+] Activa Calc", ;
+		FontSize = 8, ;
+		Height = 16, ;
+		Left = 11, ;
+		Name = "Label1", ;
+		TabIndex = 10, ;
+		Top = 134, ;
+		Width = 242
+		*< END OBJECT: BaseClass="label" />
+
+	ADD OBJECT 'Label2' AS label WITH ;
+		AutoSize = .T., ;
+		BackStyle = 0, ;
+		Caption = "Prueba de Almanaque (1 Mes) [DblClic][+]", ;
+		FontSize = 8, ;
+		Height = 16, ;
+		Left = 11, ;
+		Name = "Label2", ;
+		TabIndex = 10, ;
+		Top = 177, ;
+		Width = 201
+		*< END OBJECT: BaseClass="label" />
+
+	ADD OBJECT 'Label3' AS label WITH ;
+		AutoSize = .T., ;
+		BackStyle = 0, ;
+		Caption = "Prueba de Almanaque (1 Año) [DblClic][+]", ;
+		FontSize = 8, ;
+		Height = 16, ;
+		Left = 11, ;
+		Name = "Label3", ;
+		TabIndex = 10, ;
+		Top = 197, ;
+		Width = 201
+		*< END OBJECT: BaseClass="label" />
+
+	ADD OBJECT 'Label4' AS label WITH ;
+		AutoSize = .T., ;
+		BackStyle = 0, ;
+		Caption = "Almanaque Mes...", ;
+		FontSize = 8, ;
+		FontUnderline = .T., ;
+		ForeColor = 0,0,255, ;
+		Height = 16, ;
+		Left = 12, ;
+		MousePointer = 15, ;
+		Name = "Label4", ;
+		TabIndex = 10, ;
+		Top = 157, ;
+		Width = 88
+		*< END OBJECT: BaseClass="label" />
+
+	ADD OBJECT 'Label6' AS label WITH ;
+		AutoSize = .T., ;
+		BackStyle = 0, ;
+		Caption = "Almanaque Año...", ;
+		FontSize = 8, ;
+		FontUnderline = .T., ;
+		ForeColor = 0,0,255, ;
+		Height = 16, ;
+		Left = 170, ;
+		MousePointer = 15, ;
+		Name = "Label6", ;
+		TabIndex = 10, ;
+		Top = 157, ;
+		Width = 88
+		*< END OBJECT: BaseClass="label" />
 
 	ADD OBJECT 'lblCalifi' AS label WITH ;
 		AutoSize = .T., ;
@@ -210,6 +294,56 @@ DEFINE CLASS frmedades AS form
 		Width = 71
 		*< END OBJECT: BaseClass="label" />
 
+	ADD OBJECT 'Shape10' AS shape WITH ;
+		BackColor = 220,228,224, ;
+		BorderColor = 114,136,141, ;
+		Height = 21, ;
+		Left = 7, ;
+		Name = "Shape10", ;
+		Top = 174, ;
+		Width = 249
+		*< END OBJECT: BaseClass="shape" />
+
+	ADD OBJECT 'Shape11' AS shape WITH ;
+		BackColor = 220,228,224, ;
+		BorderColor = 114,136,141, ;
+		Height = 21, ;
+		Left = 7, ;
+		Name = "Shape11", ;
+		Top = 194, ;
+		Width = 249
+		*< END OBJECT: BaseClass="shape" />
+
+	ADD OBJECT 'Shape12' AS shape WITH ;
+		BackColor = 242,247,243, ;
+		BorderColor = 114,136,141, ;
+		Height = 21, ;
+		Left = 7, ;
+		Name = "Shape12", ;
+		Top = 154, ;
+		Width = 156
+		*< END OBJECT: BaseClass="shape" />
+
+	ADD OBJECT 'Shape13' AS shape WITH ;
+		BackColor = 242,247,243, ;
+		BorderColor = 114,136,141, ;
+		Height = 21, ;
+		Left = 162, ;
+		Name = "Shape13", ;
+		Top = 154, ;
+		Width = 156
+		*< END OBJECT: BaseClass="shape" />
+
+	ADD OBJECT 'Shape9' AS shape WITH ;
+		BackColor = 220,228,224, ;
+		BorderColor = 114,136,141, ;
+		Height = 21, ;
+		Left = 7, ;
+		Name = "Shape9", ;
+		Top = 131, ;
+		Width = 249
+		*< END OBJECT: BaseClass="shape" />
+
 	ADD OBJECT 'shpDes1' AS shape WITH ;
 		BackColor = 220,228,224, ;
 		BorderColor = 114,136,141, ;
@@ -292,13 +426,33 @@ DEFINE CLASS frmedades AS form
 
 	ADD OBJECT 'shpMarco' AS shape WITH ;
 		BackColor = 221,226,222, ;
-		Height = 132, ;
+		Height = 217, ;
 		Left = 3, ;
 		Name = "shpMarco", ;
 		SpecialEffect = 0, ;
 		Top = 3, ;
 		Width = 403
 		*< END OBJECT: BaseClass="shape" />
+
+	ADD OBJECT 'Txfecha1' AS txfecha WITH ;
+		Left = 255, ;
+		Name = "Txfecha1", ;
+		Top = 174
+		*< END OBJECT: ClassLib="..\clases\mzmanak.vcx" BaseClass="textbox" />
+
+	ADD OBJECT 'Txfechan1' AS txfechan WITH ;
+		Left = 255, ;
+		Name = "Txfechan1", ;
+		Top = 194
+		*< END OBJECT: ClassLib="..\clases\mzmanak.vcx" BaseClass="textbox" />
+
+	ADD OBJECT 'Txtcalc1' AS txtcalc WITH ;
+		Height = 21, ;
+		Left = 255, ;
+		Name = "Txtcalc1", ;
+		Top = 131, ;
+		Width = 90
+		*< END OBJECT: ClassLib="..\clases\thcalc.vcx" BaseClass="textbox" />
 
 	ADD OBJECT 'txtCalifi' AS textbox WITH ;
 		Alignment = 3, ;
@@ -490,10 +644,28 @@ DEFINE CLASS frmedades AS form
 		LOCAL lcSafety
 		lcSafety=thisform.stSafety
 		SET SAFETY &lcSafety
-		IF VARTYPE(_Screen.theocalc)="O"
-			_Screen.theocalc.release
+		
+		REMOVEPROPERTY(_screen,"stSafety")
+		REMOVEPROPERTY(_screen,"ClassDir")
+		IF PEMSTATUS(_screen,"TheoCalc",5)
+			IF VARTYPE(_Screen.theocalc)="O"
+				_Screen.theocalc.release
+			ENDIF
+			REMOVEPROPERTY(_screen,"TheoCalc")
 		ENDIF
 		
+		IF PEMSTATUS(_screen,"Theomanak",5)
+			IF VARTYPE(_Screen.Theomanak)="O"
+				_Screen.Theomanak.release
+			ENDIF
+			REMOVEPROPERTY(_screen,"Theomanak")
+		ENDIF
+		IF PEMSTATUS(_screen,"TheoAnual",5)
+			IF VARTYPE(_Screen.TheoAnual)="O"
+				_Screen.TheoAnual.release
+			ENDIF
+			REMOVEPROPERTY(_screen,"TheoAnual")
+		ENDIF
 	ENDPROC
 
 	PROCEDURE getzodiaco
@@ -617,6 +789,12 @@ DEFINE CLASS frmedades AS form
 	ENDPROC
 
 	PROCEDURE Init
+		LOCAL lcDir
+		lcDir=thisform.micurdir(.f.)
+		SET DEFAULT TO &lcDir
+		IF !PEMSTATUS(_screen,"ClassDir",5)
+			ADDPROPERTY(_Screen,"ClassDir",ADDBS(lcDir)+"Clases")
+		ENDIF
 		ADDPROPERTY(thisform,"stsafety",SET("Safety"))
 		SET SAFETY OFF
 		
@@ -708,20 +886,13 @@ DEFINE CLASS frmedades AS form
 	ENDPROC
 
 	PROCEDURE cmdCalculadora.Click
-		LOCAL lcDir
-		lcDir=thisform.micurdir(.f.)
-		SET DEFAULT TO &lcDir
-		IF !PEMSTATUS(_screen,"ClassDir",5)
-			ADDPROPERTY(_Screen,"ClassDir","Clases")
-		ENDIF
-		
 		IF !PEMSTATUS(_screen,"theoCalc",5)
 			ADDPROPERTY(_screen,"theoCalc",null)
 		ENDIF
 		IF VARTYPE(_screen.theoCalc)="O"
 			_Screen.TheoCalc.WindowSTate=0
 		ELSE
-			_screen.theoCalc=NEWOBJECT("frmzCalcu2",LOCFILE(ADDBS(lcDir)+"clases\thcalc.vcx"))
+			_screen.theoCalc=NEWOBJECT("frmzCalcu2",LOCFILE(ADDBS(_Screen.ClassDir)+"thcalc.vcx"))
 		ENDIF
 		_Screen.TheoCalc.Show()
 		
@@ -759,6 +930,31 @@ DEFINE CLASS frmedades AS form
 		Thisform.Limpiar()
 		
 		
+	ENDPROC
+
+	PROCEDURE Label4.Click
+		IF !PEMSTATUS(_screen,"theomanak",5)
+			ADDPROPERTY(_screen,"theomanak",null)
+		ENDIF
+		IF VARTYPE(_screen.theomanak)="O"
+			_Screen.theomanak.WindowSTate=0
+		ELSE
+			_screen.theomanak=NEWOBJECT("frmManak",LOCFILE(ADDBS(_Screen.ClassDir)+"mzmanak.vcx"))
+		ENDIF
+		_Screen.theomanak.Show()
+	ENDPROC
+
+	PROCEDURE Label6.Click
+		
+		IF !PEMSTATUS(_screen,"theoanual",5)
+			ADDPROPERTY(_screen,"theoanual",null)
+		ENDIF
+		IF VARTYPE(_screen.theoanual)="O"
+			_Screen.theoanual.WindowSTate=0
+		ELSE
+			_screen.theoanual=NEWOBJECT("frmanual",LOCFILE(ADDBS(_Screen.ClassDir)+"mzmanak.vcx"))
+		ENDIF
+		_Screen.theoanual.Show()
 	ENDPROC
 
 	PROCEDURE lblFeCalc.Click
