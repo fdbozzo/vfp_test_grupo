@@ -129,9 +129,9 @@ DEFINE CLASS cmg AS commandgroup
 	PROCEDURE Init
 		IF !PEMSTATUS(thisform,"gCalcu1",5)
 			IF PEMSTATUS(_screen,"classDir",5)
-				thisform.NewObject("gCalcu1","gCalcu",LOCFILE(ADDBS(_Screen.ClassDir)+"thCalc.vcx"))
+				thisform.NewObject("gCalcu1","gCalcu",LOCFILE(ADDBS(_Screen.ClassDir)+"thcalc.vcx"))
 			ELSE
-				thisform.NewObject("gCalcu1","gCalcu","thCalc")
+				thisform.NewObject("gCalcu1","gCalcu","thcalc")
 			ENDIF
 		ENDIF
 		
@@ -150,9 +150,9 @@ DEFINE CLASS cmg AS commandgroup
 		lnHei=OBJTOCLIENT(xObjeto,4)
 		IF !PEMSTATUS(thisform,"imr2",5)
 			IF PEMSTATUS(_screen,"classDir",5)
-				thisform.NewObject("imr2","Imaraya",LOCFILE(ADDBS(_Screen.ClassDir)+"thCalc.vcx"))
+				thisform.NewObject("imr2","Imaraya",LOCFILE(ADDBS(_Screen.ClassDir)+"thcalc.vcx"))
 			ELSE
-				thisform.NewObject("imr2","Imaraya","thCalc")
+				thisform.NewObject("imr2","Imaraya","thcalc")
 			ENDIF
 		ENDIF
 		
@@ -176,8 +176,8 @@ DEFINE CLASS cntcalcu AS container
 	*< OBJECTDATA: ObjPath="Text1" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="Text2" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="Text3" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="Command2" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="Command4" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="cmdUpDecim" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="cmdDownDecim" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="TxDezim" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="Shape5" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="Shape6" UniqueID="" Timestamp="" />
@@ -490,6 +490,19 @@ DEFINE CLASS cntcalcu AS container
 		Width = 26
 		*< END OBJECT: BaseClass="commandbutton" />
 
+	ADD OBJECT 'cmdDownDecim' AS commandbutton WITH ;
+		Caption = "", ;
+		FontSize = 8, ;
+		Height = 19, ;
+		Left = 45, ;
+		Name = "cmdDownDecim", ;
+		Picture = ..\graphics\fleabajo.bmp, ;
+		TabIndex = 16, ;
+		ToolTipText = "Reducir decimales.", ;
+		Top = 36, ;
+		Width = 15
+		*< END OBJECT: BaseClass="commandbutton" />
+
 	ADD OBJECT 'CmDelEntry' AS commandbutton WITH ;
 		Caption = "", ;
 		DisabledPicture = ..\graphics\destroy4bmn.bmp, ;
@@ -526,6 +539,19 @@ DEFINE CLASS cntcalcu AS container
 		ToolTipText = "Enviar al PortaPapeles (Copiar) ", ;
 		Top = 123, ;
 		Width = 26
+		*< END OBJECT: BaseClass="commandbutton" />
+
+	ADD OBJECT 'cmdUpDecim' AS commandbutton WITH ;
+		Caption = "", ;
+		FontSize = 8, ;
+		Height = 19, ;
+		Left = 30, ;
+		Name = "cmdUpDecim", ;
+		Picture = ..\graphics\flearriba.bmp, ;
+		TabIndex = 15, ;
+		ToolTipText = "Aumentar decimales.", ;
+		Top = 36, ;
+		Width = 15
 		*< END OBJECT: BaseClass="commandbutton" />
 
 	ADD OBJECT 'CmEntry' AS commandbutton WITH ;
@@ -789,32 +815,6 @@ DEFINE CLASS cntcalcu AS container
 		Top = 18, ;
 		Width = 153
 		*< END OBJECT: BaseClass="label" />
-
-	ADD OBJECT 'Command2' AS commandbutton WITH ;
-		Caption = "", ;
-		FontSize = 8, ;
-		Height = 19, ;
-		Left = 30, ;
-		Name = "Command2", ;
-		Picture = ..\graphics\flearriba.bmp, ;
-		TabIndex = 15, ;
-		ToolTipText = "Aumentar decimales.", ;
-		Top = 36, ;
-		Width = 15
-		*< END OBJECT: BaseClass="commandbutton" />
-
-	ADD OBJECT 'Command4' AS commandbutton WITH ;
-		Caption = "", ;
-		FontSize = 8, ;
-		Height = 19, ;
-		Left = 45, ;
-		Name = "Command4", ;
-		Picture = ..\graphics\fleabajo.bmp, ;
-		TabIndex = 16, ;
-		ToolTipText = "Reducir decimales.", ;
-		Top = 36, ;
-		Width = 15
-		*< END OBJECT: BaseClass="commandbutton" />
 
 	ADD OBJECT 'Container1' AS container WITH ;
 		BackColor = 189,200,202, ;
@@ -1697,7 +1697,14 @@ DEFINE CLASS cntcalcu AS container
 		* ?lnFormaLen
 		********************************
 		LOCAL cFormato,i_,nResto,nRep,nlen,cdec
-		if vartype(xnLim)#"N".or.Empty(xnLim)
+		IF VARTYPE(nAncho)#"N"
+			nAncho=12
+		ENDIF
+		IF VARTYPE(nDecimal)#"N"
+			nDecimal=2
+		ENDIF
+		
+		if vartype(xnLim)#"N" OR Empty(xnLim)
 			xnLim=14
 		endif
 		if nAncho>xnLim
@@ -1734,10 +1741,11 @@ DEFINE CLASS cntcalcu AS container
 				endif
 			next
 		endif
-		nLen=Len(cFormato)
-		if Substr(cFormato,nlen,1)=","
-			cFormato=Substr(cFormato,1,nlen-1)
-		endif
+		
+		IF RIGHT(cFormato,1)=","
+			cFormato=LEFT(cFormato,LEN(cFormato)-1)
+		ENDIF
+		
 		if nDecimal>0
 			cDec=Repli("9",nDEcimal)
 			cFormato=cFormato+"."+cDec
@@ -1874,7 +1882,7 @@ DEFINE CLASS cntcalcu AS container
 	PROCEDURE getgrilla
 		
 		LOCAL nSpa,nCols,nWid,nWidgen,i,cMask,nDezim
-		nDezim=This.Parent.ndezim
+		nDezim=This.ndezim
 		ADDPROPERTY(thisform,"fileUsed","zCalcur")
 		IF USED("ZCALCUR")
 			SELECT ZCALCUR
@@ -1902,16 +1910,10 @@ DEFINE CLASS cntcalcu AS container
 			.GridLines=0
 			.HighlightBackColor=rgb(153,171,174)	
 			
-		*	if This.DynColor
-		*		.SetAll("DynamicBackColor","IIF(MOD(RECNO( ), 2)=0, RGB(233,232,228),RGB(217,220,212))", "Column")
-		*		.SetAll("DynamicBackColor","IIF(MOD(RECNO( ), 2)=0, &keDynClear,&keDynDark)", "Column")
-		*	endif
 			.Setall("Readonly",.t.,"Column")
 			.Setall("Fontsize",8,"Column")		
 			.Setall("Fontsize",8,"Header")
 			.Setall("FontBold",.t.,"Header")
-		*	.Setall("BackColor",This.HeaBackColor,"Header")
-		*	.Setall("ForeColor",This.heaForeColor,"Header")	
 		
 			.Columns[1].ControlSource='zCalcur.openpar'
 			.Columns[1].Width=10
@@ -2307,13 +2309,13 @@ DEFINE CLASS cntcalcu AS container
 		*!*	Método de Convocatoria de la calculadora general
 		*!*	------------------------------------------------
 		*!*	IF !PEMSTATUS(_screen,"zCalcu2",5)
-		*!*		ADDPROPERTY(_screen,"zCalcu2",NEWOBJECT("FrmZCalcu2","thCalc"))
+		*!*		ADDPROPERTY(_screen,"zCalcu2",NEWOBJECT("FrmZCalcu2","thcalc"))
 		*!*	ENDIF
 		*!*	IF VARTYPE(_screen.zCalcu2)="O"
 		*!*		_screen.zCalcu2.WindowState=0
 		*!*		_screen.zCalcu2.Show()
 		*!*	ELSE
-		*!*		_screen.zCalcu2=NEWOBJECT("FrmZCalcu2","thCalc")
+		*!*		_screen.zCalcu2=NEWOBJECT("FrmZCalcu2","thcalc")
 		*!*	ENDIF
 		*!*	--------------------------------------------------------------------
 		with this
@@ -2519,13 +2521,15 @@ DEFINE CLASS cntcalcu AS container
 	PROCEDURE putdecimal
 		LOCAL nSpa,nDezim,lcMask
 		nSpa=this.numspa
-		nDezim=This.Parent.ndezim
+		nDezim=This.ndezim
 		nRepe=nSpa+IIF(EMPTY(nDezim),0,nDezim+1)
 		nComas=INT(nSpa/3)
 		cForma=repli("9",nRepe)+REPLICATE(",",nComas)+IIF(EMPTY(nDezim),"",".")
 		lcMask=This.Detmask(nspa,ndezim)
 		lnWid=This.Wokupas(lcMask)
 		WITH this
+			.cmdupDecim.Enabled=IIF(.ndezim=8,.f.,.savedezim)
+			.cmdDownDecim.Enabled=IIF(.ndezim=0,.f.,.savedezim)
 			.Text1.InputMask=lcMask
 			.Text2.InputMask=lcMask
 			.TxMem.INputMask=lcMask
@@ -2571,9 +2575,9 @@ DEFINE CLASS cntcalcu AS container
 		lnHei=OBJTOCLIENT(xObjeto,4)
 		IF !PEMSTATUS(thisform,"imr2",5)
 			IF PEMSTATUS(_screen,"classDir",5)
-				thisform.NewObject("imr2","Imaraya",LOCFILE(ADDBS(_Screen.ClassDir)+"thCalc.vcx"))
+				thisform.NewObject("imr2","Imaraya",LOCFILE(ADDBS(_Screen.ClassDir)+"thcalc.vcx"))
 			ELSE
-				thisform.NewObject("imr2","imaraya","thCalc")
+				thisform.NewObject("imr2","imaraya","thcalc")
 			ENDIF
 		ENDIF
 		
@@ -2837,16 +2841,17 @@ DEFINE CLASS cntcalcu AS container
 				obj=this.getvaltag(lcGet,.t.)
 				DO case
 					CASE obj.tag="LEFT"
-						xnleft=obj.value
+						xnleft=EVL(obj.value,xnleft)
 					CASE OBJ.TAG="TOP"
-						xnTop=obj.value
+						xnTop=EVL(obj.value,xnTop)
 					CASE OBJ.TAG="CANCELOP"
 						xoForm.cancelop=obj.value
 					CASE OBJ.TAG="ESTIRAR"
 						xoForm.estirar=obj.value
 					CASE obj.tag="DECIMAL"
-						xoForm.ndezim=obj.value
-						xoForm.olddecimal=obj.value
+						xoForm.ndezim=EVL(obj.value,2)
+						this.olddecimal=EVL(obj.value,2)
+						this.ndezim=EVL(obj.value,2)
 				ENDCASE
 				obj=null
 			ENDDO
@@ -2902,7 +2907,7 @@ DEFINE CLASS cntcalcu AS container
 			=FPUTS(lnHand,this.puttag("LEFT",xoForm.Left))
 			=FPUTS(lnHand,this.puttag("ESTIRAR",xoForm.ESTIrar))
 			=FPUTS(lnHand,this.puttag("CANCELOP",xoForm.CANcelop))
-			=FPUTS(lnHand,this.puttag("DECIMAL",IIF(xoForm.savedezim,xoForm.ndezim,xoForm.olddecimal)))
+			=FPUTS(lnHand,this.puttag("DECIMAL",IIF(this.savedezim,this.ndezim,this.olddecimal)))
 		CATCH TO loEx
 			loex.UserValue=PROGRAM()
 			this.showerror(loEx)
@@ -3236,7 +3241,7 @@ DEFINE CLASS cntcalcu AS container
 		*!*	Alternativa algo automatizada
 		*!*	Levanta la calculadora general con la referencia _Screen.zCalcu2
 		*!*	LOCAL obj
-		*!*	obj=NEWOBJECT("gcalcu","thCalc")
+		*!*	obj=NEWOBJECT("gcalcu","thcalc")
 		*!*	obj._getCalc()
 		*!*	obj=null
 		*!*	---------------------------------------------------------
@@ -3248,7 +3253,7 @@ DEFINE CLASS cntcalcu AS container
 		IF VARTYPE(_screen.zCalcu2)="O"
 			_screen.zCalcu2.WindowState=0
 		ELSE
-			_screen.zCalcu2=NEWOBJECT("FrmZCalcu2","thCalc")
+			_screen.zCalcu2=NEWOBJECT("FrmZCalcu2","thcalc")
 		ENDIF
 		_screen.zCalcu2.Show()
 	ENDPROC
@@ -3434,6 +3439,25 @@ DEFINE CLASS cntcalcu AS container
 		This.Parent.TExt14.value="Enviar el resultado al Portapapeles"
 	ENDPROC
 
+	PROCEDURE cmdDownDecim.Click
+		if This.Parent.ndezim>0
+			This.Parent.ndezim=This.Parent.ndezim - 1
+			This.parent.putdecimal()
+		endif
+	ENDPROC
+
+	PROCEDURE cmdDownDecim.KeyPress
+		LPARAMETERS nKeyCode, nShiftAltCtrl
+		If Ascan(This.parent.aDevol,nKeyCode)>0
+			This.Parent.pbot.SetFocus
+		Endif
+	ENDPROC
+
+	PROCEDURE cmdDownDecim.MouseMove
+		LPARAMETERS nButton, nShift, nXCoord, nYCoord
+		This.Parent.TExt14.value="Reducir decimales."
+	ENDPROC
+
 	PROCEDURE CmDelEntry.Click
 		This.parent.QuitEntra()
 	ENDPROC
@@ -3501,6 +3525,27 @@ DEFINE CLASS cntcalcu AS container
 	PROCEDURE CmDevol.MouseMove
 		LPARAMETERS nButton, nShift, nXCoord, nYCoord
 		This.Parent.Text14.Value="Devolver Resultado"
+	ENDPROC
+
+	PROCEDURE cmdUpDecim.Click
+		if This.Parent.ndezim<8
+			This.Parent.ndezim=This.Parent.ndezim+1
+			This.parent.putdecimal()
+		endif
+		
+		
+	ENDPROC
+
+	PROCEDURE cmdUpDecim.KeyPress
+		LPARAMETERS nKeyCode, nShiftAltCtrl
+		If Ascan(This.parent.aDevol,nKeyCode)>0
+			This.Parent.pbot.SetFocus
+		Endif
+	ENDPROC
+
+	PROCEDURE cmdUpDecim.MouseMove
+		LPARAMETERS nButton, nShift, nXCoord, nYCoord
+		This.Parent.Text14.value="Aumentar decimales."
 	ENDPROC
 
 	PROCEDURE CmEntry.Click
@@ -3804,7 +3849,7 @@ DEFINE CLASS cntcalcu AS container
 			cmasca=cmasca+"."+repli("9",This.Parent.nDezim)
 		endif
 		
-		objImp=NEWOBJECT("TelImpor","ThCalc","",;
+		objImp=NEWOBJECT("TelImpor","thcalc","",;
 				"Calculadora » Raíz Cuadrada",;
 				"Valor",nRaiz,14,This.Parent.nDezim)
 		objImp.show()
@@ -4002,46 +4047,6 @@ DEFINE CLASS cntcalcu AS container
 		This.Parent.Text14.value="Accesibilidad"
 	ENDPROC
 
-	PROCEDURE Command2.Click
-		if This.Parent.ndezim<8
-			This.Parent.ndezim=This.Parent.ndezim+1
-			This.parent.putdecimal()
-		endif
-		
-		
-	ENDPROC
-
-	PROCEDURE Command2.KeyPress
-		LPARAMETERS nKeyCode, nShiftAltCtrl
-		If Ascan(This.parent.aDevol,nKeyCode)>0
-			This.Parent.pbot.SetFocus
-		Endif
-	ENDPROC
-
-	PROCEDURE Command2.MouseMove
-		LPARAMETERS nButton, nShift, nXCoord, nYCoord
-		This.Parent.Text14.value="Aumentar decimales."
-	ENDPROC
-
-	PROCEDURE Command4.Click
-		if This.Parent.ndezim>0
-			This.Parent.ndezim=This.Parent.ndezim - 1
-			This.parent.putdecimal()
-		endif
-	ENDPROC
-
-	PROCEDURE Command4.KeyPress
-		LPARAMETERS nKeyCode, nShiftAltCtrl
-		If Ascan(This.parent.aDevol,nKeyCode)>0
-			This.Parent.pbot.SetFocus
-		Endif
-	ENDPROC
-
-	PROCEDURE Command4.MouseMove
-		LPARAMETERS nButton, nShift, nXCoord, nYCoord
-		This.Parent.TExt14.value="Reducir decimales."
-	ENDPROC
-
 	PROCEDURE Container1.Label1.MouseMove
 		LPARAMETERS nButton, nShift, nXCoord, nYCoord
 		This.Parent.Parent.Text14.Value="Limpiar Memoria (Deshabilitado)"
@@ -4120,7 +4125,7 @@ DEFINE CLASS cntcalcu AS container
 	PROCEDURE Grilla.DblClick
 		LOCAL lRecalcu,tnDezim,cMask,lcRoot
 		
-		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"thCalc.vcx"),"thCalc")
+		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"thcalc.vcx"),"thcalc")
 		lRecalcu=.f.
 		tndezim=This.Parent.ndezim
 		cMask=this.column3.InputMask
@@ -4572,7 +4577,7 @@ DEFINE CLASS frmcons AS form
 	PROCEDURE Init
 		LPARAMETERS xcCaption,xcEdit,xcBoton1,xcBoton2,xnPref
 		local lcRoot
-		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"thCalc.vcx"),"thCalc")
+		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"thcalc.vcx"),"thcalc")
 		ADDPROPERTY(_Screen,"ThBoton",0)
 		thisform.NewObject("cmdClose1","cmdClose",lcRoot)
 		
@@ -4731,7 +4736,8 @@ DEFINE CLASS frmzcalcu AS form
 	PROCEDURE Init
 		PARAMETERS xnWin,xoFormCall,xoObjRef,xlCapture,xcMetodo,xnDecimal
 		LOCAL nat,i,lcDecimalPart,lcNueve,lcRoot
-		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"thCalc.vcx"),"thCalc")
+		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"thcalc.vcx"),"thcalc")
+		
 		thisform.NewObject("CntCalcu1","CntCalcu",lcRoot)
 		
 		
@@ -4752,7 +4758,7 @@ DEFINE CLASS frmzcalcu AS form
 			
 		this.CntCalcu1.readcust(this)
 		
-		IF VARTYPE(xnDecimal)="N".and.Between(xnDecimal,0,4)
+		IF VARTYPE(xnDecimal)="N".and.Between(xnDecimal,0,8)
 			WITH this.CntCalcu1
 				.NDEzim=xnDecimal
 				.savedezim=.F.
@@ -4996,7 +5002,7 @@ DEFINE CLASS frmzcalcu2 AS form
 	PROCEDURE Init
 		LOCAL nat,i,lcDecimalPart,lcNueve 
 		LOCAL xnTop,xnLeft,xlCApture,obj,lnHand,lcGet,lcRoot
-		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"thCalc.vcx"),"thCalc")
+		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"thcalc.vcx"),"thcalc")
 		
 		thisform.NewObject("CntCalcu1","CntCalcu",lcRoot)
 		
@@ -5852,7 +5858,7 @@ DEFINE CLASS gcalcu AS custom
 	PROCEDURE putraya
 		LPARAMETERS xObjeto
 		LOCAL lntop,lnLeft,lnWid,lnHei,lcRoot
-		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"thCalc.vcx"),"thCalc")
+		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"thcalc.vcx"),"thcalc")
 		IF PCOUNT()=0
 			Thisform.imr2.visible=.f.
 		   RETURN 
@@ -6689,7 +6695,7 @@ DEFINE CLASS telchain AS form
 		parameters xoForm,xcLista,xcAccion
 		
 		local lcRoot
-		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"thCalc.vcx"),"thCalc")
+		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"thcalc.vcx"),"thcalc")
 		ADDPROPERTY(_Screen,"ThCadena","")
 		thisform.NewObject("cmdClose1","cmdClose",lcRoot)
 		thisform.NewObject("gCalcu1","gCalcu",lcRoot)
@@ -6937,7 +6943,7 @@ DEFINE CLASS telimpor AS form
 	PROCEDURE Init
 		PARAMETERS xcCaption,xcTexto,xnNumero,xnInt,xnDec
 		local lcRoot
-		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"thCalc.vcx"),"thCalc")
+		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"thcalc.vcx"),"thcalc")
 		thisform.NewObject("cmdClose1","cmdClose",lcRoot)
 		thisform.NewObject("gCalcu1","gCalcu",lcRoot)
 		IF VARTYPE(xnNumero)#"N"
@@ -7077,7 +7083,7 @@ DEFINE CLASS txtcalc AS textbox
 		LPARAMETERS nKeyCode, nShiftAltCtrl
 		IF nKeyCode=43
 			local lcRoot
-			lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"thCalc.vcx"),"thCalc")
+			lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"thcalc.vcx"),"thcalc")
 			if vartype(_Screen.zCalcu1)="O"
 				thisform.zCalcu1.release
 			endif
@@ -7153,7 +7159,7 @@ DEFINE CLASS ztext AS textbox
 		LPARAMETERS nKeyCode, nShiftAltCtrl
 		IF nKeyCode=43
 			local lcRoot
-			lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"thCalc.vcx"),"thCalc")
+			lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"thcalc.vcx"),"thcalc")
 			RELEASE zCalcu
 			PUBLIC zCalcu
 			zCalcu=NEWOBJECT("FrmZCalcu",lcRoot,"",0,;
