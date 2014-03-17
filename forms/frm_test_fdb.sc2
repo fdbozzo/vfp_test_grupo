@@ -5,19 +5,32 @@
 *< FOXBIN2PRG: Version="1.19" SourceFile="frm_test_fdb.scx" /> (Solo para binarios VFP 9 / Only for VFP 9 binaries)
 *
 *
-DEFINE CLASS Dataenvironment AS dataenvironment 
+DEFINE CLASS dataenvironment AS dataenvironment 
  	*< CLASSDATA: Baseclass="dataenvironment" Timestamp="" Scale="" Uniqueid="" ClassIcon="1" />
 
+	*-- OBJECTDATA items order determines ZOrder / El orden de los items OBJECTDATA determina el ZOrder 
+	*< OBJECTDATA: ObjPath="Cursor1" UniqueID="" Timestamp="" />
+
 	DataSource = .NULL.
-	Height = 0
-	Left = 0
+	Height = 200
+	Left = 1
 	Name = "Dataenvironment"
-	Top = 0
-	Width = 0
+	Top = 220
+	Width = 520
+
+	ADD OBJECT 'Cursor1' AS cursor WITH ;
+		Alias = "clientes", ;
+		CursorSource = ..\datos\clientes.dbf, ;
+		Height = 90, ;
+		Left = 10, ;
+		Name = "Cursor1", ;
+		Top = 20, ;
+		Width = 90
+		*< END OBJECT: BaseClass="cursor" />
 
 ENDDEFINE
 
-DEFINE CLASS Form1 AS form 
+DEFINE CLASS form1 AS form 
  	*< CLASSDATA: Baseclass="form" Timestamp="" Scale="" Uniqueid="" />
 
 	*-- OBJECTDATA items order determines ZOrder / El orden de los items OBJECTDATA determina el ZOrder 
