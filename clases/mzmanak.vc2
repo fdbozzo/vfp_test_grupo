@@ -4374,6 +4374,14 @@ DEFINE CLASS frmanual AS form
 		Width = 18
 		*< END OBJECT: BaseClass="spinner" />
 	
+	PROCEDURE Activate
+		SYS(2002)
+	ENDPROC
+
+	PROCEDURE Deactivate
+		SYS(2002,1)
+	ENDPROC
+
 	PROCEDURE Destroy
 		UNBINDEVENTS(this)
 		IF USED("curFeriados")
@@ -5786,13 +5794,13 @@ DEFINE CLASS funmanak AS custom
 		*m: *gnombremes
 		*m: *gstandar
 		*m: *motherday
+		*m: *pascuale		&& Determina el domingo de pascua de un año.
 		*m: *putraya
 		*m: *puttag
 		*m: *qualifer2
 		*m: *readcust
 		*m: *savecust
 		*m: *showerror
-		*m: *stadomine
 		*m: *teldecim
 		*m: *telmedia
 		*m: *thcentrar
@@ -6010,7 +6018,7 @@ DEFINE CLASS funmanak AS custom
 	PROCEDURE genferiados
 		*PROCEDURE VFERIADOS
 		* Generando Tabla: FERIADOS
-		LOCAL kedia,ketru,kCodefer,cMesano
+		LOCAL kedia,ketru,kCodefer,cMesano,oPascua
 		IF USED("curFeriados")
 			SELECT curFeriados
 			USE
@@ -6038,11 +6046,11 @@ DEFINE CLASS funmanak AS custom
 		ldoit=.t.
 		
 		
-		for j=year(date()) to 2015
+		for j=year(date()) to YEAR(DATE())+10
 			STore Ctod("") to lunCnv,MarCnv
 			disano=j
 			cDisano=ltrim(str(disano))
-			dimension gadias(17,8)
+			dimension gadias(18,8)
 			* Dia rEAL/mes/Descri/Fijo/Dia Establecido/Clave
 			For xi=1 to alen(gadias,1)
 				gadias[xi,6]=""
@@ -6117,47 +6125,55 @@ DEFINE CLASS funmanak AS custom
 			gadias[11,4]=.T.
 			GADIAS[11,6]="NT"
 			
+		
+		
 			gadias[12,1]=1
 			gadias[12,2]=13	
-			gadias[12,3]="Viernes Santo"
+			gadias[12,3]="Domingo de Pascua"
 			gadias[12,4]=.F.
-			GADIAS[12,6]="VS"
+			GADIAS[12,6]="SD"
 		
 			gadias[13,1]=1
-			gadias[13,2]=3	
-			gadias[13,3]="Lunes de Carnaval"
+			gadias[13,2]=13	
+			gadias[13,3]="Viernes Santo"
 			gadias[13,4]=.F.
-			GADIAS[13,6]="LC"
-			gadias[13,7]=2011
-			
+			GADIAS[13,6]="VS"
+		
 			gadias[14,1]=1
 			gadias[14,2]=3	
-			gadias[14,3]="Martes de Carnaval"
+			gadias[14,3]="Lunes de Carnaval"
 			gadias[14,4]=.F.
-			GADIAS[14,6]="MC"
+			GADIAS[14,6]="LC"
 			gadias[14,7]=2011
 			
-			gadias[15,1]=20
-			gadias[15,2]=11	
-			gadias[15,3]="Día de la Soberanía Nacional"
-			gadias[15,4]=.F.		
-			GADIAS[15,6]="SB"
-			gadias[15,7]=2010
-		
-			gadias[16,1]=1
-			gadias[16,2]=1	
-			gadias[16,3]="Feriado Turístico 1"
-			gadias[16,4]=.F.
-			GADIAS[16,6]="T1"
-			gadias[16,7]=2011
-		
+			gadias[15,1]=1
+			gadias[15,2]=3	
+			gadias[15,3]="Martes de Carnaval"
+			gadias[15,4]=.F.
+			GADIAS[15,6]="MC"
+			gadias[15,7]=2011
 			
+			gadias[16,1]=20
+			gadias[16,2]=11	
+			gadias[16,3]="Día de la Soberanía Nacional"
+			gadias[16,4]=.F.		
+			GADIAS[16,6]="SB"
+			gadias[16,7]=2010
+		
 			gadias[17,1]=1
 			gadias[17,2]=1	
-			gadias[17,3]="Feriado Turístico 2"
-			gadias[17,4]=.F.		
-			GADIAS[17,6]="T2"
+			gadias[17,3]="Feriado Turístico 1"
+			gadias[17,4]=.F.
+			GADIAS[17,6]="T1"
 			gadias[17,7]=2011
+		
+			
+			gadias[18,1]=1
+			gadias[18,2]=1	
+			gadias[18,3]="Feriado Turístico 2"
+			gadias[18,4]=.F.		
+			GADIAS[18,6]="T2"
+			gadias[18,7]=2011
 		
 			for xi=1 to alen(gadias,1)
 				gadias[xi,5]=gadias[xi,1]
@@ -6173,33 +6189,27 @@ DEFINE CLASS funmanak AS custom
 					dnmes=gadias[i,2]
 					CLAVE=GADIAS[I,6]
 					do case
-		*				case dnmes=13
-						case clave=="VS"
-							* Viernes SAnto
-							fodia=this.StaDomine(disano,@LunCnv)-2
-							if !empty(fodia)
-								gadias[i,1]=day(fodia)
-								gadias[i,2]=month(fodia)
-								gadias[i,5]=day(fodia)
-							else	
-								gadias[i,1]=22
-								gadias[i,2]=3
-								gadias[i,5]=22
-							endif
-							if !empty(LunCnv)
-								MarCnv=Luncnv+1
-							endif
-						case CLAVE=="LC"
-							gadias[i,1]=day(LunCnv)
-							gadias[i,2]=month(LunCnv)
-							gadias[i,5]=day(LunCnv)
-						CASE CLAVE=="MC"
-							gadias[i,1]=day(MarCnv)
-							gadias[i,2]=month(MarCnv)
-							gadias[i,5]=day(MarCnv)				
-						
-		*					gadias[i,1]=MarCnv
-		*				case dndia=20 AND dnmes=6
+						CASE clave=="SD"
+							oPascua=This.pascuale(disano)
+							gadias[i,1]=DAY(oPascua.pascua)
+							gadias[i,2]=MONTH(oPascua.pascua)
+							gadias[i,5]=DAY(oPascua.pascua)
+		
+							gadias[i+1,1]=DAY(oPascua.viernes)
+							gadias[i+1,2]=MONTH(oPascua.viernes)
+							gadias[i+1,5]=DAY(oPascua.viernes)					
+							
+							gadias[i+2,1]=DAY(oPascua.lunescar)
+							gadias[i+2,2]=MONTH(oPascua.lunescar)
+							gadias[i+2,5]=DAY(oPascua.lunescar)		
+							
+							gadias[i+3,1]=DAY(oPascua.martescar)
+							gadias[i+3,2]=MONTH(oPascua.martescar)
+							gadias[i+3,5]=DAY(oPascua.martescar)
+							
+						CASE INLIST(clave,"VS","LC","MC")									
+		
+		
 						CASE CLAVE=="MB"
 							* Ley 24445
 							IF DISANO<2011
@@ -6257,10 +6267,26 @@ DEFINE CLASS funmanak AS custom
 									gadias[i,1]=1
 									gadias[i,2]=4
 									gadias[i,5]=1
-								OTHER
+									
+								CASE DISANO=2014
+									gadias[i,1]=2
+									gadias[i,2]=5
+									gadias[i,5]=2
+																
+								CASE DISANO=2015
+									gadias[i,1]=23
+									gadias[i,2]=3
+									gadias[i,5]=23
+								
+								CASE DISANO=2016
+									gadias[i,1]=8
+									gadias[i,2]=7
+									gadias[i,5]=8						
+								OTHERWISE
+								
 							
 							ENDCASE
-							gadias[i,8]=2013				
+					
 						CASE CLAVE=="T2"
 							DO CASE
 								CASE DISANO=2011
@@ -6275,10 +6301,25 @@ DEFINE CLASS funmanak AS custom
 									gadias[i,1]=21
 									gadias[i,2]=6
 									gadias[i,5]=21
+									
+								CASE DISANO=2014
+									gadias[i,1]=26
+									gadias[i,2]=12
+									gadias[i,5]=26
+									
+								CASE DISANO=2015
+									gadias[i,1]=7
+									gadias[i,2]=12
+									gadias[i,5]=7
+									
+								CASE DISANO=2016
+									gadias[i,1]=9
+									gadias[i,2]=12
+									gadias[i,5]=9																					
 								OTHER
 							
 							ENDCASE				
-							gadias[i,8]=2013
+		
 								
 					endcase
 				endif
@@ -6306,6 +6347,8 @@ DEFINE CLASS funmanak AS custom
 			next
 		
 		NEXT
+		
+		RETURN "curFeriados"
 		
 		*!*					locate for trim(codefer)==kCodefer
 		*!*					if !found()
@@ -6718,6 +6761,99 @@ DEFINE CLASS funmanak AS custom
 		
 	ENDPROC
 
+	PROCEDURE pascuale		&& Determina el domingo de pascua de un año.
+		LPARAMETERS xnAno
+		*<Propósito>
+		*!*	Determinar el domingo de Pascua de un año cualquiera
+		*!*	entre 1600 y 2199.
+		*!*	Se determinan también los feriados de Carnaval,
+		*!*	Jueves y Viernes Santo
+		*!*	Devuelve un objeto (clase Empty) con los valores obtenidos
+		*!*	Si el año no es admitido, devuelve null
+		*</Propósito>
+		
+		*<ValidParam>
+		IF VARTYPE(xnAno)="C"
+			xnAno=VAL(xnAno)
+		ENDIF
+		IF VARTYPE(xnAno)#"N"
+			xnAno=YEAR(DATE())
+		ENDIF
+		xnAno=EVL(xnAno,YEAR(DATE()))
+		*</ValidParam>
+		
+		*<LocalDef>
+		LOCAL a,b,c,d,e,M,N,sDomine,objEmpty,ldCarnaval
+		sDomine=CTOD("")
+		*</LocalDef>
+		
+		*<Constant>
+		DO case
+			CASE BETWEEN(xnAno,1600,1699)
+				M=22
+				N=2
+			CASE BETWEEN(xnAno,1700,1799)
+				M=23
+				N=3
+			CASE BETWEEN(xnAno,1800,1899)
+				M=23
+				N=4
+			CASE BETWEEN(xnano,1900,2099)
+				M=24
+				N=5	
+			CASE BETWEEN(xnAno,2100,2199)
+				M=24
+				N=6
+			OTHERWISE 
+				RETURN null
+		ENDCASE
+		*</Constant>
+		
+		*<CalcModul>
+		a=MOD(xnAno,19)
+		b=MOD(xnAno,4)
+		c=MOD(xnAno,7)
+		d=MOD( 19*a + M , 30)
+		e=MOD( 2*b + 4*c + 6*d + N , 7)
+		*</CalcModul>
+		
+		*<DomingoPascual>
+		IF (d + e) < 10
+			sDomine=DATE(xnAno, 3, d + e + 22)
+		ELSE
+			sDomine=DATE(xnAno, 4, d + e - 9)
+		ENDIF
+		DO case
+			CASE sDomine=DATE(xnAno,4,26)
+				sDomine=sDomine - 7
+			CASE sDomine=DATE(xnAno,4,25) AND d=28 ;
+				AND e=6 AND a>10
+				sDomine=sDomine-7
+		ENDCASE
+		*</DomingoPascual>
+		
+		*<Carnevale>
+		ldCarnaval=sDomine-42
+		do while .t.
+			if dow(ldCarnaval,2)=1
+				exit
+			endif
+			ldCarnaval=ldCarnaval-1
+		ENDDO
+		*</Carnevale>
+		
+		*<ReturnObject>
+		objEmpty=NEWOBJECT("Empty")
+		ADDPROPERTY(objEmpty,"PASCUA",sDomine)
+		ADDPROPERTY(objEmpty,"VIERNES",sDomine-2)
+		ADDPROPERTY(objEmpty,"JUEVES",sDomine-3)
+		ADDPROPERTY(objEmpty,"LUNESCAR",ldCarnaval)
+		ADDPROPERTY(objEmpty,"MARTESCAR",ldCarnaval+1)
+		*</ReturnObject>
+		RETURN objEmpty
+		
+	ENDPROC
+
 	PROCEDURE putraya
 		LPARAMETERS xObjeto
 		LOCAL lntop,lnLeft,lnWid,lnHei,lcRoot
@@ -7027,79 +7163,6 @@ DEFINE CLASS funmanak AS custom
 		STRTOFILE(lcMens+CHR(13),"ThError.log",1)
 		lcMens="Se ha producido un error:"+chr(13)+lcMens
 		MESSAGEBOX(lcMens,0,tH_MENSAJE)
-	ENDPROC
-
-	PROCEDURE stadomine
-		LPARAMETERS xnano,diaCarnaval
-		
-		LOCAL dDomingo,nas
-		diaCarnaval=Ctod("")
-		LOCAL ARRAY amatri(16,3)
-		aMatri[1,1]=2000
-		aMatri[2,1]=2001
-		aMatri[3,1]=2002
-		aMatri[4,1]=2003
-		aMatri[5,1]=2004
-		aMatri[6,1]=2005
-		aMatri[7,1]=2006
-		aMatri[8,1]=2007
-		aMatri[9,1]=2008
-		aMatri[10,1]=2009
-		aMatri[11,1]=2010
-		aMatri[12,1]=2011
-		aMatri[13,1]=2012
-		aMatri[14,1]=2013
-		aMatri[15,1]=2014
-		aMatri[16,1]=2015
-		
-		aMatri[1,2]=23
-		aMatri[2,2]=15
-		aMatri[3,2]=31
-		aMatri[4,2]=20
-		aMatri[5,2]=11
-		aMatri[6,2]=27
-		aMatri[7,2]=16
-		aMatri[8,2]=8
-		aMatri[9,2]=23
-		aMatri[10,2]=12
-		aMatri[11,2]=4
-		aMatri[12,2]=24
-		aMatri[13,2]=8
-		aMatri[14,2]=31
-		aMatri[15,2]=20
-		aMatri[16,2]=5
-		
-		aMatri[1,3]=4
-		aMatri[2,3]=4
-		aMatri[3,3]=3
-		aMatri[4,3]=4
-		aMatri[5,3]=4
-		aMatri[6,3]=3
-		aMatri[7,3]=4
-		aMatri[8,3]=4
-		aMatri[9,3]=4
-		aMatri[10,3]=4
-		aMatri[11,3]=4
-		aMatri[12,3]=4
-		aMatri[13,3]=4
-		aMatri[14,3]=3
-		aMatri[15,3]=4
-		aMatri[16,3]=4
-		dDomingo=Ctod("")
-		nas=AScan(amatri,xnAno)
-		if nas#0
-			dDomingo=DATE(aMatri[nas],aMatri[nas+2],aMatri[nas+1])
-		endif
-		diaCarnaval=dDomingo-42
-		do while .t.
-			if dow(diaCarnaval,2)=1
-				exit
-			endif
-			diaCArnaval=DiaCarnaval-1
-		enddo
-		return dDomingo
-			
-		
 	ENDPROC
 
 	PROCEDURE teldecim
