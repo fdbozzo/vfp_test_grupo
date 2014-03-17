@@ -24,6 +24,7 @@ DEFINE CLASS form1 AS form
 	*< OBJECTDATA: ObjPath="Command1" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="Command2" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="Command3" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Label1" UniqueID="" Timestamp="" />
 
 	Caption = "Formulario de Prueba"
 	DoCreate = .T.
@@ -58,6 +59,17 @@ DEFINE CLASS form1 AS form
 		Top = 60, ;
 		Width = 84
 		*< END OBJECT: BaseClass="commandbutton" />
+
+	ADD OBJECT 'Label1' AS label WITH ;
+		AutoSize = .T., ;
+		BackStyle = 0, ;
+		Caption = "Texto", ;
+		Height = 17, ;
+		Left = 24, ;
+		Name = "Label1", ;
+		Top = 60, ;
+		Width = 31
+		*< END OBJECT: BaseClass="label" />
 
 	PROCEDURE Command1.Click
 		thisform.Release
