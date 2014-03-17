@@ -23,6 +23,7 @@ DEFINE CLASS form1 AS form
 	*-- OBJECTDATA items order determines ZOrder / El orden de los items OBJECTDATA determina el ZOrder 
 	*< OBJECTDATA: ObjPath="Command1" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="Command2" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Command3" UniqueID="" Timestamp="" />
 
 	Caption = "Formulario de Prueba"
 	DoCreate = .T.
@@ -49,12 +50,25 @@ DEFINE CLASS form1 AS form
 		Width = 84
 		*< END OBJECT: BaseClass="commandbutton" />
 
+	ADD OBJECT 'Command3' AS commandbutton WITH ;
+		Caption = "Mensaje", ;
+		Height = 27, ;
+		Left = 144, ;
+		Name = "Command3", ;
+		Top = 60, ;
+		Width = 84
+		*< END OBJECT: BaseClass="commandbutton" />
+
 	PROCEDURE Command1.Click
 		thisform.Release
 	ENDPROC
 
 	PROCEDURE Command2.Click
 		WAIT windows "Hola Mundo Nuevo!"
+	ENDPROC
+
+	PROCEDURE Command3.Click
+		WAIT windows "Mensaje"
 	ENDPROC
 
 ENDDEFINE
