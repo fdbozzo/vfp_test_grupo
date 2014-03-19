@@ -28,12 +28,17 @@ DEFINE CLASS form1 AS form
 	Name = "Form1"
 
 	ADD OBJECT 'Command1' AS commandbutton WITH ;
-		Caption = "Prueba", ;
+		Cancel = .T., ;
+		Caption = "Salir", ;
 		Height = 27, ;
 		Left = 60, ;
 		Name = "Command1", ;
 		Top = 192, ;
 		Width = 84
 		*< END OBJECT: BaseClass="commandbutton" />
+
+	PROCEDURE Command1.Click
+		thisform.Release 
+	ENDPROC
 
 ENDDEFINE
