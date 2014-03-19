@@ -5,7 +5,7 @@
 *< FOXBIN2PRG: Version="1.19" SourceFile="frm_test1.scx" /> (Solo para binarios VFP 9 / Only for VFP 9 binaries)
 *
 *
-DEFINE CLASS Dataenvironment AS dataenvironment 
+DEFINE CLASS dataenvironment AS dataenvironment 
  	*< CLASSDATA: Baseclass="dataenvironment" Timestamp="" Scale="" Uniqueid="" ClassIcon="1" />
 
 	DataSource = .NULL.
@@ -17,11 +17,12 @@ DEFINE CLASS Dataenvironment AS dataenvironment
 
 ENDDEFINE
 
-DEFINE CLASS Form1 AS form 
+DEFINE CLASS form1 AS form 
  	*< CLASSDATA: Baseclass="form" Timestamp="" Scale="" Uniqueid="" />
 
 	*-- OBJECTDATA items order determines ZOrder / El orden de los items OBJECTDATA determina el ZOrder 
 	*< OBJECTDATA: ObjPath="Command1" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Command2" UniqueID="" Timestamp="" />
 
 	Caption = "Formulario de Prueba"
 	DoCreate = .T.
@@ -39,8 +40,21 @@ DEFINE CLASS Form1 AS form
 		Width = 84
 		*< END OBJECT: BaseClass="commandbutton" />
 
+	ADD OBJECT 'Command2' AS commandbutton WITH ;
+		Caption = "Mensaje", ;
+		Height = 27, ;
+		Left = 60, ;
+		Name = "Command2", ;
+		Top = 144, ;
+		Width = 84
+		*< END OBJECT: BaseClass="commandbutton" />
+
 	PROCEDURE Command1.Click
 		thisform.Release
+	ENDPROC
+
+	PROCEDURE Command2.Click
+		WAIT windows "Mensaje"
 	ENDPROC
 
 ENDDEFINE
