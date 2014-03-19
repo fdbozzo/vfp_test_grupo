@@ -41,12 +41,30 @@ DEFINE CLASS form1 AS form
 	*< OBJECTDATA: ObjPath="pgfPaginas.pagNueva.lblColor" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pgfPaginas.pagNueva.txtNombre" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pgfPaginas.pagNueva.txtColor" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pgfPaginas.pagFidel.shpMarco" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pgfPaginas.pagFidel.shpDes7" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pgfPaginas.pagFidel.lblAno" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pgfPaginas.pagFidel.txtPascua" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pgfPaginas.pagFidel.spnAno" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pgfPaginas.pagFidel.Shape1" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pgfPaginas.pagFidel.lblPascua" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pgfPaginas.pagFidel.txtSanto" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pgfPaginas.pagFidel.Shape2" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pgfPaginas.pagFidel.lblSanto" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pgfPaginas.pagFidel.txtCarnaval1" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pgfPaginas.pagFidel.Shape3" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pgfPaginas.pagFidel.lblCarnaval1" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pgfPaginas.pagFidel.txtCarnaval2" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pgfPaginas.pagFidel.Shape4" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pgfPaginas.pagFidel.lblCarnaval2" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdPag1" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdPag2" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdSalir" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdPag3" UniqueID="" Timestamp="" />
 
 	*<DefinedPropArrayMethod>
+		*m: *getpascuale
+		*m: *pascuale		&& Determina los días de Semana Santa para un año dado
 		*m: *randmath
 	*</DefinedPropArrayMethod>
 
@@ -56,7 +74,7 @@ DEFINE CLASS form1 AS form
 	Left = 0
 	Name = "Form1"
 	Top = 0
-	Width = 592
+	Width = 735
 
 	ADD OBJECT 'cmdPag1' AS commandbutton WITH ;
 		Caption = "Pag.1", ;
@@ -99,7 +117,7 @@ DEFINE CLASS form1 AS form
 		Height = 169, ;
 		Left = 116, ;
 		Name = "pgfPaginas", ;
-		PageCount = 3, ;
+		PageCount = 4, ;
 		Top = 12, ;
 		Width = 460, ;
 		Page1.Caption = "Principal", ;
@@ -107,8 +125,227 @@ DEFINE CLASS form1 AS form
 		Page2.Caption = "Secundaria", ;
 		Page2.Name = "pagSecundaria", ;
 		Page3.Caption = "Nueva", ;
-		Page3.Name = "pagNueva"
+		Page3.Name = "pagNueva", ;
+		Page4.BackColor = 210,221,219, ;
+		Page4.Caption = "pagFidel", ;
+		Page4.Name = "pagFidel"
 		*< END OBJECT: BaseClass="pageframe" />
+
+	ADD OBJECT 'pgfPaginas.pagFidel.lblAno' AS label WITH ;
+		AutoSize = .T., ;
+		BackStyle = 0, ;
+		Caption = "Año para Semana Santa", ;
+		FontSize = 8, ;
+		Height = 16, ;
+		Left = 14, ;
+		Name = "lblAno", ;
+		TabIndex = 6, ;
+		Top = 14, ;
+		Width = 120
+		*< END OBJECT: BaseClass="label" />
+
+	ADD OBJECT 'pgfPaginas.pagFidel.lblCarnaval1' AS label WITH ;
+		AutoSize = .T., ;
+		BackStyle = 0, ;
+		Caption = "Lunes de Carnaval", ;
+		FontSize = 8, ;
+		Height = 16, ;
+		Left = 14, ;
+		Name = "lblCarnaval1", ;
+		TabIndex = 8, ;
+		Top = 76, ;
+		Width = 93
+		*< END OBJECT: BaseClass="label" />
+
+	ADD OBJECT 'pgfPaginas.pagFidel.lblCarnaval2' AS label WITH ;
+		AutoSize = .T., ;
+		BackStyle = 0, ;
+		Caption = "Martes de Carnaval", ;
+		FontSize = 8, ;
+		Height = 16, ;
+		Left = 14, ;
+		Name = "lblCarnaval2", ;
+		TabIndex = 9, ;
+		Top = 96, ;
+		Width = 96
+		*< END OBJECT: BaseClass="label" />
+
+	ADD OBJECT 'pgfPaginas.pagFidel.lblPascua' AS label WITH ;
+		AutoSize = .T., ;
+		BackStyle = 0, ;
+		Caption = "Domingo de Pascua", ;
+		FontSize = 8, ;
+		Height = 16, ;
+		Left = 14, ;
+		Name = "lblPascua", ;
+		TabIndex = 10, ;
+		Top = 36, ;
+		Width = 97
+		*< END OBJECT: BaseClass="label" />
+
+	ADD OBJECT 'pgfPaginas.pagFidel.lblSanto' AS label WITH ;
+		AutoSize = .T., ;
+		BackStyle = 0, ;
+		Caption = "Viernes Santo", ;
+		FontSize = 8, ;
+		Height = 16, ;
+		Left = 14, ;
+		Name = "lblSanto", ;
+		TabIndex = 7, ;
+		Top = 56, ;
+		Width = 71
+		*< END OBJECT: BaseClass="label" />
+
+	ADD OBJECT 'pgfPaginas.pagFidel.Shape1' AS shape WITH ;
+		BackColor = 220,228,224, ;
+		BorderColor = 114,136,141, ;
+		Height = 21, ;
+		Left = 9, ;
+		Name = "Shape1", ;
+		Top = 33, ;
+		Width = 135
+		*< END OBJECT: BaseClass="shape" />
+
+	ADD OBJECT 'pgfPaginas.pagFidel.Shape2' AS shape WITH ;
+		BackColor = 220,228,224, ;
+		BorderColor = 114,136,141, ;
+		Height = 21, ;
+		Left = 9, ;
+		Name = "Shape2", ;
+		Top = 53, ;
+		Width = 135
+		*< END OBJECT: BaseClass="shape" />
+
+	ADD OBJECT 'pgfPaginas.pagFidel.Shape3' AS shape WITH ;
+		BackColor = 220,228,224, ;
+		BorderColor = 114,136,141, ;
+		Height = 21, ;
+		Left = 9, ;
+		Name = "Shape3", ;
+		Top = 73, ;
+		Width = 135
+		*< END OBJECT: BaseClass="shape" />
+
+	ADD OBJECT 'pgfPaginas.pagFidel.Shape4' AS shape WITH ;
+		BackColor = 220,228,224, ;
+		BorderColor = 114,136,141, ;
+		Height = 21, ;
+		Left = 9, ;
+		Name = "Shape4", ;
+		Top = 93, ;
+		Width = 135
+		*< END OBJECT: BaseClass="shape" />
+
+	ADD OBJECT 'pgfPaginas.pagFidel.shpDes7' AS shape WITH ;
+		BackColor = 220,228,224, ;
+		BorderColor = 114,136,141, ;
+		Height = 21, ;
+		Left = 9, ;
+		Name = "shpDes7", ;
+		Top = 11, ;
+		Width = 135
+		*< END OBJECT: BaseClass="shape" />
+
+	ADD OBJECT 'pgfPaginas.pagFidel.shpMarco' AS shape WITH ;
+		BackColor = 221,226,222, ;
+		Height = 114, ;
+		Left = 5, ;
+		Name = "shpMarco", ;
+		SpecialEffect = 0, ;
+		Top = 5, ;
+		Width = 206
+		*< END OBJECT: BaseClass="shape" />
+
+	ADD OBJECT 'pgfPaginas.pagFidel.spnAno' AS spinner WITH ;
+		BorderColor = 114,136,141, ;
+		DisabledBackColor = 231,237,234, ;
+		DisabledForeColor = 0,0,0, ;
+		FontSize = 8, ;
+		Height = 21, ;
+		InputMask = "9999", ;
+		KeyboardHighValue = 2099, ;
+		KeyboardLowValue = 1600, ;
+		Left = 143, ;
+		Name = "spnAno", ;
+		SpecialEffect = 1, ;
+		SpinnerHighValue = 2099.00, ;
+		SpinnerLowValue = 1600.00, ;
+		TabIndex = 1, ;
+		Top = 11, ;
+		Width = 63
+		*< END OBJECT: BaseClass="spinner" />
+
+	ADD OBJECT 'pgfPaginas.pagFidel.txtCarnaval1' AS textbox WITH ;
+		Alignment = 3, ;
+		BorderColor = 114,136,141, ;
+		DisabledBackColor = 231,237,234, ;
+		DisabledForeColor = 0,0,0, ;
+		FontSize = 8, ;
+		Format = "D", ;
+		Height = 21, ;
+		Left = 143, ;
+		Name = "txtCarnaval1", ;
+		ReadOnly = .T., ;
+		SpecialEffect = 1, ;
+		TabIndex = 4, ;
+		Top = 73, ;
+		Value = (Ctod("")), ;
+		Width = 63
+		*< END OBJECT: BaseClass="textbox" />
+
+	ADD OBJECT 'pgfPaginas.pagFidel.txtCarnaval2' AS textbox WITH ;
+		Alignment = 3, ;
+		BorderColor = 114,136,141, ;
+		DisabledBackColor = 231,237,234, ;
+		DisabledForeColor = 0,0,0, ;
+		FontSize = 8, ;
+		Format = "D", ;
+		Height = 21, ;
+		Left = 143, ;
+		Name = "txtCarnaval2", ;
+		ReadOnly = .T., ;
+		SpecialEffect = 1, ;
+		TabIndex = 5, ;
+		Top = 93, ;
+		Value = (Ctod("")), ;
+		Width = 63
+		*< END OBJECT: BaseClass="textbox" />
+
+	ADD OBJECT 'pgfPaginas.pagFidel.txtPascua' AS textbox WITH ;
+		Alignment = 3, ;
+		BorderColor = 114,136,141, ;
+		DisabledBackColor = 231,237,234, ;
+		DisabledForeColor = 0,0,0, ;
+		FontSize = 8, ;
+		Format = "D", ;
+		Height = 21, ;
+		Left = 143, ;
+		Name = "txtPascua", ;
+		ReadOnly = .T., ;
+		SpecialEffect = 1, ;
+		TabIndex = 2, ;
+		Top = 33, ;
+		Value = (Ctod("")), ;
+		Width = 63
+		*< END OBJECT: BaseClass="textbox" />
+
+	ADD OBJECT 'pgfPaginas.pagFidel.txtSanto' AS textbox WITH ;
+		Alignment = 3, ;
+		BorderColor = 114,136,141, ;
+		DisabledBackColor = 231,237,234, ;
+		DisabledForeColor = 0,0,0, ;
+		FontSize = 8, ;
+		Format = "D", ;
+		Height = 21, ;
+		Left = 143, ;
+		Name = "txtSanto", ;
+		ReadOnly = .T., ;
+		SpecialEffect = 1, ;
+		TabIndex = 3, ;
+		Top = 53, ;
+		Value = (Ctod("")), ;
+		Width = 63
+		*< END OBJECT: BaseClass="textbox" />
 
 	ADD OBJECT 'pgfPaginas.pagNueva.lblColor' AS label WITH ;
 		BackStyle = 0, ;
@@ -166,6 +403,116 @@ DEFINE CLASS form1 AS form
 		Width = 23
 		*< END OBJECT: BaseClass="timer" />
 	
+	PROCEDURE getpascuale
+		LPARAMETERS xnAno
+		LOCAL objRet
+		objRet=thisform.pascuale(xnAno)
+		IF VARTYPE(objRet)#"O"
+			RETURN
+		ENDIF
+		
+		WITH this.pgfPaginas.pagfidel
+			.txtCarnaval2.value=objRet.Martescar
+			.txtCarnaval1.value=objREt.lunescar
+			.txtSanto.value=objret.viernes
+			.txtPascua.value=objret.pascua
+		ENDWITH
+		objREt=null
+	ENDPROC
+
+	PROCEDURE pascuale		&& Determina los días de Semana Santa para un año dado
+		LPARAMETERS xnAno
+		*<Propósito>
+		*!*	Determinar el domingo de Pascua de un año cualquiera
+		*!*	entre 1600 y 2199.
+		*!*	Se determinan también los feriados de Carnaval,
+		*!*	Jueves y Viernes Santo
+		*!*	Devuelve un objeto (clase Empty) con los valores obtenidos
+		*!*	Si el año no es admitido, devuelve null
+		*</Propósito>
+		
+		*<ValidParam>
+		IF VARTYPE(xnAno)="C"
+			xnAno=VAL(xnAno)
+		ENDIF
+		IF VARTYPE(xnAno)#"N"
+			xnAno=YEAR(DATE())
+		ENDIF
+		xnAno=EVL(xnAno,YEAR(DATE()))
+		*</ValidParam>
+		
+		*<LocalDef>
+		LOCAL a,b,c,d,e,M,N,sDomine,objEmpty,ldCarnaval
+		sDomine=CTOD("")
+		*</LocalDef>
+		
+		*<Constant>
+		DO case
+			CASE BETWEEN(xnAno,1600,1699)
+				M=22
+				N=2
+			CASE BETWEEN(xnAno,1700,1799)
+				M=23
+				N=3
+			CASE BETWEEN(xnAno,1800,1899)
+				M=23
+				N=4
+			CASE BETWEEN(xnano,1900,2099)
+				M=24
+				N=5	
+			CASE BETWEEN(xnAno,2100,2199)
+				M=24
+				N=6
+			OTHERWISE 
+				RETURN null
+		ENDCASE
+		*</Constant>
+		
+		*<CalcModul>
+		a=MOD(xnAno,19)
+		b=MOD(xnAno,4)
+		c=MOD(xnAno,7)
+		d=MOD( 19*a + M , 30)
+		e=MOD( 2*b + 4*c + 6*d + N , 7)
+		*</CalcModul>
+		
+		*<DomingoPascual>
+		IF (d + e) < 10
+			sDomine=DATE(xnAno, 3, d + e + 22)
+		ELSE
+			sDomine=DATE(xnAno, 4, d + e - 9)
+		ENDIF
+		DO case
+			CASE sDomine=DATE(xnAno,4,26)
+				sDomine=sDomine - 7
+			CASE sDomine=DATE(xnAno,4,25) AND d=28 ;
+				AND e=6 AND a>10
+				sDomine=sDomine-7
+		ENDCASE
+		*</DomingoPascual>
+		
+		*<Carnevale>
+		ldCarnaval=sDomine-42
+		do while .t.
+			if dow(ldCarnaval,2)=1
+				exit
+			endif
+			ldCarnaval=ldCarnaval-1
+		ENDDO
+		*</Carnevale>
+		
+		*<ReturnObject>
+		objEmpty=NEWOBJECT("Empty")
+		ADDPROPERTY(objEmpty,"PASCUA",sDomine)
+		ADDPROPERTY(objEmpty,"VIERNES",sDomine-2)
+		ADDPROPERTY(objEmpty,"JUEVES",sDomine-3)
+		ADDPROPERTY(objEmpty,"LUNESCAR",ldCarnaval)
+		ADDPROPERTY(objEmpty,"MARTESCAR",ldCarnaval+1)
+		*</ReturnObject>
+		RETURN objEmpty
+		
+	ENDPROC
+
 	PROCEDURE randmath
 		LPARAMETERS lnLimite
 		RETURN (INT(VAL(SYS(2007,SYS(2015),0,1))/4294967296*lnLimite))
@@ -189,6 +536,22 @@ DEFINE CLASS form1 AS form
 	PROCEDURE cmdSalir.Click
 		THISFORM.Hide()
 		THISFORM.Release()
+		
+	ENDPROC
+
+	PROCEDURE pgfPaginas.pagFidel.Activate
+		IF EMPTY(this.spnAno.Value)
+			this.spnAno.Value=YEAR(DATE())
+			thisform.getpascuale(YEAR(DATE()))
+		ENDIF
+		
+	ENDPROC
+
+	PROCEDURE pgfPaginas.pagFidel.spnAno.InteractiveChange
+		IF BETWEEN(this.Value,1600,2099)
+			thisform.getpascuale(this.Value)
+		ENDIF
+		
 		
 	ENDPROC
 
