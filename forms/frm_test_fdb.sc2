@@ -41,6 +41,7 @@ DEFINE CLASS form1 AS form
 	*< OBJECTDATA: ObjPath="pgfPaginas.pagNueva.lblColor" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pgfPaginas.pagNueva.txtNombre" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pgfPaginas.pagNueva.txtColor" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pgfPaginas.pagMergeManual_1.lblMergeManual" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdPag1" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdPag2" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdSalir" UniqueID="" Timestamp="" />
@@ -99,7 +100,7 @@ DEFINE CLASS form1 AS form
 		Height = 169, ;
 		Left = 116, ;
 		Name = "pgfPaginas", ;
-		PageCount = 3, ;
+		PageCount = 4, ;
 		Top = 12, ;
 		Width = 460, ;
 		Page1.Caption = "Principal", ;
@@ -107,8 +108,21 @@ DEFINE CLASS form1 AS form
 		Page2.Caption = "Secundaria", ;
 		Page2.Name = "pagSecundaria", ;
 		Page3.Caption = "Nueva", ;
-		Page3.Name = "pagNueva"
+		Page3.Name = "pagNueva", ;
+		Page4.Caption = "Merge Manual 1", ;
+		Page4.Name = "pagMergeManual_1"
 		*< END OBJECT: BaseClass="pageframe" />
+
+	ADD OBJECT 'pgfPaginas.pagMergeManual_1.lblMergeManual' AS label WITH ;
+		Caption = "Esta etiqueta en esta nueva página solo está para provocar un Merge manual, ya que la hice mientras otro estaba modificando este mismo PageFrame", ;
+		FontSize = 12, ;
+		Height = 96, ;
+		Left = 27, ;
+		Name = "lblMergeManual", ;
+		Top = 24, ;
+		Width = 408, ;
+		WordWrap = .T.
+		*< END OBJECT: BaseClass="label" />
 
 	ADD OBJECT 'pgfPaginas.pagNueva.lblColor' AS label WITH ;
 		BackStyle = 0, ;
