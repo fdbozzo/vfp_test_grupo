@@ -99,7 +99,7 @@ DEFINE CLASS form1 AS form
 		Height = 169, ;
 		Left = 116, ;
 		Name = "pgfPaginas", ;
-		PageCount = 3, ;
+		PageCount = 4, ;
 		Top = 12, ;
 		Width = 460, ;
 		Page1.Caption = "Principal", ;
@@ -107,7 +107,9 @@ DEFINE CLASS form1 AS form
 		Page2.Caption = "Secundaria", ;
 		Page2.Name = "pagSecundaria", ;
 		Page3.Caption = "Nueva", ;
-		Page3.Name = "pagNueva"
+		Page3.Name = "pagNueva", ;
+		Page4.Caption = "Antonio Meza", ;
+		Page4.Name = "pagAntonioMeza"
 		*< END OBJECT: BaseClass="pageframe" />
 
 	ADD OBJECT 'pgfPaginas.pagNueva.lblColor' AS label WITH ;
