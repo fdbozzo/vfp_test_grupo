@@ -41,21 +41,25 @@ DEFINE CLASS form1 AS form
 	*< OBJECTDATA: ObjPath="pgfPaginas.pagNueva.lblColor" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pgfPaginas.pagNueva.txtNombre" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pgfPaginas.pagNueva.txtColor" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pgfPaginas.pagFidel.shpMarco" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pgfPaginas.pagMergeManual_1.shpBordeLabel" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pgfPaginas.pagMergeManual_1.lblMergeManual" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pgfPaginas.pagMergeManual_1.cmdArchivo" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pgfPaginas.pagMergeManual_1.lblArchivo" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pgfPaginas.pagFidel.shpGen" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pgfPaginas.pagFidel.shpDes7" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pgfPaginas.pagFidel.lblAno" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pgfPaginas.pagFidel.txtPascua" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pgfPaginas.pagFidel.spnAno" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pgfPaginas.pagFidel.Shape1" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pgfPaginas.pagFidel.shpMarco1" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pgfPaginas.pagFidel.lblPascua" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pgfPaginas.pagFidel.txtSanto" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pgfPaginas.pagFidel.Shape2" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pgfPaginas.pagFidel.shpMarco2" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pgfPaginas.pagFidel.lblSanto" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pgfPaginas.pagFidel.txtCarnaval1" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pgfPaginas.pagFidel.Shape3" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pgfPaginas.pagFidel.shpMarco3" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pgfPaginas.pagFidel.lblCarnaval1" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pgfPaginas.pagFidel.txtCarnaval2" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pgfPaginas.pagFidel.Shape4" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pgfPaginas.pagFidel.shpMarco4" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pgfPaginas.pagFidel.lblCarnaval2" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdPag1" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdPag2" UniqueID="" Timestamp="" />
@@ -117,7 +121,7 @@ DEFINE CLASS form1 AS form
 		Height = 169, ;
 		Left = 116, ;
 		Name = "pgfPaginas", ;
-		PageCount = 4, ;
+		PageCount = 5, ;
 		Top = 12, ;
 		Width = 460, ;
 		Page1.Caption = "Principal", ;
@@ -127,8 +131,11 @@ DEFINE CLASS form1 AS form
 		Page3.Caption = "Nueva", ;
 		Page3.Name = "pagNueva", ;
 		Page4.BackColor = 210,221,219, ;
-		Page4.Caption = "pagFidel", ;
-		Page4.Name = "pagFidel"
+		Page4.Caption = "Merge Manual 1", ;
+		Page4.Name = "pagMergeManual_1", ;
+		Page5.BackColor = 210,221,219, ;
+		Page5.Caption = "pagFidel", ;
+		Page5.Name = "pagFidel"
 		*< END OBJECT: BaseClass="pageframe" />
 
 	ADD OBJECT 'pgfPaginas.pagFidel.lblAno' AS label WITH ;
@@ -196,46 +203,6 @@ DEFINE CLASS form1 AS form
 		Width = 71
 		*< END OBJECT: BaseClass="label" />
 
-	ADD OBJECT 'pgfPaginas.pagFidel.Shape1' AS shape WITH ;
-		BackColor = 220,228,224, ;
-		BorderColor = 114,136,141, ;
-		Height = 21, ;
-		Left = 9, ;
-		Name = "Shape1", ;
-		Top = 33, ;
-		Width = 135
-		*< END OBJECT: BaseClass="shape" />
-
-	ADD OBJECT 'pgfPaginas.pagFidel.Shape2' AS shape WITH ;
-		BackColor = 220,228,224, ;
-		BorderColor = 114,136,141, ;
-		Height = 21, ;
-		Left = 9, ;
-		Name = "Shape2", ;
-		Top = 53, ;
-		Width = 135
-		*< END OBJECT: BaseClass="shape" />
-
-	ADD OBJECT 'pgfPaginas.pagFidel.Shape3' AS shape WITH ;
-		BackColor = 220,228,224, ;
-		BorderColor = 114,136,141, ;
-		Height = 21, ;
-		Left = 9, ;
-		Name = "Shape3", ;
-		Top = 73, ;
-		Width = 135
-		*< END OBJECT: BaseClass="shape" />
-
-	ADD OBJECT 'pgfPaginas.pagFidel.Shape4' AS shape WITH ;
-		BackColor = 220,228,224, ;
-		BorderColor = 114,136,141, ;
-		Height = 21, ;
-		Left = 9, ;
-		Name = "Shape4", ;
-		Top = 93, ;
-		Width = 135
-		*< END OBJECT: BaseClass="shape" />
-
 	ADD OBJECT 'pgfPaginas.pagFidel.shpDes7' AS shape WITH ;
 		BackColor = 220,228,224, ;
 		BorderColor = 114,136,141, ;
@@ -246,14 +213,54 @@ DEFINE CLASS form1 AS form
 		Width = 135
 		*< END OBJECT: BaseClass="shape" />
 
-	ADD OBJECT 'pgfPaginas.pagFidel.shpMarco' AS shape WITH ;
+	ADD OBJECT 'pgfPaginas.pagFidel.shpGen' AS shape WITH ;
 		BackColor = 221,226,222, ;
 		Height = 114, ;
 		Left = 5, ;
-		Name = "shpMarco", ;
+		Name = "shpGen", ;
 		SpecialEffect = 0, ;
 		Top = 5, ;
 		Width = 206
+		*< END OBJECT: BaseClass="shape" />
+
+	ADD OBJECT 'pgfPaginas.pagFidel.shpMarco1' AS shape WITH ;
+		BackColor = 220,228,224, ;
+		BorderColor = 114,136,141, ;
+		Height = 21, ;
+		Left = 9, ;
+		Name = "shpMarco1", ;
+		Top = 33, ;
+		Width = 135
+		*< END OBJECT: BaseClass="shape" />
+
+	ADD OBJECT 'pgfPaginas.pagFidel.shpMarco2' AS shape WITH ;
+		BackColor = 220,228,224, ;
+		BorderColor = 114,136,141, ;
+		Height = 21, ;
+		Left = 9, ;
+		Name = "shpMarco2", ;
+		Top = 53, ;
+		Width = 135
+		*< END OBJECT: BaseClass="shape" />
+
+	ADD OBJECT 'pgfPaginas.pagFidel.shpMarco3' AS shape WITH ;
+		BackColor = 220,228,224, ;
+		BorderColor = 114,136,141, ;
+		Height = 21, ;
+		Left = 9, ;
+		Name = "shpMarco3", ;
+		Top = 73, ;
+		Width = 135
+		*< END OBJECT: BaseClass="shape" />
+
+	ADD OBJECT 'pgfPaginas.pagFidel.shpMarco4' AS shape WITH ;
+		BackColor = 220,228,224, ;
+		BorderColor = 114,136,141, ;
+		Height = 21, ;
+		Left = 9, ;
+		Name = "shpMarco4", ;
+		Top = 93, ;
+		Width = 135
 		*< END OBJECT: BaseClass="shape" />
 
 	ADD OBJECT 'pgfPaginas.pagFidel.spnAno' AS spinner WITH ;
@@ -346,6 +353,47 @@ DEFINE CLASS form1 AS form
 		Value = (Ctod("")), ;
 		Width = 63
 		*< END OBJECT: BaseClass="textbox" />
+
+	ADD OBJECT 'pgfPaginas.pagMergeManual_1.cmdArchivo' AS commandbutton WITH ;
+		Caption = "Archivo", ;
+		Height = 27, ;
+		Left = 15, ;
+		Name = "cmdArchivo", ;
+		Top = 100, ;
+		Width = 84
+		*< END OBJECT: BaseClass="commandbutton" />
+
+	ADD OBJECT 'pgfPaginas.pagMergeManual_1.lblArchivo' AS label WITH ;
+		Caption = "...", ;
+		Height = 17, ;
+		Left = 123, ;
+		Name = "lblArchivo", ;
+		Top = 104, ;
+		Width = 316
+		*< END OBJECT: BaseClass="label" />
+
+	ADD OBJECT 'pgfPaginas.pagMergeManual_1.lblMergeManual' AS label WITH ;
+		BackColor = 255,255,179, ;
+		Caption = "Esta etiqueta en esta nueva página solo está para provocar un Merge manual, ya que la hice mientras otro estaba modificando este mismo PageFrame", ;
+		FontSize = 12, ;
+		Height = 64, ;
+		Left = 27, ;
+		Name = "lblMergeManual", ;
+		Top = 16, ;
+		Width = 408, ;
+		WordWrap = .T.
+		*< END OBJECT: BaseClass="label" />
+
+	ADD OBJECT 'pgfPaginas.pagMergeManual_1.shpBordeLabel' AS shape WITH ;
+		BorderColor = 255,0,0, ;
+		BorderWidth = 2, ;
+		Curvature = 18, ;
+		Height = 85, ;
+		Left = 15, ;
+		Name = "shpBordeLabel", ;
+		Top = 8, ;
+		Width = 433
+		*< END OBJECT: BaseClass="shape" />
 
 	ADD OBJECT 'pgfPaginas.pagNueva.lblColor' AS label WITH ;
 		BackStyle = 0, ;
@@ -552,6 +600,11 @@ DEFINE CLASS form1 AS form
 			thisform.getpascuale(this.Value)
 		ENDIF
 		
+		
+	ENDPROC
+
+	PROCEDURE pgfPaginas.pagMergeManual_1.cmdArchivo.Click
+		THIS.Parent.lblArchivo.Caption = GETFILE()
 		
 	ENDPROC
 
