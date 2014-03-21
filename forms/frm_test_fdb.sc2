@@ -41,9 +41,9 @@ DEFINE CLASS form1 AS form
 	*< OBJECTDATA: ObjPath="pgfPaginas.pagNueva.lblColor" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pgfPaginas.pagNueva.txtNombre" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pgfPaginas.pagNueva.txtColor" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pgfPaginas.pagAntonioMeza.Command1" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pgfPaginas.pagAntonioMeza.Label1" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pgfPaginas.pagAntonioMeza.Optiongroup1" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pgfPaginas.pagAntonioMeza.btnsaludo" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pgfPaginas.pagAntonioMeza.lbltitulo" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pgfPaginas.pagAntonioMeza.opgtiempo" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdPag1" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdPag2" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdSalir" UniqueID="" Timestamp="" />
@@ -116,31 +116,31 @@ DEFINE CLASS form1 AS form
 		Page4.Name = "pagAntonioMeza"
 		*< END OBJECT: BaseClass="pageframe" />
 
-	ADD OBJECT 'pgfPaginas.pagAntonioMeza.Command1' AS commandbutton WITH ;
+	ADD OBJECT 'pgfPaginas.pagAntonioMeza.btnsaludo' AS commandbutton WITH ;
 		Caption = "Mostrar Saludo", ;
 		Height = 27, ;
 		Left = 159, ;
-		Name = "Command1", ;
+		Name = "btnsaludo", ;
 		Top = 80, ;
 		Width = 120
 		*< END OBJECT: BaseClass="commandbutton" />
 
-	ADD OBJECT 'pgfPaginas.pagAntonioMeza.Label1' AS label WITH ;
+	ADD OBJECT 'pgfPaginas.pagAntonioMeza.lbltitulo' AS label WITH ;
 		AutoSize = .T., ;
 		BackStyle = 0, ;
 		Caption = "Añadiendo controles al PageFrame", ;
 		Height = 17, ;
 		Left = 135, ;
-		Name = "Label1", ;
+		Name = "lbltitulo", ;
 		Top = 20, ;
 		Width = 196
 		*< END OBJECT: BaseClass="label" />
 
-	ADD OBJECT 'pgfPaginas.pagAntonioMeza.Optiongroup1' AS optiongroup WITH ;
+	ADD OBJECT 'pgfPaginas.pagAntonioMeza.opgtiempo' AS optiongroup WITH ;
 		ButtonCount = 2, ;
 		Height = 46, ;
 		Left = 39, ;
-		Name = "Optiongroup1", ;
+		Name = "opgtiempo", ;
 		Top = 68, ;
 		Value = 1, ;
 		Width = 71, ;
@@ -241,8 +241,8 @@ DEFINE CLASS form1 AS form
 		
 	ENDPROC
 
-	PROCEDURE pgfPaginas.pagAntonioMeza.Command1.Click
-		MESSAGEBOX( IIF(this.Parent.optiongroup1.Value =1,"Buenos dias","Buenas Noches") + " desde México")
+	PROCEDURE pgfPaginas.pagAntonioMeza.btnsaludo.Click
+		MESSAGEBOX( IIF(this.Parent.opgTiempo.Value =1,"Buenos dias","Buenas Noches") + " desde México")
 	ENDPROC
 
 	PROCEDURE pgfPaginas.pagNueva.txtColor.Valid
