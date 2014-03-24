@@ -61,12 +61,19 @@ DEFINE CLASS form1 AS form
 	*< OBJECTDATA: ObjPath="pgfPaginas.pagFidel.txtCarnaval2" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pgfPaginas.pagFidel.shpMarco4" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pgfPaginas.pagFidel.lblCarnaval2" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pgfPaginas.pagAntonioMeza.btnsaludo" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pgfPaginas.pagAntonioMeza.lbltitulo" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pgfPaginas.pagAntonioMeza.opgtiempo" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdPag1" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdPag2" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdSalir" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdPag3" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="cmdPag4" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="cmdPag5" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="cmdPag6" UniqueID="" Timestamp="" />
 
 	*<DefinedPropArrayMethod>
+		*m: *buttoncontrol
 		*m: *getpascuale
 		*m: *pascuale		&& Determina los días de Semana Santa para un año dado
 		*m: *randmath
@@ -82,36 +89,71 @@ DEFINE CLASS form1 AS form
 
 	ADD OBJECT 'cmdPag1' AS commandbutton WITH ;
 		Caption = "Pag.1", ;
-		Height = 27, ;
+		Height = 26, ;
 		Left = 16, ;
 		Name = "cmdPag1", ;
-		Top = 48, ;
+		TabIndex = 2, ;
+		Top = 21, ;
 		Width = 84
 		*< END OBJECT: BaseClass="commandbutton" />
 
 	ADD OBJECT 'cmdPag2' AS commandbutton WITH ;
 		Caption = "Pag.2", ;
-		Height = 27, ;
+		Height = 26, ;
 		Left = 16, ;
 		Name = "cmdPag2", ;
-		Top = 80, ;
+		TabIndex = 3, ;
+		Top = 47, ;
 		Width = 84
 		*< END OBJECT: BaseClass="commandbutton" />
 
 	ADD OBJECT 'cmdPag3' AS commandbutton WITH ;
 		Caption = "Pag.3", ;
-		Height = 27, ;
+		Height = 26, ;
 		Left = 16, ;
 		Name = "cmdPag3", ;
-		Top = 112, ;
+		TabIndex = 4, ;
+		Top = 73, ;
+		Width = 84
+		*< END OBJECT: BaseClass="commandbutton" />
+
+	ADD OBJECT 'cmdPag4' AS commandbutton WITH ;
+		Caption = "Pag.4", ;
+		Height = 26, ;
+		Left = 16, ;
+		Name = "cmdPag4", ;
+		TabIndex = 5, ;
+		Top = 99, ;
+		Width = 84
+		*< END OBJECT: BaseClass="commandbutton" />
+
+	ADD OBJECT 'cmdPag5' AS commandbutton WITH ;
+		Caption = "Pag.5", ;
+		Height = 26, ;
+		Left = 16, ;
+		Name = "cmdPag5", ;
+		TabIndex = 6, ;
+		Top = 125, ;
+		Width = 84
+		*< END OBJECT: BaseClass="commandbutton" />
+
+	ADD OBJECT 'cmdPag6' AS commandbutton WITH ;
+		Caption = "Pag.6", ;
+		Height = 26, ;
+		Left = 16, ;
+		Name = "cmdPag6", ;
+		TabIndex = 7, ;
+		Top = 151, ;
 		Width = 84
 		*< END OBJECT: BaseClass="commandbutton" />
 
 	ADD OBJECT 'cmdSalir' AS commandbutton WITH ;
+		Cancel = .T., ;
 		Caption = "Salir", ;
 		Height = 27, ;
 		Left = 480, ;
 		Name = "cmdSalir", ;
+		TabIndex = 8, ;
 		Top = 192, ;
 		Width = 84
 		*< END OBJECT: BaseClass="commandbutton" />
@@ -121,7 +163,8 @@ DEFINE CLASS form1 AS form
 		Height = 169, ;
 		Left = 116, ;
 		Name = "pgfPaginas", ;
-		PageCount = 5, ;
+		PageCount = 6, ;
+		TabIndex = 1, ;
 		Top = 12, ;
 		Width = 460, ;
 		Page1.Caption = "Principal", ;
@@ -135,8 +178,53 @@ DEFINE CLASS form1 AS form
 		Page4.Name = "pagMergeManual_1", ;
 		Page5.BackColor = 210,221,219, ;
 		Page5.Caption = "pagFidel", ;
-		Page5.Name = "pagFidel"
+		Page5.Name = "pagFidel", ;
+		Page6.Caption = "Antonio Meza", ;
+		Page6.Name = "pagAntonioMeza"
 		*< END OBJECT: BaseClass="pageframe" />
+
+	ADD OBJECT 'pgfPaginas.pagAntonioMeza.btnsaludo' AS commandbutton WITH ;
+		Caption = "Mostrar Saludo", ;
+		Height = 27, ;
+		Left = 159, ;
+		Name = "btnsaludo", ;
+		Top = 80, ;
+		Width = 120
+		*< END OBJECT: BaseClass="commandbutton" />
+
+	ADD OBJECT 'pgfPaginas.pagAntonioMeza.lbltitulo' AS label WITH ;
+		AutoSize = .T., ;
+		BackStyle = 0, ;
+		Caption = "Añadiendo controles al PageFrame", ;
+		Height = 17, ;
+		Left = 135, ;
+		Name = "lbltitulo", ;
+		Top = 20, ;
+		Width = 196
+		*< END OBJECT: BaseClass="label" />
+
+	ADD OBJECT 'pgfPaginas.pagAntonioMeza.opgtiempo' AS optiongroup WITH ;
+		ButtonCount = 2, ;
+		Height = 46, ;
+		Left = 39, ;
+		Name = "opgtiempo", ;
+		Top = 68, ;
+		Value = 1, ;
+		Width = 71, ;
+		Option1.Caption = "Día", ;
+		Option1.Height = 17, ;
+		Option1.Left = 5, ;
+		Option1.Name = "Option1", ;
+		Option1.Top = 5, ;
+		Option1.Value = 1, ;
+		Option1.Width = 61, ;
+		Option2.Caption = "Noche", ;
+		Option2.Height = 17, ;
+		Option2.Left = 5, ;
+		Option2.Name = "Option2", ;
+		Option2.Top = 24, ;
+		Option2.Width = 61
+		*< END OBJECT: BaseClass="optiongroup" />
 
 	ADD OBJECT 'pgfPaginas.pagFidel.lblAno' AS label WITH ;
 		AutoSize = .T., ;
@@ -451,6 +539,18 @@ DEFINE CLASS form1 AS form
 		Width = 23
 		*< END OBJECT: BaseClass="timer" />
 	
+	PROCEDURE buttoncontrol
+		lcNameButton="cmdpag"+TRANSFORM(This.pgfPaginas.ActivePage)
+		FOR EACH ocontrol IN this.Controls
+			IF oControl.baseclass="Commandbutton" AND LOWER(LEFT(oControl.name,LEN("cmdpag")))=="cmdpag"
+				oControl.Enabled=IIF(LOWER(oControl.name)==lcNameButton,.f.,.t.)
+			ENDIF
+		ENDFOR
+		
+				
+		
+	ENDPROC
+
 	PROCEDURE getpascuale
 		LPARAMETERS xnAno
 		LOCAL objRet
@@ -581,10 +681,33 @@ DEFINE CLASS form1 AS form
 		
 	ENDPROC
 
+	PROCEDURE cmdPag4.Click
+		THISFORM.pgfPaginas.ActivePage = 4
+		
+	ENDPROC
+
+	PROCEDURE cmdPag5.Click
+		THISFORM.pgfPaginas.ActivePage = 5
+		
+	ENDPROC
+
+	PROCEDURE cmdPag6.Click
+		THISFORM.pgfPaginas.ActivePage = 6
+		
+	ENDPROC
+
 	PROCEDURE cmdSalir.Click
 		THISFORM.Hide()
 		THISFORM.Release()
 		
+	ENDPROC
+
+	PROCEDURE pgfPaginas.pagAntonioMeza.Activate
+		Thisform.buttoncontrol()
+	ENDPROC
+
+	PROCEDURE pgfPaginas.pagAntonioMeza.btnsaludo.Click
+		MESSAGEBOX( IIF(this.Parent.opgTiempo.Value =1,"Buenos dias","Buenas Noches") + " desde México")
 	ENDPROC
 
 	PROCEDURE pgfPaginas.pagFidel.Activate
@@ -592,7 +715,7 @@ DEFINE CLASS form1 AS form
 			this.spnAno.Value=YEAR(DATE())
 			thisform.getpascuale(YEAR(DATE()))
 		ENDIF
-		
+		Thisform.buttoncontrol()
 	ENDPROC
 
 	PROCEDURE pgfPaginas.pagFidel.spnAno.InteractiveChange
@@ -603,9 +726,17 @@ DEFINE CLASS form1 AS form
 		
 	ENDPROC
 
+	PROCEDURE pgfPaginas.pagMergeManual_1.Activate
+		Thisform.buttoncontrol()
+	ENDPROC
+
 	PROCEDURE pgfPaginas.pagMergeManual_1.cmdArchivo.Click
 		THIS.Parent.lblArchivo.Caption = GETFILE()
 		
+	ENDPROC
+
+	PROCEDURE pgfPaginas.pagNueva.Activate
+		Thisform.buttoncontrol()
 	ENDPROC
 
 	PROCEDURE pgfPaginas.pagNueva.txtColor.Valid
@@ -616,6 +747,10 @@ DEFINE CLASS form1 AS form
 		
 	ENDPROC
 
+	PROCEDURE pgfPaginas.pagPrincipal.Activate
+		Thisform.buttoncontrol()
+	ENDPROC
+
 	PROCEDURE pgfPaginas.pagPrincipal.tmrColor.Timer
 		LOCAL lnR,lnG,lnB
 		This.Enabled=.f.
@@ -624,6 +759,10 @@ DEFINE CLASS form1 AS form
 		lnB=Thisform.RandMath(255)
 		This.Parent.shpLuz.BackColor=RGB(lnR,lnG,lnB)
 		This.Enabled=.t.
+	ENDPROC
+
+	PROCEDURE pgfPaginas.pagSecundaria.Activate
+		Thisform.buttoncontrol()
 	ENDPROC
 
 ENDDEFINE
