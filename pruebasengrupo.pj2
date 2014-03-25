@@ -50,10 +50,12 @@ MODIFY PROJECT 'pruebasengrupo.pjx' NOWAIT NOSHOW NOPROJECTHOOK
 loProject = _VFP.Projects('pruebasengrupo.pjx')
 
 WITH loProject.FILES
+	.ADD('forms\frm_test1.scx')		&& *< FileMetadata: Type="K" Cpid="1252" Timestamp="0" ID="0" ObjRev="0" />
 	.ADD('forms\frm_test_fdb.scx')		&& *< FileMetadata: Type="K" Cpid="1252" Timestamp="0" ID="0" ObjRev="544" />
 	.ADD('forms\frmedades.scx')		&& *< FileMetadata: Type="K" Cpid="1252" Timestamp="0" ID="0" ObjRev="544" />
 	.ADD('main_grupo.prg')		&& *< FileMetadata: Type="P" Cpid="1252" Timestamp="0" ID="0" ObjRev="544" />
 	.ADD('menus\menu_principal.mnx')		&& *< FileMetadata: Type="M" Cpid="1252" Timestamp="0" ID="0" ObjRev="544" />
+	.ADD('vfp_init.prg')		&& *< FileMetadata: Type="P" Cpid="1252" Timestamp="0" ID="0" ObjRev="0" />
 	*</BuildProj>
 
 	.ITEM('__newproject.f2b').Remove()

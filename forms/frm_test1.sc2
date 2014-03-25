@@ -5,7 +5,7 @@
 *< FOXBIN2PRG: Version="1.19" SourceFile="frm_test1.scx" /> (Solo para binarios VFP 9 / Only for VFP 9 binaries)
 *
 *
-DEFINE CLASS dataenvironment AS dataenvironment 
+DEFINE CLASS Dataenvironment AS dataenvironment 
  	*< CLASSDATA: Baseclass="dataenvironment" Timestamp="" Scale="" Uniqueid="" ClassIcon="1" />
 
 	DataSource = .NULL.
@@ -17,82 +17,88 @@ DEFINE CLASS dataenvironment AS dataenvironment
 
 ENDDEFINE
 
-DEFINE CLASS form1 AS form 
+DEFINE CLASS frmTest1 AS form 
  	*< CLASSDATA: Baseclass="form" Timestamp="" Scale="" Uniqueid="" />
 
 	*-- OBJECTDATA items order determines ZOrder / El orden de los items OBJECTDATA determina el ZOrder 
-	*< OBJECTDATA: ObjPath="Command1" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="Command2" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="Command3" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="Label1" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="Label2" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="shpRecuadroBotones" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="cmdFondoForm" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="lblPrueba" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="cmdFondoTexto" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="cmdFrenteTexto" UniqueID="" Timestamp="" />
 
-	Caption = "Formulario de Prueba"
+	Caption = "Test"
 	DoCreate = .T.
-	Left = 24
-	Name = "Form1"
-	Top = 9
+	Name = "frmTest1"
 
-	ADD OBJECT 'Command1' AS commandbutton WITH ;
-		Cancel = .T., ;
-		Caption = "Salir", ;
-		Height = 27, ;
-		Left = 276, ;
-		Name = "Command1", ;
-		Top = 216, ;
-		Width = 84
-		*< END OBJECT: BaseClass="commandbutton" />
-
-	ADD OBJECT 'Command2' AS commandbutton WITH ;
-		Caption = "Hola", ;
-		Height = 27, ;
-		Left = 144, ;
-		Name = "Command2", ;
-		Top = 96, ;
-		Width = 84
-		*< END OBJECT: BaseClass="commandbutton" />
-
-	ADD OBJECT 'Command3' AS commandbutton WITH ;
-		Caption = "Mensaje", ;
-		Height = 27, ;
-		Left = 144, ;
-		Name = "Command3", ;
-		Top = 60, ;
-		Width = 84
-		*< END OBJECT: BaseClass="commandbutton" />
-
-	ADD OBJECT 'Label1' AS label WITH ;
+	ADD OBJECT 'cmdFondoForm' AS commandbutton WITH ;
 		AutoSize = .T., ;
-		BackStyle = 0, ;
-		Caption = "Texto", ;
-		Height = 17, ;
+		Caption = "Fondo Formulario", ;
+		Height = 27, ;
 		Left = 24, ;
-		Name = "Label1", ;
+		Name = "cmdFondoForm", ;
+		Top = 132, ;
+		Width = 116
+		*< END OBJECT: BaseClass="commandbutton" />
+
+	ADD OBJECT 'cmdFondoTexto' AS commandbutton WITH ;
+		AutoSize = .T., ;
+		Caption = "Fondo Texto", ;
+		Height = 27, ;
+		Left = 24, ;
+		Name = "cmdFondoTexto", ;
+		Top = 168, ;
+		Width = 85
+		*< END OBJECT: BaseClass="commandbutton" />
+
+	ADD OBJECT 'cmdFrenteTexto' AS commandbutton WITH ;
+		AutoSize = .T., ;
+		Caption = "Frente Texto", ;
+		Height = 27, ;
+		Left = 120, ;
+		Name = "cmdFrenteTexto", ;
+		Top = 168, ;
+		Width = 85
+		*< END OBJECT: BaseClass="commandbutton" />
+
+	ADD OBJECT 'lblPrueba' AS label WITH ;
+		AutoSize = .T., ;
+		Caption = "Otro Texto de Prueba ---------------------------->", ;
+		Height = 17, ;
+		Left = 36, ;
+		Name = "lblPrueba", ;
 		Top = 60, ;
-		Width = 31
+		Width = 239
 		*< END OBJECT: BaseClass="label" />
 
-	ADD OBJECT 'Label2' AS label WITH ;
-		AutoSize = .T., ;
-		BackStyle = 0, ;
-		Caption = "Otro Texto", ;
-		Height = 17, ;
-		Left = 24, ;
-		Name = "Label2", ;
-		Top = 96, ;
-		Width = 57
-		*< END OBJECT: BaseClass="label" />
+	ADD OBJECT 'shpRecuadroBotones' AS shape WITH ;
+		Height = 113, ;
+		Left = 8, ;
+		Name = "shpRecuadroBotones", ;
+		SpecialEffect = 0, ;
+		Top = 120, ;
+		Width = 353
+		*< END OBJECT: BaseClass="shape" />
 
-	PROCEDURE Command1.Click
-		thisform.Release
+	PROCEDURE cmdFondoForm.Click
+		ThisForm.BackColor=GETCOLOR()
+		
 	ENDPROC
 
-	PROCEDURE Command2.Click
-		WAIT windows "Hola Mundo Nuevo!"
+	PROCEDURE cmdFondoTexto.Click
+		ThisForm.lblPrueba.BackColor=GETCOLOR()
+		
 	ENDPROC
 
-	PROCEDURE Command3.Click
-		WAIT windows "Mensaje"
+	PROCEDURE cmdFrenteTexto.Click
+		ThisForm.lblPrueba.ForeColor=GETCOLOR()
+		
+	ENDPROC
+
+	PROCEDURE shpRecuadroBotones.Click
+		this.BackColor = RGB(255,255,198)
+		
+		
 	ENDPROC
 
 ENDDEFINE
