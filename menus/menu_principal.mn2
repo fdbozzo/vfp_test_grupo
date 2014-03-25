@@ -21,10 +21,13 @@ ON PAD _40L192ZE5 OF _MSYSMENU ACTIVATE POPUP Aplicacion
 	DEFINE BAR 2 OF Aplicacion PROMPT "Fidel"
 	ON SELECTION BAR 2 OF Aplicacion do form frmedades
 
-	DEFINE BAR 3 OF Aplicacion PROMPT "Salir"
-	ON SELECTION BAR 3 OF Aplicacion SET SYSMENUS TO DEFAULT
+	DEFINE BAR 3 OF Aplicacion PROMPT "Pancho"
+	ON SELECTION BAR 3 OF Aplicacion do form frm_test1
 
-	DEFINE BAR 4 OF Aplicacion PROMPT "Opcion vacía"
-	ON SELECTION BAR 4 OF Aplicacion wait window "Esta es para provocar un merge manual a Fran :)"
+	DEFINE BAR 4 OF Aplicacion PROMPT "Salir"
+	ON SELECTION BAR 4 OF Aplicacion SET SYSMENUS TO DEFAULT
+
+	DEFINE BAR 5 OF Aplicacion PROMPT "Opcion vacía"
+	ON SELECTION BAR 5 OF Aplicacion wait window "Esta es para provocar un merge manual a Fran :)"
 
 *</MenuCode>

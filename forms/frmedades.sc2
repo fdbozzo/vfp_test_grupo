@@ -5,7 +5,7 @@
 *< FOXBIN2PRG: Version="1.19" SourceFile="frmedades.scx" /> (Solo para binarios VFP 9 / Only for VFP 9 binaries)
 *
 *
-DEFINE CLASS Dataenvironment AS dataenvironment 
+DEFINE CLASS dataenvironment AS dataenvironment 
  	*< CLASSDATA: Baseclass="dataenvironment" Timestamp="" Scale="" Uniqueid="" ClassIcon="1" />
 
 	DataSource = .NULL.
