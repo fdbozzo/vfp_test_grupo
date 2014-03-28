@@ -41,6 +41,8 @@ DEFINE CLASS form1 AS form
 	*< OBJECTDATA: ObjPath="pgfPaginas.pagNueva.lblColor" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pgfPaginas.pagNueva.txtNombre" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pgfPaginas.pagNueva.txtColor" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pgfPaginas.pagEmail.txtEmail" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pgfPaginas.pagEmail.cmdValidar" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdPag1" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdPag2" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdSalir" UniqueID="" Timestamp="" />
@@ -99,7 +101,7 @@ DEFINE CLASS form1 AS form
 		Height = 169, ;
 		Left = 116, ;
 		Name = "pgfPaginas", ;
-		PageCount = 3, ;
+		PageCount = 4, ;
 		Top = 12, ;
 		Width = 460, ;
 		Page1.Caption = "Principal", ;
@@ -107,8 +109,27 @@ DEFINE CLASS form1 AS form
 		Page2.Caption = "Secundaria", ;
 		Page2.Name = "pagSecundaria", ;
 		Page3.Caption = "Nueva", ;
-		Page3.Name = "pagNueva"
+		Page3.Name = "pagNueva", ;
+		Page4.Caption = "Email", ;
+		Page4.Name = "pagEmail"
 		*< END OBJECT: BaseClass="pageframe" />
+
+	ADD OBJECT 'pgfPaginas.pagEmail.cmdValidar' AS commandbutton WITH ;
+		Caption = "Validar", ;
+		Height = 27, ;
+		Left = 183, ;
+		Name = "cmdValidar", ;
+		Top = 68, ;
+		Width = 84
+		*< END OBJECT: BaseClass="commandbutton" />
+
+	ADD OBJECT 'pgfPaginas.pagEmail.txtEmail' AS textbox WITH ;
+		Height = 23, ;
+		Left = 22, ;
+		Name = "txtEmail", ;
+		Top = 10, ;
+		Width = 413
+		*< END OBJECT: BaseClass="textbox" />
 
 	ADD OBJECT 'pgfPaginas.pagNueva.lblColor' AS label WITH ;
 		BackStyle = 0, ;
@@ -190,6 +211,21 @@ DEFINE CLASS form1 AS form
 		THISFORM.Hide()
 		THISFORM.Release()
 		
+	ENDPROC
+
+	PROCEDURE pgfPaginas.pagEmail.cmdValidar.Click
+		LOCAL loRegExp,llValido				
+		*	
+		loRegExp = CreateObject("VBScript.RegExp")
+		loRegExp.IgnoreCase = .T.
+		loRegExp.Pattern =  '^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\.\-]?[a-zA-Z0-9]+)­*)\.([A-Za-z]{2,})$'
+		llValido=loRegExp.Test(ALLTRIM(This.Parent.txtEmail.Value))
+		RELEASE loRegExp
+		IF llValido
+			MESSAGEBOX("La direccion ingresada es correcta.",64,"Felicidades")
+		ELSE
+			MESSAGEBOX("La direccion ingresada es incorrecta.",16,"Verifique")
+		ENDIF 
 	ENDPROC
 
 	PROCEDURE pgfPaginas.pagNueva.txtColor.Valid
