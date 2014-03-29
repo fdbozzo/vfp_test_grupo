@@ -64,6 +64,8 @@ DEFINE CLASS form1 AS form
 	*< OBJECTDATA: ObjPath="pgfPaginas.pagAntonioMeza.btnsaludo" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pgfPaginas.pagAntonioMeza.lbltitulo" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pgfPaginas.pagAntonioMeza.opgtiempo" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pgfPaginas.pagEmail.txtEmail" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pgfPaginas.pagEmail.cmdValidar" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdPag1" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdPag2" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdSalir" UniqueID="" Timestamp="" />
@@ -71,6 +73,7 @@ DEFINE CLASS form1 AS form
 	*< OBJECTDATA: ObjPath="cmdPag4" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdPag5" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdPag6" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="cmdPag7" UniqueID="" Timestamp="" />
 
 	*<DefinedPropArrayMethod>
 		*m: *buttoncontrol
@@ -85,102 +88,128 @@ DEFINE CLASS form1 AS form
 	Left = 0
 	Name = "Form1"
 	Top = 0
-	Width = 735
+	Width = 550
 
 	ADD OBJECT 'cmdPag1' AS commandbutton WITH ;
 		Caption = "Pag.1", ;
-		Height = 26, ;
-		Left = 16, ;
+		FontSize = 8, ;
+		Height = 23, ;
+		Left = 13, ;
 		Name = "cmdPag1", ;
 		TabIndex = 2, ;
-		Top = 21, ;
-		Width = 84
+		Top = 14, ;
+		Width = 54
 		*< END OBJECT: BaseClass="commandbutton" />
 
 	ADD OBJECT 'cmdPag2' AS commandbutton WITH ;
 		Caption = "Pag.2", ;
-		Height = 26, ;
-		Left = 16, ;
+		FontSize = 8, ;
+		Height = 23, ;
+		Left = 13, ;
 		Name = "cmdPag2", ;
 		TabIndex = 3, ;
-		Top = 47, ;
-		Width = 84
+		Top = 37, ;
+		Width = 54
 		*< END OBJECT: BaseClass="commandbutton" />
 
 	ADD OBJECT 'cmdPag3' AS commandbutton WITH ;
 		Caption = "Pag.3", ;
-		Height = 26, ;
-		Left = 16, ;
+		FontSize = 8, ;
+		Height = 23, ;
+		Left = 13, ;
 		Name = "cmdPag3", ;
 		TabIndex = 4, ;
-		Top = 73, ;
-		Width = 84
+		Top = 60, ;
+		Width = 54
 		*< END OBJECT: BaseClass="commandbutton" />
 
 	ADD OBJECT 'cmdPag4' AS commandbutton WITH ;
 		Caption = "Pag.4", ;
-		Height = 26, ;
-		Left = 16, ;
+		FontSize = 8, ;
+		Height = 23, ;
+		Left = 13, ;
 		Name = "cmdPag4", ;
 		TabIndex = 5, ;
-		Top = 99, ;
-		Width = 84
+		Top = 83, ;
+		Width = 54
 		*< END OBJECT: BaseClass="commandbutton" />
 
 	ADD OBJECT 'cmdPag5' AS commandbutton WITH ;
 		Caption = "Pag.5", ;
-		Height = 26, ;
-		Left = 16, ;
+		FontSize = 8, ;
+		Height = 23, ;
+		Left = 13, ;
 		Name = "cmdPag5", ;
 		TabIndex = 6, ;
-		Top = 125, ;
-		Width = 84
+		Top = 106, ;
+		Width = 54
 		*< END OBJECT: BaseClass="commandbutton" />
 
 	ADD OBJECT 'cmdPag6' AS commandbutton WITH ;
 		Caption = "Pag.6", ;
-		Height = 26, ;
-		Left = 16, ;
+		FontSize = 8, ;
+		Height = 23, ;
+		Left = 13, ;
 		Name = "cmdPag6", ;
 		TabIndex = 7, ;
-		Top = 151, ;
-		Width = 84
+		Top = 129, ;
+		Width = 54
+		*< END OBJECT: BaseClass="commandbutton" />
+
+	ADD OBJECT 'cmdPag7' AS commandbutton WITH ;
+		Caption = "Pag.7", ;
+		FontSize = 8, ;
+		Height = 23, ;
+		Left = 13, ;
+		Name = "cmdPag7", ;
+		TabIndex = 8, ;
+		Top = 152, ;
+		Width = 54
 		*< END OBJECT: BaseClass="commandbutton" />
 
 	ADD OBJECT 'cmdSalir' AS commandbutton WITH ;
 		Cancel = .T., ;
 		Caption = "Salir", ;
 		Height = 27, ;
-		Left = 480, ;
+		Left = 445, ;
 		Name = "cmdSalir", ;
-		TabIndex = 8, ;
+		TabIndex = 9, ;
 		Top = 192, ;
 		Width = 84
 		*< END OBJECT: BaseClass="commandbutton" />
 
 	ADD OBJECT 'pgfPaginas' AS pageframe WITH ;
 		ErasePage = .T., ;
-		Height = 169, ;
-		Left = 116, ;
+		Height = 167, ;
+		Left = 81, ;
 		Name = "pgfPaginas", ;
-		PageCount = 6, ;
+		PageCount = 7, ;
 		TabIndex = 1, ;
 		Top = 12, ;
 		Width = 460, ;
 		Page1.Caption = "Principal", ;
+		Page1.FontSize = 8, ;
 		Page1.Name = "pagPrincipal", ;
 		Page2.Caption = "Secundaria", ;
+		Page2.FontSize = 8, ;
 		Page2.Name = "pagSecundaria", ;
 		Page3.Caption = "Nueva", ;
+		Page3.FontSize = 8, ;
 		Page3.Name = "pagNueva", ;
 		Page4.BackColor = 210,221,219, ;
 		Page4.Caption = "Merge Manual 1", ;
+		Page4.FontSize = 8, ;
 		Page4.Name = "pagMergeManual_1", ;
 		Page5.BackColor = 210,221,219, ;
 		Page5.Caption = "pagFidel", ;
+		Page5.FontSize = 8, ;
 		Page5.Name = "pagFidel", ;
 		Page6.Caption = "Antonio Meza", ;
-		Page6.Name = "pagAntonioMeza"
+		Page6.FontSize = 8, ;
+		Page6.Name = "pagAntonioMeza", ;
+		Page7.Caption = "Email", ;
+		Page7.FontSize = 8, ;
+		Page7.Name = "pagEmail"
 		*< END OBJECT: BaseClass="pageframe" />
 
 	ADD OBJECT 'pgfPaginas.pagAntonioMeza.btnsaludo' AS commandbutton WITH ;
@@ -225,6 +254,23 @@ DEFINE CLASS form1 AS form
 		Option2.Top = 24, ;
 		Option2.Width = 61
 		*< END OBJECT: BaseClass="optiongroup" />
+
+	ADD OBJECT 'pgfPaginas.pagEmail.cmdValidar' AS commandbutton WITH ;
+		Caption = "Validar", ;
+		Height = 27, ;
+		Left = 183, ;
+		Name = "cmdValidar", ;
+		Top = 68, ;
+		Width = 84
+		*< END OBJECT: BaseClass="commandbutton" />
+
+	ADD OBJECT 'pgfPaginas.pagEmail.txtEmail' AS textbox WITH ;
+		Height = 23, ;
+		Left = 22, ;
+		Name = "txtEmail", ;
+		Top = 10, ;
+		Width = 413
+		*< END OBJECT: BaseClass="textbox" />
 
 	ADD OBJECT 'pgfPaginas.pagFidel.lblAno' AS label WITH ;
 		AutoSize = .T., ;
@@ -696,6 +742,11 @@ DEFINE CLASS form1 AS form
 		
 	ENDPROC
 
+	PROCEDURE cmdPag7.Click
+		THISFORM.pgfPaginas.ActivePage = 7
+		
+	ENDPROC
+
 	PROCEDURE cmdSalir.Click
 		THISFORM.Hide()
 		THISFORM.Release()
@@ -708,6 +759,25 @@ DEFINE CLASS form1 AS form
 
 	PROCEDURE pgfPaginas.pagAntonioMeza.btnsaludo.Click
 		MESSAGEBOX( IIF(this.Parent.opgTiempo.Value =1,"Buenos dias","Buenas Noches") + " desde México")
+	ENDPROC
+
+	PROCEDURE pgfPaginas.pagEmail.Activate
+		Thisform.buttoncontrol()
+	ENDPROC
+
+	PROCEDURE pgfPaginas.pagEmail.cmdValidar.Click
+		LOCAL loRegExp,llValido				
+		*	
+		loRegExp = CreateObject("VBScript.RegExp")
+		loRegExp.IgnoreCase = .T.
+		loRegExp.Pattern =  '^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\.\-]?[a-zA-Z0-9]+)­*)\.([A-Za-z]{2,})$'
+		llValido=loRegExp.Test(ALLTRIM(This.Parent.txtEmail.Value))
+		RELEASE loRegExp
+		IF llValido
+			MESSAGEBOX("La direccion ingresada es correcta.",64,"Felicidades")
+		ELSE
+			MESSAGEBOX("La direccion ingresada es incorrecta.",16,"Verifique")
+		ENDIF 
 	ENDPROC
 
 	PROCEDURE pgfPaginas.pagFidel.Activate
