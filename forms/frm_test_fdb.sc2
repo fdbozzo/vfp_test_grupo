@@ -41,6 +41,10 @@ DEFINE CLASS form1 AS form
 	*< OBJECTDATA: ObjPath="pgfPaginas.pagNueva.lblColor" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pgfPaginas.pagNueva.txtNombre" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pgfPaginas.pagNueva.txtColor" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pgfPaginas.pagMergeManual_1.shpBordeLabel" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pgfPaginas.pagMergeManual_1.lblMergeManual" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pgfPaginas.pagMergeManual_1.cmdArchivo" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pgfPaginas.pagMergeManual_1.lblArchivo" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pgfPaginas.pagEmail.txtEmail" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pgfPaginas.pagEmail.cmdValidar" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdPag1" UniqueID="" Timestamp="" />
@@ -101,7 +105,7 @@ DEFINE CLASS form1 AS form
 		Height = 169, ;
 		Left = 116, ;
 		Name = "pgfPaginas", ;
-		PageCount = 4, ;
+		PageCount = 5, ;
 		Top = 12, ;
 		Width = 460, ;
 		Page1.Caption = "Principal", ;
@@ -110,8 +114,10 @@ DEFINE CLASS form1 AS form
 		Page2.Name = "pagSecundaria", ;
 		Page3.Caption = "Nueva", ;
 		Page3.Name = "pagNueva", ;
-		Page4.Caption = "Email", ;
-		Page4.Name = "pagEmail"
+		Page4.Caption = "Merge Manual 1", ;
+		Page4.Name = "pagMergeManual_1", ;
+		Page5.Caption = "Email", ;
+		Page5.Name = "pagEmail"
 		*< END OBJECT: BaseClass="pageframe" />
 
 	ADD OBJECT 'pgfPaginas.pagEmail.cmdValidar' AS commandbutton WITH ;
@@ -130,6 +136,47 @@ DEFINE CLASS form1 AS form
 		Top = 10, ;
 		Width = 413
 		*< END OBJECT: BaseClass="textbox" />
+
+	ADD OBJECT 'pgfPaginas.pagMergeManual_1.cmdArchivo' AS commandbutton WITH ;
+		Caption = "Archivo", ;
+		Height = 27, ;
+		Left = 15, ;
+		Name = "cmdArchivo", ;
+		Top = 100, ;
+		Width = 84
+		*< END OBJECT: BaseClass="commandbutton" />
+
+	ADD OBJECT 'pgfPaginas.pagMergeManual_1.lblArchivo' AS label WITH ;
+		Caption = "...", ;
+		Height = 17, ;
+		Left = 123, ;
+		Name = "lblArchivo", ;
+		Top = 104, ;
+		Width = 316
+		*< END OBJECT: BaseClass="label" />
+
+	ADD OBJECT 'pgfPaginas.pagMergeManual_1.lblMergeManual' AS label WITH ;
+		BackColor = 255,255,179, ;
+		Caption = "Esta etiqueta en esta nueva página solo está para provocar un Merge manual, ya que la hice mientras otro estaba modificando este mismo PageFrame", ;
+		FontSize = 12, ;
+		Height = 64, ;
+		Left = 27, ;
+		Name = "lblMergeManual", ;
+		Top = 16, ;
+		Width = 408, ;
+		WordWrap = .T.
+		*< END OBJECT: BaseClass="label" />
+
+	ADD OBJECT 'pgfPaginas.pagMergeManual_1.shpBordeLabel' AS shape WITH ;
+		BorderColor = 255,0,0, ;
+		BorderWidth = 2, ;
+		Curvature = 18, ;
+		Height = 85, ;
+		Left = 15, ;
+		Name = "shpBordeLabel", ;
+		Top = 8, ;
+		Width = 433
+		*< END OBJECT: BaseClass="shape" />
 
 	ADD OBJECT 'pgfPaginas.pagNueva.lblColor' AS label WITH ;
 		BackStyle = 0, ;
@@ -226,6 +273,11 @@ DEFINE CLASS form1 AS form
 		ELSE
 			MESSAGEBOX("La direccion ingresada es incorrecta.",16,"Verifique")
 		ENDIF 
+	ENDPROC
+
+	PROCEDURE pgfPaginas.pagMergeManual_1.cmdArchivo.Click
+		THIS.Parent.lblArchivo.Caption = GETFILE()
+		
 	ENDPROC
 
 	PROCEDURE pgfPaginas.pagNueva.txtColor.Valid
