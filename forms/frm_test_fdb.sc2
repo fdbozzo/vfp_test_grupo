@@ -117,10 +117,12 @@ DEFINE CLASS form1 AS form
 		*< END OBJECT: BaseClass="pageframe" />
 
 	ADD OBJECT 'pgfPaginas.pagMergeManual_1.cmdArchivo' AS commandbutton WITH ;
+		BackColor = 128,255,255, ;
 		Caption = "Archivo", ;
 		Height = 27, ;
 		Left = 15, ;
 		Name = "cmdArchivo", ;
+		Themes = .F., ;
 		Top = 100, ;
 		Width = 84
 		*< END OBJECT: BaseClass="commandbutton" />
