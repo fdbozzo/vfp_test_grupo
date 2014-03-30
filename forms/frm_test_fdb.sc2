@@ -130,6 +130,7 @@ DEFINE CLASS form1 AS form
 		*< END OBJECT: BaseClass="commandbutton" />
 
 	ADD OBJECT 'pgfPaginas.pagEmail.txtEmail' AS textbox WITH ;
+		BackColor = 255,255,128, ;
 		Height = 23, ;
 		Left = 22, ;
 		Name = "txtEmail", ;
