@@ -137,7 +137,7 @@ DEFINE CLASS form1 AS form
 	ADD OBJECT 'pgfPaginas.pagMergeManual_1.lblMergeManual' AS label WITH ;
 		BackColor = 255,255,179, ;
 		Caption = "Esta etiqueta en esta nueva página solo está para provocar un Merge manual, ya que la hice mientras otro estaba modificando este mismo PageFrame", ;
-		FontSize = 12, ;
+		FontSize = 10, ;
 		Height = 64, ;
 		Left = 27, ;
 		Name = "lblMergeManual", ;
