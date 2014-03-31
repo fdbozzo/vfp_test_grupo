@@ -246,7 +246,7 @@ DEFINE CLASS form1 AS form
 	PROCEDURE pgfPaginas.pagMergeManual_1.cmdArchivo.Click
 		THIS.Parent.lblArchivo.Caption = GETFILE()
 		MESSAGEBOX(THIS.Parent.lblArchivo.Caption)	&& Línea a borrar luego
-		
+		NOTE: Solo debe quedar este comentario en lugar del messagebox.
 	ENDPROC
 
 	PROCEDURE pgfPaginas.pagNueva.txtColor.Valid
