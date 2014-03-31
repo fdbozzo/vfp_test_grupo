@@ -275,7 +275,8 @@ DEFINE CLASS form1 AS form
 
 	PROCEDURE pgfPaginas.pagEmail.cmdValidar.Click
 		LOCAL loRegExp,llValido				
-		*	
+		*
+		* Rutina de valicacion de email	
 		loRegExp = CreateObject("VBScript.RegExp")
 		loRegExp.IgnoreCase = .T.
 		loRegExp.Pattern =  '^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\.\-]?[a-zA-Z0-9]+)­*)\.([A-Za-z]{2,})$'
