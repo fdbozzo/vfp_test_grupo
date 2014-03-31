@@ -190,12 +190,15 @@ DEFINE CLASS form1 AS form
 		TabIndex = 1, ;
 		Top = 12, ;
 		Width = 460, ;
+		Page1.BackColor = 221,226,222, ;
 		Page1.Caption = "Principal", ;
 		Page1.FontSize = 8, ;
 		Page1.Name = "pagPrincipal", ;
+		Page2.BackColor = 221,226,222, ;
 		Page2.Caption = "Secundaria", ;
 		Page2.FontSize = 8, ;
 		Page2.Name = "pagSecundaria", ;
+		Page3.BackColor = 221,226,222, ;
 		Page3.Caption = "Nueva", ;
 		Page3.FontSize = 8, ;
 		Page3.Name = "pagNueva", ;
@@ -207,9 +210,11 @@ DEFINE CLASS form1 AS form
 		Page5.Caption = "pagFidel", ;
 		Page5.FontSize = 8, ;
 		Page5.Name = "pagFidel", ;
+		Page6.BackColor = 221,226,222, ;
 		Page6.Caption = "Antonio Meza", ;
 		Page6.FontSize = 8, ;
 		Page6.Name = "pagAntonioMeza", ;
+		Page7.BackColor = 221,226,222, ;
 		Page7.Caption = "Email", ;
 		Page7.FontSize = 8, ;
 		Page7.Name = "pagEmail"
