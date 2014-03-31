@@ -835,6 +835,8 @@ DEFINE CLASS form1 AS form
 			thisform.getpascuale(YEAR(DATE()))
 		ENDIF
 		Thisform.buttoncontrol()
+		MESSAGEBOX("Esta es la página de Fidel: "+PROGRAM())
+		
 	ENDPROC
 
 	PROCEDURE pgfPaginas.pagFidel.spnAno.InteractiveChange
