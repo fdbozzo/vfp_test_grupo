@@ -808,6 +808,7 @@ DEFINE CLASS form1 AS form
 	ENDPROC
 
 	PROCEDURE pgfPaginas.pagAntonioMeza.Activate
+		this.BackColor=RGB(221,226,222)
 		Thisform.buttoncontrol()
 	ENDPROC
 
@@ -815,7 +816,12 @@ DEFINE CLASS form1 AS form
 		MESSAGEBOX( IIF(this.Parent.opgTiempo.Value =1,"Buenos dias","Buenas Noches") + " desde México")
 	ENDPROC
 
+	PROCEDURE pgfPaginas.pagAntonioMeza.Deactivate
+		this.BackColor=RGB(202,210,204)
+	ENDPROC
+
 	PROCEDURE pgfPaginas.pagEmail.Activate
+		this.BackColor=RGB(221,226,222)
 		Thisform.buttoncontrol()
 	ENDPROC
 
@@ -834,7 +840,12 @@ DEFINE CLASS form1 AS form
 		ENDIF 
 	ENDPROC
 
+	PROCEDURE pgfPaginas.pagEmail.Deactivate
+		this.BackColor=RGB(202,210,204)
+	ENDPROC
+
 	PROCEDURE pgfPaginas.pagFidel.Activate
+		this.BackColor=RGB(221,226,222)
 		IF EMPTY(this.spnAno.Value)
 			this.spnAno.Value=YEAR(DATE())
 			thisform.getpascuale(YEAR(DATE()))
@@ -842,6 +853,14 @@ DEFINE CLASS form1 AS form
 		Thisform.buttoncontrol()
 		MESSAGEBOX("Esta es la página de Fidel: "+PROGRAM())
 		
+		
+		
+		
+		
+	ENDPROC
+
+	PROCEDURE pgfPaginas.pagFidel.Deactivate
+		this.BackColor=RGB(202,210,204)
 	ENDPROC
 
 	PROCEDURE pgfPaginas.pagFidel.spnAno.InteractiveChange
@@ -853,6 +872,7 @@ DEFINE CLASS form1 AS form
 	ENDPROC
 
 	PROCEDURE pgfPaginas.pagMergeManual_1.Activate
+		this.BackColor=RGB(221,226,222)
 		Thisform.buttoncontrol()
 	ENDPROC
 
@@ -861,8 +881,17 @@ DEFINE CLASS form1 AS form
 		
 	ENDPROC
 
+	PROCEDURE pgfPaginas.pagMergeManual_1.Deactivate
+		this.BackColor=RGB(202,210,204)
+	ENDPROC
+
 	PROCEDURE pgfPaginas.pagNueva.Activate
+		this.BackColor=RGB(221,226,222)
 		Thisform.buttoncontrol()
+	ENDPROC
+
+	PROCEDURE pgfPaginas.pagNueva.Deactivate
+		this.BackColor=RGB(202,210,204)
 	ENDPROC
 
 	PROCEDURE pgfPaginas.pagNueva.txtColor.Valid
@@ -874,7 +903,12 @@ DEFINE CLASS form1 AS form
 	ENDPROC
 
 	PROCEDURE pgfPaginas.pagPrincipal.Activate
+		this.BackColor=RGB(221,226,222)
 		Thisform.buttoncontrol()
+	ENDPROC
+
+	PROCEDURE pgfPaginas.pagPrincipal.Deactivate
+		this.BackColor=RGB(202,210,204)
 	ENDPROC
 
 	PROCEDURE pgfPaginas.pagPrincipal.tmrColor.Timer
@@ -888,7 +922,12 @@ DEFINE CLASS form1 AS form
 	ENDPROC
 
 	PROCEDURE pgfPaginas.pagSecundaria.Activate
+		this.BackColor=RGB(221,226,222)
 		Thisform.buttoncontrol()
+	ENDPROC
+
+	PROCEDURE pgfPaginas.pagSecundaria.Deactivate
+		this.BackColor=RGB(202,210,204)
 	ENDPROC
 
 ENDDEFINE
