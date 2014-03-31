@@ -128,7 +128,9 @@ DEFINE CLASS form1 AS form
 		*< END OBJECT: BaseClass="commandbutton" />
 
 	ADD OBJECT 'pgfPaginas.pagMergeManual_1.lblArchivo' AS label WITH ;
+		BackColor = 0,128,255, ;
 		Caption = "...", ;
+		ForeColor = 255,255,255, ;
 		Height = 17, ;
 		Left = 123, ;
 		Name = "lblArchivo", ;
