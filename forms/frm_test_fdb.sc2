@@ -663,6 +663,11 @@ DEFINE CLASS form1 AS form
 		objREt=null
 	ENDPROC
 
+	PROCEDURE Init
+		Thisform.pgfpaginas.ActivePage=2
+		
+	ENDPROC
+
 	PROCEDURE pascuale		&& Determina los días de Semana Santa para un año dado
 		LPARAMETERS xnAno
 		*<Propósito>
