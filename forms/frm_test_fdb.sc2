@@ -48,6 +48,7 @@ DEFINE CLASS form1 AS form
 	*< OBJECTDATA: ObjPath="pgfPaginas.pagAntonioMeza.btnsaludo" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pgfPaginas.pagAntonioMeza.lbltitulo" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pgfPaginas.pagAntonioMeza.opgtiempo" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pgfPaginas.pagAntonioMeza.btnnuevo" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdPag1" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdPag2" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdSalir" UniqueID="" Timestamp="" />
@@ -121,6 +122,15 @@ DEFINE CLASS form1 AS form
 		Page5.Caption = "Antonio Meza", ;
 		Page5.Name = "pagAntonioMeza"
 		*< END OBJECT: BaseClass="pageframe" />
+
+	ADD OBJECT 'pgfPaginas.pagAntonioMeza.btnnuevo' AS commandbutton WITH ;
+		Caption = "Mostrar Basura", ;
+		Height = 27, ;
+		Left = 315, ;
+		Name = "btnnuevo", ;
+		Top = 80, ;
+		Width = 120
+		*< END OBJECT: BaseClass="commandbutton" />
 
 	ADD OBJECT 'pgfPaginas.pagAntonioMeza.btnsaludo' AS commandbutton WITH ;
 		Caption = "Mostrar Saludo", ;
@@ -286,6 +296,10 @@ DEFINE CLASS form1 AS form
 		THISFORM.Hide()
 		THISFORM.Release()
 		
+	ENDPROC
+
+	PROCEDURE pgfPaginas.pagAntonioMeza.btnnuevo.Click
+		MESSAGEBOX("agregado para prueba basura.txt")
 	ENDPROC
 
 	PROCEDURE pgfPaginas.pagAntonioMeza.btnsaludo.Click
