@@ -117,20 +117,16 @@ DEFINE CLASS form1 AS form
 		*< END OBJECT: BaseClass="pageframe" />
 
 	ADD OBJECT 'pgfPaginas.pagMergeManual_1.cmdArchivo' AS commandbutton WITH ;
-		BackColor = 128,255,255, ;
 		Caption = "Archivo", ;
 		Height = 27, ;
 		Left = 15, ;
 		Name = "cmdArchivo", ;
-		Themes = .F., ;
 		Top = 100, ;
 		Width = 84
 		*< END OBJECT: BaseClass="commandbutton" />
 
 	ADD OBJECT 'pgfPaginas.pagMergeManual_1.lblArchivo' AS label WITH ;
-		BackColor = 0,128,255, ;
 		Caption = "...", ;
-		ForeColor = 255,255,255, ;
 		Height = 17, ;
 		Left = 123, ;
 		Name = "lblArchivo", ;
@@ -141,7 +137,7 @@ DEFINE CLASS form1 AS form
 	ADD OBJECT 'pgfPaginas.pagMergeManual_1.lblMergeManual' AS label WITH ;
 		BackColor = 255,255,179, ;
 		Caption = "Esta etiqueta en esta nueva página solo está para provocar un Merge manual, ya que la hice mientras otro estaba modificando este mismo PageFrame", ;
-		FontSize = 11, ;
+		FontSize = 10, ;
 		Height = 64, ;
 		Left = 27, ;
 		Name = "lblMergeManual", ;
@@ -245,7 +241,6 @@ DEFINE CLASS form1 AS form
 
 	PROCEDURE pgfPaginas.pagMergeManual_1.cmdArchivo.Click
 		THIS.Parent.lblArchivo.Caption = GETFILE()
-		MESSAGEBOX(THIS.Parent.lblArchivo.Caption)	&& Línea a borrar luego
 		NOTE: Solo debe quedar este comentario en lugar del messagebox.
 	ENDPROC
 
