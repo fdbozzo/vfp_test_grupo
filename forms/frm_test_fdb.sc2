@@ -299,6 +299,10 @@ DEFINE CLASS form1 AS form
 		
 	ENDPROC
 
+	PROCEDURE pgfPaginas.pagAntonioMeza.Activate
+		this.Refresh
+	ENDPROC
+
 	PROCEDURE pgfPaginas.pagAntonioMeza.btnnuevo.Click
 		MESSAGEBOX("agregado para prueba basura.txt")
 	ENDPROC
