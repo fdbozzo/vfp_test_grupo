@@ -300,6 +300,7 @@ DEFINE CLASS form1 AS form
 	ENDPROC
 
 	PROCEDURE pgfPaginas.pagAntonioMeza.Activate
+		this.lbltitulo.FontBold = .t.
 		this.Refresh
 	ENDPROC
 
