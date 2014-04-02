@@ -382,7 +382,7 @@ DEFINE CLASS gedit AS editbox
 
 	PROCEDURE Init
 		IF !PEMSTATUS(thisform,"gmenu1",5)
-			thisform.NewObject("gmenu1","gmenu","ThMenu","",.t.)
+			thisform.NewObject("gmenu1","gmenu","clases\thmenu.vcx","",.t.)
 		ENDIF
 		
 		
@@ -477,7 +477,7 @@ DEFINE CLASS gmenu AS custom
 		lcName="LabMenu"+TRANSFORM(lnCont)
 		DO CASE
 			CASE UPPER(xcCaption)=="<RAYA/>"
-				xoCnt.newObject(lcName,"ShLine","ThMenu")
+				xoCnt.newObject(lcName,"ShLine","clases\thmenu.vcx")
 				WITH xoCnt.&lcName
 					.top=lnTop
 					.Left=0
@@ -489,7 +489,7 @@ DEFINE CLASS gmenu AS custom
 					
 			OTHERWISE
 			
-				xoCnt.NewObject(lcName,"Labmenu","ThMenu")
+				xoCnt.NewObject(lcName,"Labmenu","clases\thmenu.vcx")
 				WITH xoCnt.&lcName.
 					.top=lntop
 					.left=3
@@ -526,7 +526,7 @@ DEFINE CLASS gmenu AS custom
 		DO case
 			CASE LOWER(xoObject.name)=="screen"
 				IF !PEMSTATUS(_screen,"gmenu1",5)
-					_Screen.NewObject("gmenu1","gMenu","ThMenu")
+					_Screen.NewObject("gmenu1","gMenu","clases\thmenu.vcx")
 				ENDIF
 		
 				BINDEVENT(_Screen,"click",_Screen.gmenu1,lcHide)	
@@ -979,8 +979,8 @@ DEFINE CLASS gmenu AS custom
 			* xnMouseObj: 0-Screen 1-Objeto 2-Read_topLeft
 		
 			* Con Formulario
-			ADDPROPERTY(_Screen,"oFrmCopy",NEWOBJECT("FrmMenu","ThMenu"))
-			_screen.ofrmCopy.NewObject("Cnt_Copy","Cntmenu","ThMenu")
+			ADDPROPERTY(_Screen,"oFrmCopy",NEWOBJECT("FrmMenu","clases\thmenu.vcx"))
+			_screen.ofrmCopy.NewObject("Cnt_Copy","Cntmenu","clases\thmenu.vcx")
 			_Screen.objCopy=_screen.ofrmCopy
 			*.Cnt_Copy	
 			WITH _screen.oFrmCopy
@@ -1093,7 +1093,7 @@ DEFINE CLASS gmenu AS custom
 			IF PEMSTATUS(xoForm,"Cnt_Copy",5)
 				xoForm.RemoveObject("Cnt_Copy")
 			ENDIF
-			xoForm.NewObject("Cnt_Copy","cntMenu","ThMenu")
+			xoForm.NewObject("Cnt_Copy","cntMenu","clases\thmenu.vcx")
 		
 			_Screen.objCopy=xoform.Cnt_Copy
 		
@@ -1675,7 +1675,7 @@ DEFINE CLASS gmenu AS custom
 		*!*	lnTimer=2
 		*!*	lNotOnTop=.t.
 		*!*	lcCaption="Consulta de Fondos"
-		*!*	objMenu=NEWOBJECT("gmenu","thmenu")
+		*!*	objMenu=NEWOBJECT("gmenu","clases\thmenu.vcx")
 		*!*	objMenu.GralMenu(@gaMenu,lnPosicion,lnTimer,lNotOnTop,null,lcCaption)
 		*!*	objMenu=null
 		*!*	</SAMPLE1>
@@ -1904,7 +1904,7 @@ DEFINE CLASS gmenu AS custom
 		*!*	gaMenu[nlis,5]=""
 		*!*	gaMenu[nlis,6]=null
 		
-		*!*	objMenu=NEWOBJECT("gmenu","thmenu")
+		*!*	objMenu=NEWOBJECT("gmenu","clases\thmenu.vcx")
 		*!*	objMenu.GralMenu(@gaMenu,lnPosicion,lnTimer,;
 		*!*		lNotOnTop,null,lcCaption,lcScriptDestroy)
 		*!*	objMenu=null
@@ -1985,7 +1985,7 @@ DEFINE CLASS gmenu AS custom
 		*!*	<Implementación Formularios>
 		*!*	Menu Formularios Abiertos
 		*!*	LOCAL obj
-		*!*	obj=NEWOBJECT("gmenu","ThMenu")
+		*!*	obj=NEWOBJECT("gmenu","clases\thmenu.vcx")
 		*!*	obj.GmForms()
 		*!*	obj=null
 		*!*	SKIP FOR EMPTY(_screen.FormCount)
@@ -2516,7 +2516,7 @@ DEFINE CLASS gmenu AS custom
 		
 		STRTOFILE(lcMens+CHR(13),"ThError.log",1)
 		lcMens="Se ha producido un error:"+chr(13)+lcMens
-		MESSAGEBOX(lcMens,0,tH_MENSAJE)
+		MESSAGEBOX(lcMens,0,"Mensaje del Sistema")
 	ENDPROC
 
 	PROCEDURE shutforms
