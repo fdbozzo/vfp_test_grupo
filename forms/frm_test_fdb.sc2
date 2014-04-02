@@ -300,6 +300,7 @@ DEFINE CLASS form1 AS form
 	ENDPROC
 
 	PROCEDURE pgfPaginas.pagAntonioMeza.Activate
+		this.ForeColor = RGB(255,0,0)
 		this.lbltitulo.FontBold = .t.
 		this.Refresh
 	ENDPROC
