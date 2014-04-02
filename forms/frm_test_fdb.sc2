@@ -61,6 +61,9 @@ DEFINE CLASS form1 AS form
 	*< OBJECTDATA: ObjPath="pgfPaginas.pagFidel.txtCarnaval2" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pgfPaginas.pagFidel.shpMarco4" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pgfPaginas.pagFidel.lblCarnaval2" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pgfPaginas.pagFidel.shpMergesus" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pgfPaginas.pagFidel.lblMergesus" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pgfPaginas.pagFidel.txtMergesus" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pgfPaginas.pagAntonioMeza.btnsaludo" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pgfPaginas.pagAntonioMeza.lbltitulo" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pgfPaginas.pagAntonioMeza.opgtiempo" UniqueID="" Timestamp="" />
@@ -311,6 +314,19 @@ DEFINE CLASS form1 AS form
 		Width = 96
 		*< END OBJECT: BaseClass="label" />
 
+	ADD OBJECT 'pgfPaginas.pagFidel.lblMergesus' AS label WITH ;
+		AutoSize = .T., ;
+		BackStyle = 0, ;
+		Caption = "Merge Substractivo", ;
+		FontSize = 8, ;
+		Height = 16, ;
+		Left = 236, ;
+		Name = "lblMergesus", ;
+		TabIndex = 9, ;
+		Top = 21, ;
+		Width = 96
+		*< END OBJECT: BaseClass="label" />
+
 	ADD OBJECT 'pgfPaginas.pagFidel.lblPascua' AS label WITH ;
 		AutoSize = .T., ;
 		BackStyle = 0, ;
@@ -397,6 +413,16 @@ DEFINE CLASS form1 AS form
 		Width = 135
 		*< END OBJECT: BaseClass="shape" />
 
+	ADD OBJECT 'pgfPaginas.pagFidel.shpMergesus' AS shape WITH ;
+		BackColor = 220,228,224, ;
+		BorderColor = 114,136,141, ;
+		Height = 21, ;
+		Left = 232, ;
+		Name = "shpMergesus", ;
+		Top = 18, ;
+		Width = 135
+		*< END OBJECT: BaseClass="shape" />
+
 	ADD OBJECT 'pgfPaginas.pagFidel.spnAno' AS spinner WITH ;
 		BorderColor = 114,136,141, ;
 		DisabledBackColor = 231,237,234, ;
@@ -448,6 +474,24 @@ DEFINE CLASS form1 AS form
 		SpecialEffect = 1, ;
 		TabIndex = 5, ;
 		Top = 93, ;
+		Value = (Ctod("")), ;
+		Width = 63
+		*< END OBJECT: BaseClass="textbox" />
+
+	ADD OBJECT 'pgfPaginas.pagFidel.txtMergesus' AS textbox WITH ;
+		Alignment = 3, ;
+		BorderColor = 114,136,141, ;
+		DisabledBackColor = 231,237,234, ;
+		DisabledForeColor = 0,0,0, ;
+		FontSize = 8, ;
+		Format = "D", ;
+		Height = 21, ;
+		Left = 355, ;
+		Name = "txtMergesus", ;
+		ReadOnly = .T., ;
+		SpecialEffect = 1, ;
+		TabIndex = 5, ;
+		Top = 18, ;
 		Value = (Ctod("")), ;
 		Width = 63
 		*< END OBJECT: BaseClass="textbox" />
@@ -754,6 +798,7 @@ DEFINE CLASS form1 AS form
 	ENDPROC
 
 	PROCEDURE pgfPaginas.pagAntonioMeza.Activate
+		this.BackColor=RGB(221,226,222)
 		Thisform.buttoncontrol()
 	ENDPROC
 
@@ -761,7 +806,12 @@ DEFINE CLASS form1 AS form
 		MESSAGEBOX( IIF(this.Parent.opgTiempo.Value =1,"Buenos dias","Buenas Noches") + " desde México")
 	ENDPROC
 
+	PROCEDURE pgfPaginas.pagAntonioMeza.Deactivate
+		this.BackColor=RGB(202,210,204)
+	ENDPROC
+
 	PROCEDURE pgfPaginas.pagEmail.Activate
+		this.BackColor=RGB(221,226,222)
 		Thisform.buttoncontrol()
 	ENDPROC
 
@@ -780,12 +830,29 @@ DEFINE CLASS form1 AS form
 		ENDIF 
 	ENDPROC
 
+	PROCEDURE pgfPaginas.pagEmail.Deactivate
+		this.BackColor=RGB(202,210,204)
+	ENDPROC
+
 	PROCEDURE pgfPaginas.pagFidel.Activate
+		this.BackColor=RGB(221,226,222)
 		IF EMPTY(this.spnAno.Value)
 			this.spnAno.Value=YEAR(DATE())
 			thisform.getpascuale(YEAR(DATE()))
 		ENDIF
 		Thisform.buttoncontrol()
+		
+		
+		
+		
+		
+		
+		
+		
+	ENDPROC
+
+	PROCEDURE pgfPaginas.pagFidel.Deactivate
+		this.BackColor=RGB(202,210,204)
 	ENDPROC
 
 	PROCEDURE pgfPaginas.pagFidel.spnAno.InteractiveChange
@@ -797,6 +864,7 @@ DEFINE CLASS form1 AS form
 	ENDPROC
 
 	PROCEDURE pgfPaginas.pagMergeManual_1.Activate
+		this.BackColor=RGB(221,226,222)
 		Thisform.buttoncontrol()
 	ENDPROC
 
@@ -805,8 +873,17 @@ DEFINE CLASS form1 AS form
 		
 	ENDPROC
 
+	PROCEDURE pgfPaginas.pagMergeManual_1.Deactivate
+		this.BackColor=RGB(202,210,204)
+	ENDPROC
+
 	PROCEDURE pgfPaginas.pagNueva.Activate
+		this.BackColor=RGB(221,226,222)
 		Thisform.buttoncontrol()
+	ENDPROC
+
+	PROCEDURE pgfPaginas.pagNueva.Deactivate
+		this.BackColor=RGB(202,210,204)
 	ENDPROC
 
 	PROCEDURE pgfPaginas.pagNueva.txtColor.Valid
@@ -818,7 +895,12 @@ DEFINE CLASS form1 AS form
 	ENDPROC
 
 	PROCEDURE pgfPaginas.pagPrincipal.Activate
+		this.BackColor=RGB(221,226,222)
 		Thisform.buttoncontrol()
+	ENDPROC
+
+	PROCEDURE pgfPaginas.pagPrincipal.Deactivate
+		this.BackColor=RGB(202,210,204)
 	ENDPROC
 
 	PROCEDURE pgfPaginas.pagPrincipal.tmrColor.Timer
@@ -832,7 +914,12 @@ DEFINE CLASS form1 AS form
 	ENDPROC
 
 	PROCEDURE pgfPaginas.pagSecundaria.Activate
+		this.BackColor=RGB(221,226,222)
 		Thisform.buttoncontrol()
+	ENDPROC
+
+	PROCEDURE pgfPaginas.pagSecundaria.Deactivate
+		this.BackColor=RGB(202,210,204)
 	ENDPROC
 
 ENDDEFINE
