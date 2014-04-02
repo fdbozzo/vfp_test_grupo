@@ -54,6 +54,7 @@ DEFINE CLASS form1 AS form
 		*m: *randmath
 	*</DefinedPropArrayMethod>
 
+	BackColor = 128,0,128
 	Caption = "Form1"
 	DoCreate = .T.
 	Height = 231
