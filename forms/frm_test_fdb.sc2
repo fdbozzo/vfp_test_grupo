@@ -47,7 +47,6 @@ DEFINE CLASS form1 AS form
 	*< OBJECTDATA: ObjPath="pgfPaginas.pagMergeManual_1.lblArchivo" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pgfPaginas.pagEmail.txtEmail" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pgfPaginas.pagEmail.cmdValidar" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pgfPaginas.pagEmail.lblPrueba" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdPag1" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdPag2" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdSalir" UniqueID="" Timestamp="" />
@@ -129,17 +128,6 @@ DEFINE CLASS form1 AS form
 		Top = 68, ;
 		Width = 84
 		*< END OBJECT: BaseClass="commandbutton" />
-
-	ADD OBJECT 'pgfPaginas.pagEmail.lblPrueba' AS label WITH ;
-		AutoSize = .T., ;
-		BackStyle = 0, ;
-		Caption = "Linea de pruebas", ;
-		Height = 17, ;
-		Left = 178, ;
-		Name = "lblPrueba", ;
-		Top = 44, ;
-		Width = 99
-		*< END OBJECT: BaseClass="label" />
 
 	ADD OBJECT 'pgfPaginas.pagEmail.txtEmail' AS textbox WITH ;
 		BackColor = 255,255,128, ;
@@ -275,8 +263,7 @@ DEFINE CLASS form1 AS form
 
 	PROCEDURE pgfPaginas.pagEmail.cmdValidar.Click
 		LOCAL loRegExp,llValido				
-		*
-		* Rutina de valicacion de email	
+		*	
 		loRegExp = CreateObject("VBScript.RegExp")
 		loRegExp.IgnoreCase = .T.
 		loRegExp.Pattern =  '^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\.\-]?[a-zA-Z0-9]+)­*)\.([A-Za-z]{2,})$'
