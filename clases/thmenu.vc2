@@ -91,6 +91,7 @@ DEFINE CLASS frmmenu AS form
 		*p: onunloadquit
 		*p: operonshut
 		*p: scriptdestroy
+		*p: showimage
 	*</DefinedPropArrayMethod>
 
 	AlwaysOnTop = .T.
@@ -111,6 +112,7 @@ DEFINE CLASS frmmenu AS form
 	onunloadquit = .F.
 	operonshut = 
 	scriptdestroy = .F.
+	showimage = .T.
 	ShowTips = .T.
 	ShowWindow = 1
 	TitleBar = 1
@@ -187,7 +189,7 @@ DEFINE CLASS frmmenu AS form
 
 	PROCEDURE Deactivate
 		IF !this.AlwaysOnTop
-			this.imgMenu.Visible=.T.
+			this.imgMenu.Visible=THIS.SHOwimage
 		ENDIF
 		
 	ENDPROC
@@ -813,7 +815,8 @@ DEFINE CLASS gmenu AS custom
 
 	PROCEDURE gcopypaste
 		LPARAMETERS xoform,xoObjeto
-		LOCAL lnMouse,lnTimer,i,lnModo,lNotBind,lnItems
+		LOCAL lnMouse,lnTimer,i,lnModo,lNotBind,lnItems,;
+			lNotImage,lnMinWidth
 		lnItems=4
 		WITH this
 			DIMENSION .gamenu(lnItems,6)
@@ -846,13 +849,16 @@ DEFINE CLASS gmenu AS custom
 		lnTimer=0
 		lnModo=1
 		lnotBind=.F.
-		This.getpopup(xoform,xoObjeto,lnModo,lnMouse,lnTimer,lNotBind,lnItems,.f.,.f.,null)
-
+		lNotImage=.t.
+		lnMinWidth=100
+		This.getpopup(xoform,xoObjeto,lnModo,lnMouse,lnTimer,lNotBind,lnItems,.f.,.f.,null,;
+			.f.,.f.,.t.,lnMinWidth)
+		
 		*	PROCEDURE getpopup		&& Genera el menu popup
 		*	LPARAMETERS xoform,xoObjeto,xnModo,xnMouseObj,xnTimer,;
 		*	xlNotBind,xnItemsMenu,xlNotMMScreen,xlNotOnTop,xoCondiShut,;
-		*	xcCaption,xcScriptDestroy
-
+		*	xcCaption,xcScriptDestroy,xlNotImage,xnMinWidth
+		
 	ENDPROC
 
 	PROCEDURE getfopen
@@ -934,7 +940,7 @@ DEFINE CLASS gmenu AS custom
 	PROCEDURE getpopup		&& Genera el menu popup
 		LPARAMETERS xoform,xoObjeto,xnModo,xnMouseObj,xnTimer,;
 			xlNotBind,xnItemsMenu,xlNotMMScreen,xlNotOnTop,xoCondiShut,;
-			xcCaption,xcScriptDestroy
+			xcCaption,xcScriptDestroy,xlNotImage,xnMinWidth
 			
 		IF VARTYPE(xoform)#"O"
 			xoForm=_Screen
@@ -950,6 +956,9 @@ DEFINE CLASS gmenu AS custom
 		ENDIF
 		IF VARTYPE(xnTimer)="L"
 			xnTimer=IIF(xnTimer,1,0)
+		ENDIF
+		IF VARTYPE(xnMinWidth)#"N" OR EMPTY(xnMinWidth)
+			xnMinWidth=180
 		ENDIF
 		
 		
@@ -978,7 +987,7 @@ DEFINE CLASS gmenu AS custom
 		FOR I=1 TO ALEN(This.gaMenu,1)
 			lnWid=MAX(this.wokupas(This.gaMenu[i,1])+20,lnWid)
 		NEXT
-		lnWid=MAX(180,lnWid)
+		lnWid=MAX(xnMinWidth,lnWid)
 		LOCAL lnModo
 		lnModo=IIF(xoForm.WindowType=0,1,0)
 		lnTop=0
@@ -1068,7 +1077,7 @@ DEFINE CLASS gmenu AS custom
 					.imgMenu.left=.Width - .imgMenu.Width - 4
 					.imgMenu.zorder(0)
 				ENDIF
-				
+				.ShowImage=!xlNotImage		
 				.gmove1.gbindtit()
 		*		.AutoCenter=lAutoCenter
 		*		.Show()
@@ -1434,7 +1443,7 @@ DEFINE CLASS gmenu AS custom
 		
 		LOCAL fmCount,i,j,ji,lnRow,lnCol,lError,lcMens,;
 			lnModo,lnPosicion,lnTimer,lNotBind,lNotMMScreen
-
+		
 		lNotBind=!xlBindHide
 		
 		* Para capitalización de claves.
