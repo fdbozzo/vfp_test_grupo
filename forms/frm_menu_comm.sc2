@@ -22,27 +22,56 @@ DEFINE CLASS frm_menu_comm AS form
 
 	*-- OBJECTDATA items order determines ZOrder / El orden de los items OBJECTDATA determina el ZOrder 
 	*< OBJECTDATA: ObjPath="cmdMenu" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="shpEdit" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="edtSource" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="edtTarget" UniqueID="" Timestamp="" />
 
 	BackColor = 184,201,197
-	Caption = "Llamar un menú"
+	Caption = "Llamar un menú Box"
 	DoCreate = .T.
-	Height = 125
+	Height = 165
 	Left = 0
 	MaxButton = .F.
 	MinButton = .F.
 	Name = "Frm_Menu_Comm"
 	Top = 0
-	Width = 216
+	Width = 353
 
 	ADD OBJECT 'cmdMenu' AS commandbutton WITH ;
-		Caption = "Llamar Menu", ;
+		Caption = "Llamar Menu Box", ;
 		FontSize = 8, ;
 		Height = 25, ;
 		Left = 7, ;
 		Name = "cmdMenu", ;
 		Top = 10, ;
-		Width = 77
+		Width = 96
 		*< END OBJECT: BaseClass="commandbutton" />
+
+	ADD OBJECT 'edtSource' AS gedit WITH ;
+		Height = 90, ;
+		Left = 110, ;
+		Name = "edtSource", ;
+		Top = 11, ;
+		Width = 235
+		*< END OBJECT: ClassLib="..\clases\thmenu.vcx" BaseClass="editbox" />
+
+	ADD OBJECT 'edtTarget' AS gedit WITH ;
+		Height = 55, ;
+		Left = 110, ;
+		Name = "edtTarget", ;
+		Top = 100, ;
+		Width = 235
+		*< END OBJECT: ClassLib="..\clases\thmenu.vcx" BaseClass="editbox" />
+
+	ADD OBJECT 'shpEdit' AS shape WITH ;
+		BackColor = 221,226,222, ;
+		Height = 151, ;
+		Left = 107, ;
+		Name = "shpEdit", ;
+		SpecialEffect = 0, ;
+		Top = 8, ;
+		Width = 242
+		*< END OBJECT: BaseClass="shape" />
 	
 	PROCEDURE Init
 		SET SAFETY OFF
@@ -51,6 +80,7 @@ DEFINE CLASS frm_menu_comm AS form
 			.MinHeight=.Height
 			.MaxWidth=.Width
 			.MinWidth=.Width
+			.edtSource.Value="Este es un texto que se puede copiar al otro cuadro"
 		ENDWITH
 		
 	ENDPROC
@@ -64,7 +94,7 @@ DEFINE CLASS frm_menu_comm AS form
 		LOCAL nlis,i,lcScript,objMenu,lnPosicion,lnTimer,lNotOntop,;
 			lcCaption,lRaya,lshat,ldoti,lcScriptDestroy,;
 			lcMensaje,dlibs
-
+		
 		dlibs=ADDBS(SYS(5))+"desa\vfp_test_grupo\clases"	
 		lcCaption="Cajas del Sistema"
 		lnPosicion=5
@@ -176,7 +206,7 @@ DEFINE CLASS frm_menu_comm AS form
 		ENDIF
 		_Screen.TheoCalc.Show()
 		ENDTEXT
-
+		
 		nlis=nLis+1
 		DIMENSION gamenu(nlis,6)
 		gaMenu[nlis,1]=[Calc\<uladora de Theodore]
@@ -187,7 +217,7 @@ DEFINE CLASS frm_menu_comm AS form
 		gaMenu[nlis,6]=null
 		lRaya=.f.
 		
-
+		
 		* Almanaque Mes actual
 		* Conflicto entre almanaques
 		TEXT TO lcScript NOSHOW PRETEXT 1
@@ -217,10 +247,10 @@ DEFINE CLASS frm_menu_comm AS form
 		gaMenu[nlis,4]=nlis
 		gaMenu[nlis,5]=""
 		gaMenu[nlis,6]=null
-
-
+		
+		
 		* Almanaque Año Actual
-
+		
 		TEXT TO lcScript NOSHOW PRETEXT 1
 		local lCrear
 		lCrear=.T.
@@ -240,7 +270,7 @@ DEFINE CLASS frm_menu_comm AS form
 		ENDIF
 		_Screen.theomanak.Show()
 		ENDTEXT
-
+		
 		nlis=nLis+1
 		DIMENSION gamenu(nlis,6)
 		gaMenu[nlis,1]=[\<Almanaque Anual]
@@ -262,9 +292,9 @@ DEFINE CLASS frm_menu_comm AS form
 			gaMenu[nlis,5]=""
 			gaMenu[nlis,6]=null
 		ENDIF
-
-
-
+		
+		
+		
 		nlis=nlis+1
 		DIMENSION gamenu(nlis,6)
 		gaMenu[nlis,1]=[\<Cerrar Formularios]

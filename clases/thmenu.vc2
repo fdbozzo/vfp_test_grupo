@@ -813,35 +813,46 @@ DEFINE CLASS gmenu AS custom
 
 	PROCEDURE gcopypaste
 		LPARAMETERS xoform,xoObjeto
-		LOCAL lnMouse,lTimer,i
+		LOCAL lnMouse,lnTimer,i,lnModo,lNotBind,lnItems
+		lnItems=4
 		WITH this
-			DIMENSION .gamenu(4,5)
+			DIMENSION .gamenu(lnItems,6)
 			.gaMenu[1,1]=[Copiar]
 			.gaMenu[1,2]="<COPY>"
 			.gaMenu[1,3]=!EMPTY(xoObjeto.SelTExt)
-			.gamenu[1,4]=0
+			.gamenu[1,4]=1
+			.gamenu[1,6]=null
 		
 			.gaMenu[2,1]=[Recortar]
 			.gaMenu[2,2]="<CUT>"
 			.gaMenu[2,3]=IIF(!EMPTY(xoObjeto.SelTExt) and !xoObjeto.readonly,.t.,.f.)
-			.gamenu[2,4]=0
+			.gamenu[2,4]=2
+			.gamenu[2,6]=null
 		
 			.gaMenu[3,1]=[<RAYA/>]
 			.gaMenu[3,2]=""
 			.gaMenu[3,3]=.f.
-			.gamenu[3,4]=0
+			.gamenu[3,4]=3
+			.gamenu[3,6]=null
 		
 			.gaMenu[4,1]=[Pegar]
 			.gaMenu[4,2]="<PASTE>"
 			.gaMenu[4,3]=IIF(!EMPTY(_clipText) AND !xoObjeto.readonly,.t.,.f.)
-			.gamenu[4,4]=0
+			.gamenu[4,4]=4
+			.gaMenu[4,6]=null
 		ENDWITH
 		
 		lnMouse=1
-		lTimer=.F.
-		This.getpopup(xoform,xoObjeto,1,lnMouse,lTimer,.t.,0,.f.,.f.,null)
-		*		LPARAMETERS xoform,xoObjeto,xnModo,xnMouseObj,xnTimer,;
-		*			xlNotBind,xnForms,xlNotMMScreen,xlNotOnTop,xoCondishut
+		lnTimer=0
+		lnModo=1
+		lnotBind=.F.
+		This.getpopup(xoform,xoObjeto,lnModo,lnMouse,lnTimer,lNotBind,lnItems,.f.,.f.,null)
+
+		*	PROCEDURE getpopup		&& Genera el menu popup
+		*	LPARAMETERS xoform,xoObjeto,xnModo,xnMouseObj,xnTimer,;
+		*	xlNotBind,xnItemsMenu,xlNotMMScreen,xlNotOnTop,xoCondiShut,;
+		*	xcCaption,xcScriptDestroy
+
 	ENDPROC
 
 	PROCEDURE getfopen
@@ -2003,7 +2014,7 @@ DEFINE CLASS gmenu AS custom
 		
 		*!*	Sample Model
 		*!*	WITH this
-		*!*		DIMENSION .gamenu(fmCount+2,4)
+		*!*		DIMENSION .gamenu(fmCount+2,6)
 		*!*		FOR i=fmCount TO 1 STEP -1
 		*!*			.gaMenu[i,1]=_screen.Forms[i].Caption
 		*!*			.gaMenu[i,2]="<FORM/>"
