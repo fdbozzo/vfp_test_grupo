@@ -1931,7 +1931,7 @@ DEFINE CLASS cntalma AS container
 
 	PROCEDURE Init
 		local lcRoot
-		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"mzmanak.vcx"),"mzmanak")
+		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"mzmanak.vcx"),"clases\mzmanak")
 		SYS(2002)
 		This.AddProperty("objManak",null)
 		This.AddProperty("frmManak",null)
@@ -2008,7 +2008,7 @@ DEFINE CLASS cntalma AS container
 
 	PROCEDURE CmCalc.Click
 		local lcRoot
-		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"mzmanak.vcx"),"mzmanak")
+		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"mzmanak.vcx"),"clases\mzmanak")
 		SYS(2002,1)
 		IF ISNULL(this.Parent.frmManak)
 			this.Parent.frmmanak=NEWOBJECT("frmCalc",lcRoot,"",0)
@@ -3899,7 +3899,7 @@ DEFINE CLASS cntmanak AS container
 	PROCEDURE Init
 		LPARAMETERS xnAno,xnmes
 		local lcRoot
-		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"mzmanak.vcx"),"mzmanak")
+		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"mzmanak.vcx"),"clases\mzmanak")
 		This.AddProperty("objManak",null)
 		this.objManak=NEWOBJECT("funmanak",lcRoot,"",.t.)
 		with this
@@ -4400,7 +4400,7 @@ DEFINE CLASS frmanual AS form
 		LOCAL lnAno,lnMes,lnPeri,nTop,nLeft,nVert,nHoriz,nwid,nv,nh,;
 			lngtop,lngLeft,lcRoot
 		
-		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"mzmanak.vcx"),"mzmanak")
+		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"mzmanak.vcx"),"clases\mzmanak")
 		
 		thisform.Funmanak1.formublok(.f.)
 		thisform.LockScreen=.t.
@@ -4498,7 +4498,7 @@ DEFINE CLASS frmanual AS form
 	PROCEDURE Init
 		LPARAMETERS xnAno,xnMes,xoObjeto,xnWindowType
 		local lcRoot
-		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"mzmanak.vcx"),"mzmanak")		
+		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"mzmanak.vcx"),"clases\mzmanak")		
 		this.NewObject("Funsombra1","FunSombra",lcRoot)
 		this.NewObject("FunManak1","FunManak",lcRoot)
 		this.funmanak1.genFeriados()
@@ -5359,7 +5359,7 @@ DEFINE CLASS frmcalc AS form
 	PROCEDURE Init
 		parameters xnWin
 		local lcRoot
-		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"mzmanak.vcx"),"mzmanak")
+		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"mzmanak.vcx"),"clases\mzmanak")
 		if Vartype(xnWin)#"N"
 			xnwin=0
 		ENDIF
@@ -5662,7 +5662,7 @@ DEFINE CLASS frmmanak AS form
 		LPARAMETERS xnAno,xnMes,xnDia,xnWint_objeto,xnWindowType
 		LOCAL dFEcha,lcRoot
 		
-		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"mzmanak.vcx"),"mzmanak")
+		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"mzmanak.vcx"),"clases\mzmanak")
 		IF VARTYPE(xnAno)#"N".or.empty(xnAno)
 			xnAno=YEAR(DATE())
 		ENDIF
@@ -5734,7 +5734,7 @@ DEFINE CLASS frmmanak AS form
 
 	PROCEDURE Load
 		this.formcall=null
-		*!*	this.objFun=NEWOBJECT("funmanak","mzmanak","",.t.)
+		*!*	this.objFun=NEWOBJECT("funmanak","clases\mzmanak","",.t.)
 		*!*	this.objfun.genFeriados()
 		
 		
@@ -6624,7 +6624,7 @@ DEFINE CLASS funmanak AS custom
 		*cObjWid="Cnt1<Left=3>"
 		local gnAdd,lcLeft,nAlterLeft,nresp,oobjWid,oObjHei,oObjCmg,lnREst,lcRoot
 		
-		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"mzmanak.vcx"),"mzmanak")
+		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"mzmanak.vcx"),"clases\mzmanak")
 		nAlterLeft=0
 		
 		cObjWid=UPPER(ALLTRIM(cObjWid))
@@ -6857,7 +6857,7 @@ DEFINE CLASS funmanak AS custom
 	PROCEDURE putraya
 		LPARAMETERS xObjeto
 		LOCAL lntop,lnLeft,lnWid,lnHei,lcRoot
-		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"mzmanak.vcx"),"mzmanak")
+		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"mzmanak.vcx"),"clases\mzmanak")
 		IF PCOUNT()=0
 			thisform.objfocus=Null
 			Thisform.imr2.visible=.f.
@@ -7534,7 +7534,7 @@ DEFINE CLASS txfecha AS textbox
 	PROCEDURE convoca
 		LPARAMETERS xnVal
 		local lcRoot
-		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"mzmanak.vcx"),"mzmanak")
+		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"mzmanak.vcx"),"clases\mzmanak")
 		this.pedido=.t.
 		LOCAL dfe,nyear,nmes,ndia
 		dfe=this.Value
@@ -7615,7 +7615,7 @@ DEFINE CLASS txfechan AS textbox
 	PROCEDURE convoca
 		LPARAMETERS xnVal
 		LOCAL dfe,nyear,nmes,lcRoot
-		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"mzmanak.vcx"),"mzmanak")
+		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"mzmanak.vcx"),"clases\mzmanak")
 		dfe=this.Value
 		IF EMPTY(dfe)
 			dfe=DATE()

@@ -45,6 +45,7 @@ DEFINE CLASS frm_menu_comm AS form
 		*< END OBJECT: BaseClass="commandbutton" />
 	
 	PROCEDURE Init
+		SET SAFETY OFF
 		WITH this
 			.MaxHeight=.Height
 			.MinHeight=.Height
@@ -62,9 +63,8 @@ DEFINE CLASS frm_menu_comm AS form
 	PROCEDURE cmdMenu.Click
 		LOCAL nlis,i,lcScript,objMenu,lnPosicion,lnTimer,lNotOntop,;
 			lcCaption,lRaya,lshat,ldoti,lcScriptDestroy,;
-			lcMensaje
-		PUBLIC dformu,dlibs
-		dformu=ADDBS(SYS(5))+"desa\vfp_test_grupo\forms"
+			lcMensaje,dlibs
+
 		dlibs=ADDBS(SYS(5))+"desa\vfp_test_grupo\clases"	
 		lcCaption="Cajas del Sistema"
 		lnPosicion=5
@@ -86,7 +86,7 @@ DEFINE CLASS frm_menu_comm AS form
 		ENDIF
 		RELEASE gloTest
 		PUBLIC gloTest
-		DO FORM &DFORMU\frm_test_fdb NAME gloTest 
+		DO FORM forms\frm_test_fdb NAME gloTest 
 		ENDTEXT
 		
 		nlis=nLis+1
@@ -119,7 +119,7 @@ DEFINE CLASS frm_menu_comm AS form
 		ENDIF
 		RELEASE gloEdades
 		PUBLIC gloEdades
-		DO FORM &DFORMU\frmEdades NAME gloEdades 
+		DO FORM forms\frmEdades NAME gloEdades 
 		ENDTEXT
 		
 		gaMenu[nlis,1]=[\<Edades, Calculadora y Almanque]
@@ -138,12 +138,12 @@ DEFINE CLASS frm_menu_comm AS form
 		ENDIF
 		RELEASE gloFirstTest
 		PUBLIC gloFirstTest
-		DO FORM &DFORMU\fmr_Test1 NAME gloFirstTest WITH "S","1"
+		DO FORM forms\frm_test1 NAME gloFirstTest 
 		ENDTEXT
 		
 		nlis=nLis+1
 		DIMENSION gamenu(nlis,6)
-		gaMenu[nlis,1]=[Primer \<Test de Foxbin Plastic]
+		gaMenu[nlis,1]=[\<Primer Test de Foxbin Plastic]
 		gaMenu[nlis,2]="<SCRIPT>"+lcScript+"</SCRIPT>"
 		gaMenu[nlis,3]=.T.
 		gaMenu[nlis,4]=nlis
@@ -164,6 +164,107 @@ DEFINE CLASS frm_menu_comm AS form
 			gaMenu[nlis,6]=null
 		ENDIF
 		
+		*Calculadora
+		TEXT TO lcScript NOSHOW PRETEXT 1		
+		IF !PEMSTATUS(_screen,"theoCalc",5)
+			ADDPROPERTY(_screen,"theoCalc",null)
+		ENDIF
+		IF VARTYPE(_screen.theoCalc)="O"
+			_Screen.TheoCalc.WindowSTate=0
+		ELSE
+			_screen.theoCalc=NEWOBJECT("frmzCalcu2","clases\thcalc.vcx")
+		ENDIF
+		_Screen.TheoCalc.Show()
+		ENDTEXT
+
+		nlis=nLis+1
+		DIMENSION gamenu(nlis,6)
+		gaMenu[nlis,1]=[Calc\<uladora de Theodore]
+		gaMenu[nlis,2]="<SCRIPT>"+lcScript+"</SCRIPT>"
+		gaMenu[nlis,3]=.T.
+		gaMenu[nlis,4]=nlis
+		gaMenu[nlis,5]=""
+		gaMenu[nlis,6]=null
+		lRaya=.f.
+		
+
+		* Almanaque Mes actual
+		* Conflicto entre almanaques
+		TEXT TO lcScript NOSHOW PRETEXT 1
+		local lCrear
+		lCrear=.T.
+		IF !PEMSTATUS(_screen,"theomanak",5)
+			ADDPROPERTY(_screen,"theomanak",null)
+		ENDIF
+		IF VARTYPE(_screen.theomanak)="O" 
+			IF lower(_screen.theomanak.Name)=="frmmanak"
+				lCrear=.F.
+				_Screen.theomanak.WindowSTate=0
+			ELSE
+				_Screen.theomanak.release
+			ENDIF
+		ENDIF
+		IF lCrear
+			_screen.theomanak=NEWOBJECT("frmManak","clases\mzmanak.vcx")
+		ENDIF
+		_Screen.theomanak.Show()
+		ENDTEXT
+		nlis=nLis+1
+		DIMENSION gamenu(nlis,6)
+		gaMenu[nlis,1]=[Almanaque \<Mes Actual]
+		gaMenu[nlis,2]="<SCRIPT>"+lcScript+"</SCRIPT>"
+		gaMenu[nlis,3]=.T.
+		gaMenu[nlis,4]=nlis
+		gaMenu[nlis,5]=""
+		gaMenu[nlis,6]=null
+
+
+		* Almanaque Año Actual
+
+		TEXT TO lcScript NOSHOW PRETEXT 1
+		local lCrear
+		lCrear=.T.
+		IF !PEMSTATUS(_screen,"theomanak",5)
+			ADDPROPERTY(_screen,"theomanak",null)
+		ENDIF
+		IF VARTYPE(_screen.theomanak)="O" 
+			IF lower(_screen.theomanak.Name)=="frmanual"
+				lCrear=.F.
+				_Screen.theomanak.WindowSTate=0
+			ELSE
+				_screen.theomanak.release
+			ENDIF
+		ENDIF
+		IF lCrear
+			_screen.theomanak=NEWOBJECT("frmanual","clases\mzmanak.vcx")
+		ENDIF
+		_Screen.theomanak.Show()
+		ENDTEXT
+
+		nlis=nLis+1
+		DIMENSION gamenu(nlis,6)
+		gaMenu[nlis,1]=[\<Almanaque Anual]
+		gaMenu[nlis,2]="<SCRIPT>"+lcScript+"</SCRIPT>"
+		gaMenu[nlis,3]=.T.
+		gaMenu[nlis,4]=nlis
+		gaMenu[nlis,5]=""
+		gaMenu[nlis,6]=null
+		lRaya=.f.
+		
+		****** finale ****************
+		IF !lRaya
+			nLis=nLis+1
+			DIMENSION gamenu(nlis,6)
+			gaMenu[nlis,1]=[<RAYA/>]
+			gaMenu[nlis,2]=""
+			gaMenu[nlis,3]=.F.
+			gaMenu[nlis,4]=nlis
+			gaMenu[nlis,5]=""
+			gaMenu[nlis,6]=null
+		ENDIF
+
+
+
 		nlis=nlis+1
 		DIMENSION gamenu(nlis,6)
 		gaMenu[nlis,1]=[\<Cerrar Formularios]
@@ -185,7 +286,7 @@ DEFINE CLASS frm_menu_comm AS form
 		
 		objMenu=NEWOBJECT("gmenu",ADDBS(dlibs)+"thmenu.vcx")
 		objMenu.GralMenu(@gaMenu,lnPosicion,lnTimer,;
-			lNotOnTop,null,lcCaption,lcScriptDestroy)
+			lNotOnTop,Thisform,lcCaption,lcScriptDestroy)
 		objMenu=null
 		
 	ENDPROC

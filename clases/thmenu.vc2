@@ -127,7 +127,7 @@ DEFINE CLASS frmmenu AS form
 		Height = 17, ;
 		Left = 256, ;
 		Name = "imgMenu", ;
-		Picture = ..\mnumage.bmp, ;
+		Picture = ..\graphics\mnumage.bmp, ;
 		ToolTipText = "Enfocar el Menú", ;
 		Top = 115, ;
 		Visible = .F., ;
@@ -1392,7 +1392,8 @@ DEFINE CLASS gmenu AS custom
 			xlNotOntop,;
 			xoCondishut,;
 			xcCaption,;
-			xcSCriptDestroy
+			xcSCriptDestroy,;
+			xlBindHide
 			
 		EXTERNAL ARRAY xgaArray
 		
@@ -1407,6 +1408,7 @@ DEFINE CLASS gmenu AS custom
 		*!*	xcCaption: Caption del frmMenu. Si tiene un valor, se mostrará la TitleBar
 		*!*	xcScripDestroy: Script que ejecutará frmMenu.Destroy.
 		*!*	xcScripDestroy Formato: "<SCRIPT>Comandos</SCRIPT><PARAM>Parametros</PARAM>"
+		*!*	xlBindHide: Si el formulario se cierra cuando el puntero del mouse abandona el form.
 		*!*	--------------------------------------------------------------------------
 		*!*	Tags:
 		*!*	1) Separador: xgaArray[i,1]="<RAYA/>"
@@ -1421,6 +1423,8 @@ DEFINE CLASS gmenu AS custom
 		
 		LOCAL fmCount,i,j,ji,lnRow,lnCol,lError,lcMens,;
 			lnModo,lnPosicion,lnTimer,lNotBind,lNotMMScreen
+
+		lNotBind=!xlBindHide
 		
 		* Para capitalización de claves.
 		LOCAL ARRAY gaClave(11)

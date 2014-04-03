@@ -131,7 +131,7 @@ DEFINE CLASS cmg AS commandgroup
 			IF PEMSTATUS(_screen,"classDir",5)
 				thisform.NewObject("gCalcu1","gCalcu",LOCFILE(ADDBS(_Screen.ClassDir)+"thcalc.vcx"))
 			ELSE
-				thisform.NewObject("gCalcu1","gCalcu","thcalc")
+				thisform.NewObject("gCalcu1","gCalcu","clases\thcalc")
 			ENDIF
 		ENDIF
 		
@@ -139,7 +139,7 @@ DEFINE CLASS cmg AS commandgroup
 
 	PROCEDURE putraya
 		LPARAMETERS xObjeto
-		LOCAL lntop,lnLeft,lnWid,lnHei
+		LOCAL lntop,lnLeft,lnWid,lnHei,lcRoot
 		IF PCOUNT()=0
 			Thisform.imr2.visible=.f.
 		   RETURN 
@@ -152,7 +152,7 @@ DEFINE CLASS cmg AS commandgroup
 			IF PEMSTATUS(_screen,"classDir",5)
 				thisform.NewObject("imr2","Imaraya",LOCFILE(ADDBS(_Screen.ClassDir)+"thcalc.vcx"))
 			ELSE
-				thisform.NewObject("imr2","Imaraya","thcalc")
+				thisform.NewObject("imr2","Imaraya","clases\thcalc")
 			ENDIF
 		ENDIF
 		
@@ -2577,7 +2577,7 @@ DEFINE CLASS cntcalcu AS container
 			IF PEMSTATUS(_screen,"classDir",5)
 				thisform.NewObject("imr2","Imaraya",LOCFILE(ADDBS(_Screen.ClassDir)+"thcalc.vcx"))
 			ELSE
-				thisform.NewObject("imr2","imaraya","thcalc")
+				thisform.NewObject("imr2","imaraya","clases\thcalc")
 			ENDIF
 		ENDIF
 		
@@ -4125,7 +4125,7 @@ DEFINE CLASS cntcalcu AS container
 	PROCEDURE Grilla.DblClick
 		LOCAL lRecalcu,tnDezim,cMask,lcRoot
 		
-		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"thcalc.vcx"),"thcalc")
+		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"thcalc.vcx"),"clases\thcalc")
 		lRecalcu=.f.
 		tndezim=This.Parent.ndezim
 		cMask=this.column3.InputMask
@@ -4577,7 +4577,7 @@ DEFINE CLASS frmcons AS form
 	PROCEDURE Init
 		LPARAMETERS xcCaption,xcEdit,xcBoton1,xcBoton2,xnPref
 		local lcRoot
-		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"thcalc.vcx"),"thcalc")
+		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"thcalc.vcx"),"clases\thcalc")
 		ADDPROPERTY(_Screen,"ThBoton",0)
 		thisform.NewObject("cmdClose1","cmdClose",lcRoot)
 		
@@ -4735,8 +4735,9 @@ DEFINE CLASS frmzcalcu AS form
 
 	PROCEDURE Init
 		PARAMETERS xnWin,xoFormCall,xoObjRef,xlCapture,xcMetodo,xnDecimal
+		SET SAFETY OFF
 		LOCAL nat,i,lcDecimalPart,lcNueve,lcRoot
-		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"thcalc.vcx"),"thcalc")
+		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"thcalc.vcx"),"clases\thcalc")
 		
 		thisform.NewObject("CntCalcu1","CntCalcu",lcRoot)
 		
@@ -5000,9 +5001,10 @@ DEFINE CLASS frmzcalcu2 AS form
 	ENDPROC
 
 	PROCEDURE Init
+		SET SAFETY OFF
 		LOCAL nat,i,lcDecimalPart,lcNueve 
 		LOCAL xnTop,xnLeft,xlCApture,obj,lnHand,lcGet,lcRoot
-		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"thcalc.vcx"),"thcalc")
+		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"thcalc.vcx"),"clases\thcalc")
 		
 		thisform.NewObject("CntCalcu1","CntCalcu",lcRoot)
 		
@@ -5858,7 +5860,7 @@ DEFINE CLASS gcalcu AS custom
 	PROCEDURE putraya
 		LPARAMETERS xObjeto
 		LOCAL lntop,lnLeft,lnWid,lnHei,lcRoot
-		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"thcalc.vcx"),"thcalc")
+		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"thcalc.vcx"),"clases\thcalc")
 		IF PCOUNT()=0
 			Thisform.imr2.visible=.f.
 		   RETURN 
@@ -6695,7 +6697,7 @@ DEFINE CLASS telchain AS form
 		parameters xoForm,xcLista,xcAccion
 		
 		local lcRoot
-		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"thcalc.vcx"),"thcalc")
+		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"thcalc.vcx"),"clases\thcalc")
 		ADDPROPERTY(_Screen,"ThCadena","")
 		thisform.NewObject("cmdClose1","cmdClose",lcRoot)
 		thisform.NewObject("gCalcu1","gCalcu",lcRoot)
@@ -6943,7 +6945,7 @@ DEFINE CLASS telimpor AS form
 	PROCEDURE Init
 		PARAMETERS xcCaption,xcTexto,xnNumero,xnInt,xnDec
 		local lcRoot
-		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"thcalc.vcx"),"thcalc")
+		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"thcalc.vcx"),"clases\thcalc")
 		thisform.NewObject("cmdClose1","cmdClose",lcRoot)
 		thisform.NewObject("gCalcu1","gCalcu",lcRoot)
 		IF VARTYPE(xnNumero)#"N"
@@ -7083,7 +7085,7 @@ DEFINE CLASS txtcalc AS textbox
 		LPARAMETERS nKeyCode, nShiftAltCtrl
 		IF nKeyCode=43
 			local lcRoot
-			lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"thcalc.vcx"),"thcalc")
+			lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"thcalc.vcx"),"clases\thcalc")
 			if vartype(_Screen.zCalcu1)="O"
 				thisform.zCalcu1.release
 			endif
@@ -7159,7 +7161,7 @@ DEFINE CLASS ztext AS textbox
 		LPARAMETERS nKeyCode, nShiftAltCtrl
 		IF nKeyCode=43
 			local lcRoot
-			lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"thcalc.vcx"),"thcalc")
+			lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"thcalc.vcx"),"clases\thcalc")
 			RELEASE zCalcu
 			PUBLIC zCalcu
 			zCalcu=NEWOBJECT("FrmZCalcu",lcRoot,"",0,;
