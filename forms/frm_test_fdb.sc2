@@ -49,6 +49,7 @@ DEFINE CLASS form1 AS form
 	*< OBJECTDATA: ObjPath="cmdPag2" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdSalir" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdPag3" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="cmdPag4" UniqueID="" Timestamp="" />
 
 	*<DefinedPropArrayMethod>
 		*m: *randmath
@@ -68,6 +69,7 @@ DEFINE CLASS form1 AS form
 		Height = 27, ;
 		Left = 16, ;
 		Name = "cmdPag1", ;
+		TabIndex = 1, ;
 		Top = 48, ;
 		Width = 84
 		*< END OBJECT: BaseClass="commandbutton" />
@@ -77,6 +79,7 @@ DEFINE CLASS form1 AS form
 		Height = 27, ;
 		Left = 16, ;
 		Name = "cmdPag2", ;
+		TabIndex = 2, ;
 		Top = 80, ;
 		Width = 84
 		*< END OBJECT: BaseClass="commandbutton" />
@@ -86,7 +89,18 @@ DEFINE CLASS form1 AS form
 		Height = 27, ;
 		Left = 16, ;
 		Name = "cmdPag3", ;
+		TabIndex = 3, ;
 		Top = 112, ;
+		Width = 84
+		*< END OBJECT: BaseClass="commandbutton" />
+
+	ADD OBJECT 'cmdPag4' AS commandbutton WITH ;
+		Caption = "Pag.4", ;
+		Height = 27, ;
+		Left = 16, ;
+		Name = "cmdPag4", ;
+		TabIndex = 4, ;
+		Top = 144, ;
 		Width = 84
 		*< END OBJECT: BaseClass="commandbutton" />
 
@@ -95,6 +109,7 @@ DEFINE CLASS form1 AS form
 		Height = 27, ;
 		Left = 480, ;
 		Name = "cmdSalir", ;
+		TabIndex = 6, ;
 		Top = 192, ;
 		Width = 84
 		*< END OBJECT: BaseClass="commandbutton" />
@@ -105,6 +120,7 @@ DEFINE CLASS form1 AS form
 		Left = 116, ;
 		Name = "pgfPaginas", ;
 		PageCount = 4, ;
+		TabIndex = 5, ;
 		Top = 12, ;
 		Width = 460, ;
 		Page1.Caption = "Principal", ;
@@ -230,6 +246,11 @@ DEFINE CLASS form1 AS form
 	ENDPROC
 
 	PROCEDURE cmdPag3.Click
+		THISFORM.pgfPaginas.ActivePage = 3
+		
+	ENDPROC
+
+	PROCEDURE cmdPag4.Click
 		THISFORM.pgfPaginas.ActivePage = 3
 		
 	ENDPROC
