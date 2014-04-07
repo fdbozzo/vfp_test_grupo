@@ -195,8 +195,9 @@ DEFINE CLASS frmmenu AS form
 	ENDPROC
 
 	PROCEDURE Destroy
-		LOCAL lcScriptDestroy,lcScriptParam,lnScript,lnparam
-		LOCAL ARRAY gaScript(1),gaparam(1)
+		LOCAL lcScriptDestroy,lcScriptParam,lnScript,lnparam,i,;
+			lcRelease,lnLines
+		LOCAL ARRAY gaScript(1),gaparam(1),gaLines(1)
 		STORE 0 TO lnScript,lnParam
 		lcScriptDestroy=this.scriptdestroy
 		IF !EMPTY(lcScriptDestroy)
@@ -226,7 +227,14 @@ DEFINE CLASS frmmenu AS form
 			ENDCASE
 		ENDIF
 		
-		
+		IF PEMSTATUS(_screen,"gRelease",5)
+			lnLines=Alines(gaLines,_screen.gRelease,5,",")
+			FOR i=1 to lnLines
+				lcRelease=gaLines[i]
+				RELEASE &lcRelease
+			NEXT
+			REMOVEPROPERTY(_screen,"gRelease")
+		ENDIF
 		IF PEMSTATUS(_screen,"gmenu1",5)
 			_screen.RemoveObject("gmenu1")
 		ENDIF
@@ -384,7 +392,9 @@ DEFINE CLASS gedit AS editbox
 
 	PROCEDURE Init
 		IF !PEMSTATUS(thisform,"gmenu1",5)
-			thisform.NewObject("gmenu1","gmenu","clases\thmenu.vcx","",.t.)
+			local lcRoot
+			lcRoot=ADdbs(iif(PEMSTATUS(_screen,"ClassDir",5),_Screen.Classdir,""))
+			thisform.NewObject("gmenu1","gmenu",lcRoot+"thmenu.vcx","",.t.)
 		ENDIF
 		
 		
@@ -431,6 +441,7 @@ DEFINE CLASS gmenu AS custom
 		*m: *shutforms
 		*m: *stuffmenu
 		*m: *wokupas
+		*p: classdir
 		*p: kttmat
 		*p: kttord
 		*p: lbclose
@@ -442,6 +453,7 @@ DEFINE CLASS gmenu AS custom
 		*a: ^gamenu[1,0]		&& Array de Menu
 	*</DefinedPropArrayMethod>
 
+	classdir = ""
 	Name = "gmenu"
 	nitems = 0		&& Cantidad de Items de Menu
 	Width = 30
@@ -479,7 +491,7 @@ DEFINE CLASS gmenu AS custom
 		lcName="LabMenu"+TRANSFORM(lnCont)
 		DO CASE
 			CASE UPPER(xcCaption)=="<RAYA/>"
-				xoCnt.newObject(lcName,"ShLine","clases\thmenu.vcx")
+				xoCnt.newObject(lcName,"ShLine",this.classdir+"thmenu.vcx")
 				WITH xoCnt.&lcName
 					.top=lnTop
 					.Left=0
@@ -491,7 +503,7 @@ DEFINE CLASS gmenu AS custom
 					
 			OTHERWISE
 			
-				xoCnt.NewObject(lcName,"Labmenu","clases\thmenu.vcx")
+				xoCnt.NewObject(lcName,"Labmenu",this.classdir+"thmenu.vcx")
 				WITH xoCnt.&lcName.
 					.top=lntop
 					.left=3
@@ -528,7 +540,7 @@ DEFINE CLASS gmenu AS custom
 		DO case
 			CASE LOWER(xoObject.name)=="screen"
 				IF !PEMSTATUS(_screen,"gmenu1",5)
-					_Screen.NewObject("gmenu1","gMenu","clases\thmenu.vcx")
+					_Screen.NewObject("gmenu1","gMenu",this.classdir+"thmenu.vcx")
 				ENDIF
 		
 				BINDEVENT(_Screen,"click",_Screen.gmenu1,lcHide)	
@@ -607,8 +619,10 @@ DEFINE CLASS gmenu AS custom
 		
 		LOCAL lcCommand,objSel,lnotFocus,LnBarra,;
 			lcsel,objSel,lnInitSel,lnLength,lcText,lRelease,oform,;
-			lcSubCommand,lQuit,lcExtract,objParam,lnMess,lcTrueCommand
-		
+			lcSubCommand,lQuit,lcExtract,objParam,lnMess,lcTrueCommand,;
+			lDoit
+			
+		lDoit=.T.
 		TRY
 			LOCAL loEx as Exception
 			objSel=xolabel.parent.objCall
@@ -681,8 +695,60 @@ DEFINE CLASS gmenu AS custom
 				
 				
 				CASE LEFT(lcCommand,LEN("<DOFORM>"))=="<DOFORM>"
-					lcExtract=ADDBS(DFORMU)+STREXTRACT(lcCommand,"<DOFORM>","</DOFORM>")
-					DO FORM &LcExtract
+				
+					LcForm=STREXTRACT(lcCommand,"<DOFORM>","</DOFORM>")
+					lcName=STREXTRACT(lcCommand,"<NAME>","</NAME>")
+					lcParam=STREXTRACT(lcCommand,"<PARAM>","</PARAM>")		
+		*!*				MESSAGEBOX(lcForm+","+lcName+","+lcParam)
+		
+					loName=IIF(EMPTY(lcName),lcForm,lcName)	
+					IF !EMPTY(lcForm)
+		
+						IF VARTYPE(&loname)="O"
+							&loname..Windostate=0
+							&loname..Show()
+						ELSE
+							IF !EMPTY(lcName)
+								RELEASE &lcName
+								PUBLIC &lcname
+								IF !PEMSTATUS(_Screen,"gRelease",5)
+									Addproperty(_Screen,"gRelease",lcName+",")
+								ELSE
+									_Screen.gRelease=_Screen.gRelease+lcName+","
+								ENDIF
+							ENDIF
+							
+							DO case
+							CASE !EMPTY(lcName) AND !EMPTY(lcParam)
+								if _vfp.StartMode#0
+									DO FORM &lcForm NAME &lcname WITH &lcParam
+								ELSE
+									DO FORM ..\vfp_test_grupo\forms\&lcForm NAME &lcName WITH &lcParam
+								ENDIF
+
+							CASE !EMPTY(lcname) AND EMPTY(lcparam)
+								IF _vfp.StartMode#0
+									DO FORM &lcForm NAME &lcname
+								ELSE
+									DO FORM ..\vfp_test_grupo\forms\&lcForm NAME &lcname
+								ENDIF
+							CASE EMPTY(lcName) AND !EMPTY(lcParam)
+								IF _vfp.StartMode#0
+									DO FORM &lcForm WITH &lcparam.
+								ELSE
+									DO FORM ..\vfp_test_grupo\forms\&lcForm WITH &lcparam.
+								ENDIF
+							CASE EMPTY(lcName) AND EMPTY(lcParam)
+								IF _vfp.StartMode#0
+									DO FORM &lcForm
+								ELSE
+									DO FORM ..\vfp_test_grupo\forms\&lcForm
+								ENDIF
+							ENDCASE
+						ENDIF
+						
+					ENDIF
+								
 				
 				CASE lcCommand=="<CLOSEFORM/>"
 					this.Shutforms()
@@ -690,30 +756,7 @@ DEFINE CLASS gmenu AS custom
 					lRelease=.f.
 					lnotFocus=.t.
 		
-		*!*			CASE lcCommand=="<CLOSEMYFORMS/>"
-		*!*				This.Closemyforms(oform)
-		*!*				lRelease=.f.
-		*!*				lNotFocus=.t.
-		*!*			CASE lcCommand=="<CLOSETHIS/>"
-		*!*				IF VARTYPE(oform)=="O"
-		*!*					oform.release
-		*!*					oform=null
-		*!*				ENDIF
-		*!*		
-		*!*			CASE lcCommand=="<CLOSEMYFORMS/><CLOSETHIS/>"
-		*!*				This.Closemyforms(oform)
-		*!*				lRelease=.f.
-		*!*				lNotFocus=.t.	
-		*!*				IF VARTYPE(oform)=="O"
-		*!*					oform.release
-		*!*					oform=null
-		*!*				ENDIF
-		*!*			
-		*!*			CASE lcCommand=="<SHUTDOWN>"
-		*!*				_screen.objCopy.onUnloadQuit=.t.
-		*!*				this.Shutforms()
-		*!*				lRelease=.f.
-		*!*				lnotFocus=.t.			
+			
 		
 				CASE LEFT(lcCommand,LEN("<DOFORM|C|="))=="<DOFORM|C|="
 					LcdoForm=This.getvaltag(lcCommand)
@@ -732,34 +775,35 @@ DEFINE CLASS gmenu AS custom
 				IF this.countmyforms(oForm)>0
 					lnMess=MESSAGEBOX(STREXTRACT(lcTrueCommand,"<PREVENT>","</PREVENT>"),4,"Acción de Menú")
 					IF lnMess#6
-						RETURN
+						LDOIT=.F.
 					ENDIF
 				ENDIF
 							
 			ENDIF
-			IF AT("<CLOSEMYFORMS/>",lcCommand)>0
-				This.Closemyforms(oform)
-				lRelease=.f.
-				lNotFocus=.t.
-			ENDIF
-			IF AT("<CLOSEFORM/>",lcCommand)>0
-				this.Shutforms()
-				lRelease=.f.
-				lnotFocus=.t.	
-			ENDIF
-			IF AT("<CLOSETHIS/>",lcCommand)>0
-				IF VARTYPE(oform)=="O"
-					oform.release
-					oform=null
+			IF LDOIT
+				IF AT("<CLOSEMYFORMS/>",lcCommand)>0
+					This.Closemyforms(oform)
+					lRelease=.f.
+					lNotFocus=.t.
+				ENDIF
+				IF AT("<CLOSEFORM/>",lcCommand)>0
+					this.Shutforms()
+					lRelease=.f.
+					lnotFocus=.t.	
+				ENDIF
+				IF AT("<CLOSETHIS/>",lcCommand)>0
+					IF VARTYPE(oform)=="O"
+						oform.release
+						oform=null
+					ENDIF
+				ENDIF
+				IF AT("<SHUTDOWN>",lcCommand)>0
+					_screen.objCopy.onUnloadQuit=.t.
+					this.Shutforms()
+					lRelease=.f.
+					lnotFocus=.t.	
 				ENDIF
 			ENDIF
-			IF AT("<SHUTDOWN>",lcCommand)>0
-				_screen.objCopy.onUnloadQuit=.t.
-				this.Shutforms()
-				lRelease=.f.
-				lnotFocus=.t.	
-			ENDIF
-			
 		CATCH TO loEx
 			loex.UserValue=PROGRAM()
 			this.showerror(loEx)
@@ -974,7 +1018,8 @@ DEFINE CLASS gmenu AS custom
 		
 		LOCAL ARRAY gaMouse(1),gaProp(4,3)
 		LOCAL I,lnLabels,lnTop,lnWid,lnAdd,lAutoCenter,;
-			lnTop,lnLeft,lnBarHei
+			lnTop,lnLeft,lnBarHei,lcRoot
+		
 		lnTop=25
 		lnLeft=10
 		lnBarHei=IIF(EMPTY(xcCaption),0,25)
@@ -999,8 +1044,9 @@ DEFINE CLASS gmenu AS custom
 			* xnMouseObj: 0-Screen 1-Objeto 2-Read_topLeft
 		
 			* Con Formulario
-			ADDPROPERTY(_Screen,"oFrmCopy",NEWOBJECT("FrmMenu","clases\thmenu.vcx"))
-			_screen.ofrmCopy.NewObject("Cnt_Copy","Cntmenu","clases\thmenu.vcx")
+			
+			ADDPROPERTY(_Screen,"oFrmCopy",NEWOBJECT("FrmMenu",this.classdir+"thmenu.vcx"))
+			_screen.ofrmCopy.NewObject("Cnt_Copy","Cntmenu",this.classdir+"thmenu.vcx")
 			_Screen.objCopy=_screen.ofrmCopy
 			*.Cnt_Copy	
 			WITH _screen.oFrmCopy
@@ -1113,7 +1159,7 @@ DEFINE CLASS gmenu AS custom
 			IF PEMSTATUS(xoForm,"Cnt_Copy",5)
 				xoForm.RemoveObject("Cnt_Copy")
 			ENDIF
-			xoForm.NewObject("Cnt_Copy","cntMenu","clases\thmenu.vcx")
+			xoForm.NewObject("Cnt_Copy","cntMenu",this.classdir+"thmenu.vcx")
 		
 			_Screen.objCopy=xoform.Cnt_Copy
 		
@@ -1447,7 +1493,7 @@ DEFINE CLASS gmenu AS custom
 		lNotBind=!xlBindHide
 		
 		* Para capitalización de claves.
-		LOCAL ARRAY gaClave(11)
+		LOCAL ARRAY gaClave(15)
 		gaClave[1]="<CLOSETHIS/>"
 		gaClave[2]="<CLOSEFORM/>"
 		gaClave[3]="<CLOSEMYFORMS/>"
@@ -1459,6 +1505,10 @@ DEFINE CLASS gmenu AS custom
 		gaClave[9]="</SCRIPT>"
 		gaClave[10]="<PARAM>"
 		gaClave[11]="</PARAM>"
+		gaClave[12]="<DOFORM>"
+		gaClave[13]="</DOFORM>"
+		gaClave[14]="<NAME>"
+		gaClave[15]="</NAME>"
 			
 		lcMens="Mensaje de Error"
 		lnModo=1
@@ -1517,24 +1567,7 @@ DEFINE CLASS gmenu AS custom
 					
 					ENDIF
 				
-		
-		
-		*!*			CASE UPPER(LEFT(xgaArray[i,2],LEN("<FORM/>")))="<FORM/>"
-		*!*				xgaArray[i,2]="<FORM/>"	
-		
-		
-		*!*			CASE UPPER(LEFT(xgaArray[i,2],LEN("<CLOSETHIS/>")))="<CLOSETHIS/>"
-		*!*				xgaArray[i,2]="<CLOSETHIS/>"
-		
-		*!*			CASE UPPER(LEFT(xgaArray[i,2],LEN("<CLOSEFORM/>")))="<CLOSEFORM/>"
-		*!*				xgaArray[i,2]="<CLOSEFORM/>"					
-		
-		*!*			CASE UPPER(LEFT(xgaArray[i,2],LEN("<CLOSEMYFORMS/>")))="<CLOSEMYFORMS/>"
-		*!*				xgaArray[i,2]="<CLOSEMYFORMS/>"
-		
-		*!*			CASE UPPER(LEFT(xgaArray[i,2],LEN("<SHUTDOWN>")))="<SHUTDOWN>"
-		*!*				xgaArray[i,2]="<SHUTDOWN>"
-						
+					
 			ENDCASE
 		
 			FOR ji=1 TO ALEN(gaClave)
@@ -2001,6 +2034,8 @@ DEFINE CLASS gmenu AS custom
 		IF !PEMSTATUS(_Screen,"objCopy",5)
 			ADDPROPERTY(_Screen,"ObjCopy",null)
 		ENDIF
+		this.classdir=ADDBS(IIF(PEMSTATUS(_screen,"ClassDir",5),_screen.classdir,"Clases"))
+		
 		IF xlAdded
 			BINDEVENT(thisform,"Destroy",this,"releasemenu")
 		ENDIF
@@ -2120,7 +2155,7 @@ DEFINE CLASS gmenu AS custom
 		DO case
 			CASE xnFlag=0
 				LOCAL objProg as Object,xi as Integer
-				objProg=ObjProgram()
+				objProg=this.ObjProgram()
 				lcTag="OpenBeforeShutDown"	
 				n_fop=FCREATE(fcr)
 				=FPUTS(n_fop,"<Programs>")	

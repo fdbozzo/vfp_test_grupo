@@ -33,7 +33,7 @@ DEFINE CLASS frm_menu_comm AS form
 	Left = 0
 	MaxButton = .F.
 	MinButton = .F.
-	Name = "Frm_Menu_Comm"
+	Name = "frm_menu_comm"
 	Top = 0
 	Width = 353
 
@@ -85,6 +85,17 @@ DEFINE CLASS frm_menu_comm AS form
 		
 	ENDPROC
 
+	PROCEDURE Load
+		LOCAL lcRoot,objShell
+		LOCAL cdir
+		objShell=CreateObject("Wscript.Shell")
+		lcRoot=ADDBS(objShell.CurrentDirectory)+"Clases"
+		objShell=null
+		ADDPROPERTY(_screen,"ClassDir",lcRoot)
+		
+		
+	ENDPROC
+
 	PROCEDURE Unload
 		RELEASE dformu,dlibs
 		
@@ -94,7 +105,7 @@ DEFINE CLASS frm_menu_comm AS form
 		LOCAL nlis,i,lcScript,objMenu,lnPosicion,lnTimer,lNotOntop,;
 			lcCaption,lRaya,lshat,ldoti,lcScriptDestroy,;
 			lcMensaje,dlibs
-		
+		ADDPROPERTY(_SCREEN,"CLASSDIR",ADDBS(SYS(5))+"desa\vfp_test_grupo\clases")
 		dlibs=ADDBS(SYS(5))+"desa\vfp_test_grupo\clases"	
 		lcCaption="Cajas del Sistema"
 		lnPosicion=5
@@ -106,23 +117,16 @@ DEFINE CLASS frm_menu_comm AS form
 		LOCAL ARRAY gaMenu(1,6)
 		lRaya=.f.
 		nlis=0
+		
+		
+		
+		RELEASE gloTest,gloEdades,gloFirstTest
+		
 		*1
-		
-		
-		
-		TEXT TO lcScript NOSHOW PRETEXT 1
-		IF VARTYPE(gloTest)="O"
-			gloTest.RELEASE
-		ENDIF
-		RELEASE gloTest
-		PUBLIC gloTest
-		DO FORM forms\frm_test_fdb NAME gloTest 
-		ENDTEXT
-		
 		nlis=nLis+1
 		DIMENSION gaMenu(nlis,6)
 		gaMenu[nlis,1]=[\<Test para Foxbin-Plastic]
-		gaMenu[nlis,2]="<SCRIPT>"+lcScript+"</SCRIPT>"
+		gaMenu[nlis,2]="<DOFORM>frm_test_fdb</DOFORM><NAME>GLOTEST</NAME>"
 		gaMenu[nlis,3]=.T.
 		gaMenu[nlis,4]=nlis
 		gaMenu[nlis,5]=""
@@ -143,17 +147,8 @@ DEFINE CLASS frm_menu_comm AS form
 		
 		nlis=nLis+1
 		DIMENSION gamenu(nlis,6)
-		TEXT TO lcScript NOSHOW PRETEXT 1
-		IF VARTYPE(gloEdades)="O"
-			gloEdades.RELEASE
-		ENDIF
-		RELEASE gloEdades
-		PUBLIC gloEdades
-		DO FORM forms\frmEdades NAME gloEdades 
-		ENDTEXT
-		
 		gaMenu[nlis,1]=[\<Edades, Calculadora y Almanque]
-		gaMenu[nlis,2]="<SCRIPT>"+lcScript+"</SCRIPT>"
+		gaMenu[nlis,2]="<DOFORM>frmEdades</DOFORM><NAME>gloEdades</NAME>"
 		gaMenu[nlis,3]=.T.
 		gaMenu[nlis,4]=nlis
 		gaMenu[nlis,5]=""
@@ -162,19 +157,10 @@ DEFINE CLASS frm_menu_comm AS form
 		
 		
 		*4
-		TEXT TO lcScript NOSHOW PRETEXT 1
-		IF VARTYPE(gloFirstTest)="O"
-			gloFirstTest.RELEASE
-		ENDIF
-		RELEASE gloFirstTest
-		PUBLIC gloFirstTest
-		DO FORM forms\frm_test1 NAME gloFirstTest 
-		ENDTEXT
-		
 		nlis=nLis+1
 		DIMENSION gamenu(nlis,6)
 		gaMenu[nlis,1]=[\<Primer Test de Foxbin Plastic]
-		gaMenu[nlis,2]="<SCRIPT>"+lcScript+"</SCRIPT>"
+		gaMenu[nlis,2]="<DOFORM>frm_Test1</DOFORM><NAME>gloFirsTest</NAME>"
 		gaMenu[nlis,3]=.T.
 		gaMenu[nlis,4]=nlis
 		gaMenu[nlis,5]=""
