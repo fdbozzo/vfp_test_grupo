@@ -30,7 +30,7 @@ DEFINE CLASS dataenvironment AS dataenvironment
 
 ENDDEFINE
 
-DEFINE CLASS form1 AS form 
+DEFINE CLASS frm_test_fdb AS form 
  	*< CLASSDATA: Baseclass="form" Timestamp="" Scale="" Uniqueid="" />
 
 	*-- OBJECTDATA items order determines ZOrder / El orden de los items OBJECTDATA determina el ZOrder 
@@ -85,11 +85,12 @@ DEFINE CLASS form1 AS form
 		*m: *randmath
 	*</DefinedPropArrayMethod>
 
-	Caption = "Form1"
+	BackColor = 184,201,197
+	Caption = "frm_test_fdb"
 	DoCreate = .T.
 	Height = 231
 	Left = 0
-	Name = "Form1"
+	Name = "frm_test_fdb"
 	Top = 0
 	Width = 550
 
