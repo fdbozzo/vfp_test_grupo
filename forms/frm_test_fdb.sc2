@@ -145,7 +145,6 @@ DEFINE CLASS form1 AS form
 		AutoSize = .T., ;
 		BackStyle = 0, ;
 		Caption = "Añadiendo controles al PageFrame", ;
-		ForeColor = 255,0,0, ;
 		Height = 17, ;
 		Left = 135, ;
 		Name = "lbltitulo", ;
@@ -297,12 +296,6 @@ DEFINE CLASS form1 AS form
 		THISFORM.Hide()
 		THISFORM.Release()
 		
-	ENDPROC
-
-	PROCEDURE pgfPaginas.pagAntonioMeza.Activate
-		this.ForeColor = RGB(255,0,0)
-		this.lbltitulo.FontBold = .t.
-		this.Refresh
 	ENDPROC
 
 	PROCEDURE pgfPaginas.pagAntonioMeza.btnnuevo.Click
