@@ -658,6 +658,14 @@ DEFINE CLASS form1 AS form
 		objREt=null
 	ENDPROC
 
+	PROCEDURE Init
+		LOCAL opage
+		FOR EACH opage IN this.pgfPaginas.Pages
+			opage.backcolor=RGB(210,221,219)
+		ENDFOR
+		
+	ENDPROC
+
 	PROCEDURE pascuale		&& Determina los días de Semana Santa para un año dado
 		LPARAMETERS xnAno
 		*<Propósito>

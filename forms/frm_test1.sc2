@@ -5,7 +5,7 @@
 *< FOXBIN2PRG: Version="1.19" SourceFile="frm_test1.scx" /> (Solo para binarios VFP 9 / Only for VFP 9 binaries)
 *
 *
-DEFINE CLASS Dataenvironment AS dataenvironment 
+DEFINE CLASS dataenvironment AS dataenvironment 
  	*< CLASSDATA: Baseclass="dataenvironment" Timestamp="" Scale="" Uniqueid="" ClassIcon="1" />
 
 	DataSource = .NULL.
@@ -17,7 +17,7 @@ DEFINE CLASS Dataenvironment AS dataenvironment
 
 ENDDEFINE
 
-DEFINE CLASS frmTest1 AS form 
+DEFINE CLASS frmtest1 AS form 
  	*< CLASSDATA: Baseclass="form" Timestamp="" Scale="" Uniqueid="" />
 
 	*-- OBJECTDATA items order determines ZOrder / El orden de los items OBJECTDATA determina el ZOrder 

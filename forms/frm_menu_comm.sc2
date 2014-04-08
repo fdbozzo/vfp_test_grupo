@@ -25,6 +25,7 @@ DEFINE CLASS frm_menu_comm AS form
 	*< OBJECTDATA: ObjPath="shpEdit" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="edtSource" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="edtTarget" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="cmdOpenForms" UniqueID="" Timestamp="" />
 
 	BackColor = 184,201,197
 	Caption = "Llamar un menú Box"
@@ -35,41 +36,51 @@ DEFINE CLASS frm_menu_comm AS form
 	MinButton = .F.
 	Name = "frm_menu_comm"
 	Top = 0
-	Width = 353
+	Width = 366
 
 	ADD OBJECT 'cmdMenu' AS commandbutton WITH ;
 		Caption = "Llamar Menu Box", ;
 		FontSize = 8, ;
-		Height = 25, ;
-		Left = 7, ;
+		Height = 23, ;
+		Left = 3, ;
 		Name = "cmdMenu", ;
-		Top = 10, ;
-		Width = 96
+		Top = 5, ;
+		Width = 117
+		*< END OBJECT: BaseClass="commandbutton" />
+
+	ADD OBJECT 'cmdOpenForms' AS commandbutton WITH ;
+		Caption = "Formularios Abiertos", ;
+		FontSize = 8, ;
+		Height = 23, ;
+		Left = 3, ;
+		Name = "cmdOpenForms", ;
+		Top = 28, ;
+		Width = 117
 		*< END OBJECT: BaseClass="commandbutton" />
 
 	ADD OBJECT 'edtSource' AS gedit WITH ;
 		Height = 90, ;
-		Left = 110, ;
+		Left = 124, ;
 		Name = "edtSource", ;
-		Top = 11, ;
+		Top = 6, ;
 		Width = 235
 		*< END OBJECT: ClassLib="..\clases\thmenu.vcx" BaseClass="editbox" />
 
 	ADD OBJECT 'edtTarget' AS gedit WITH ;
 		Height = 55, ;
-		Left = 110, ;
+		Left = 124, ;
 		Name = "edtTarget", ;
-		Top = 100, ;
+		Top = 95, ;
 		Width = 235
 		*< END OBJECT: ClassLib="..\clases\thmenu.vcx" BaseClass="editbox" />
 
 	ADD OBJECT 'shpEdit' AS shape WITH ;
 		BackColor = 221,226,222, ;
 		Height = 151, ;
-		Left = 107, ;
+		Left = 121, ;
 		Name = "shpEdit", ;
 		SpecialEffect = 0, ;
-		Top = 8, ;
+		Top = 3, ;
 		Width = 242
 		*< END OBJECT: BaseClass="shape" />
 	
@@ -303,6 +314,18 @@ DEFINE CLASS frm_menu_comm AS form
 		objMenu=NEWOBJECT("gmenu",ADDBS(dlibs)+"thmenu.vcx")
 		objMenu.GralMenu(@gaMenu,lnPosicion,lnTimer,;
 			lNotOnTop,Thisform,lcCaption,lcScriptDestroy)
+		objMenu=null
+		
+	ENDPROC
+
+	PROCEDURE cmdOpenForms.Click
+		LOCAL nlis,i,lcScript,objMenu,lnPosicion,lnTimer,lNotOntop,;
+				dlibs
+		ADDPROPERTY(_SCREEN,"CLASSDIR",ADDBS(SYS(5))+"desa\vfp_test_grupo\clases")
+		dlibs=ADDBS(SYS(5))+"desa\vfp_test_grupo\clases"	
+		
+		objMenu=NEWOBJECT("gmenu",ADDBS(dlibs)+"thmenu.vcx")
+		objMenu.gmforms()
 		objMenu=null
 		
 	ENDPROC

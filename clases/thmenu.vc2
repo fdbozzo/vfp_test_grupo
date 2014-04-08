@@ -2150,7 +2150,7 @@ DEFINE CLASS gmenu AS custom
 		IF VARTYPE(xnFlag)#"N"
 			xnFlag=0
 		ENDIF
-		fcr=ADDBS(dapli)+"OpenOnShut.txt"
+		fcr="OpenOnShut.txt"
 		
 		DO case
 			CASE xnFlag=0
@@ -2167,7 +2167,7 @@ DEFINE CLASS gmenu AS custom
 			CASE xnFlag=1
 				lcTag="OpenAfterShutDown"
 				n_fop=-1
-				lput=getfopen(fcr,@n_fop,.t.,12,.t.)
+				lput=this.getfopen(fcr,@n_fop,.t.,12,.t.)
 				IF lput
 					FSEEK(n_fop,0,2)
 				ENDIF
@@ -2175,14 +2175,14 @@ DEFINE CLASS gmenu AS custom
 			CASE xnFlag=2
 				lcTag="OpenAfterShutDownAgain"
 				n_fop=-1
-				lput=getfopen(fcr,@n_fop,.t.,12,.t.)
+				lput=this.getfopen(fcr,@n_fop,.t.,12,.t.)
 				IF lput
 					FSEEK(n_fop,0,2)
 				ENDIF	
 			CASE xnFlag=3
 				lcTag="OpenVisibleForms"
 				n_fop=-1
-				lput=getfopen(fcr,@n_fop,.t.,12,.t.)
+				lput=this.getfopen(fcr,@n_fop,.t.,12,.t.)
 				IF lput
 					FSEEK(n_fop,0,2)
 				ENDIF		
@@ -2198,8 +2198,8 @@ DEFINE CLASS gmenu AS custom
 			FOR ii_=1 TO nfCount
 				lDoit=IIF(xnFlag#3,.t.,_Screen.Forms[ii_].visible)	
 				IF ldoit
-					=FPUTS(n_fop,CHR(9)+"<open>"+TRANSFORM(ii_)+"-"+Qualifer(_screen.Forms[ii_].caption);
-						+Qualifer(_Screen.forms[ii_].name)+"</open>")
+					=FPUTS(n_fop,CHR(9)+"<open>"+TRANSFORM(ii_)+"-"+This.Qualifer(_screen.Forms[ii_].caption);
+						+this.Qualifer(_Screen.forms[ii_].name)+"</open>")
 					lnVisi=lnVisi+1
 				ENDIF
 				
