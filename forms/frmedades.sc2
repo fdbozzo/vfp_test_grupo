@@ -77,7 +77,7 @@ DEFINE CLASS frmedades AS form
 	DoCreate = .T.
 	Height = 265
 	Left = 0
-	Name = "frmedades"
+	Name = "FRMEDADES"
 	Top = 0
 	Width = 411
 
@@ -646,7 +646,6 @@ DEFINE CLASS frmedades AS form
 		SET SAFETY &lcSafety
 		
 		REMOVEPROPERTY(_screen,"stSafety")
-		REMOVEPROPERTY(_screen,"ClassDir")
 		IF PEMSTATUS(_screen,"TheoCalc",5)
 			IF VARTYPE(_Screen.theocalc)="O"
 				_Screen.theocalc.release

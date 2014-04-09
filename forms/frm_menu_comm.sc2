@@ -122,10 +122,8 @@ DEFINE CLASS frm_menu_comm AS form
 	PROCEDURE cmdMenu.Click
 		LOCAL nlis,i,lcScript,objMenu,lnPosicion,lnTimer,lNotOntop,;
 			lcCaption,lRaya,lshat,ldoti,lcScriptDestroy,;
-			lcMensaje,dlibs
-		ADDPROPERTY(_SCREEN,"CLASSDIR",ADDBS(SYS(5))+"desa\vfp_test_grupo\clases")
-		dlibs=ADDBS(SYS(5))+"desa\vfp_test_grupo\clases"	
-		lcCaption="Cajas del Sistema"
+			lcMensaje
+		lcCaption="Formularios del Sistema"
 		lnPosicion=5
 		lnTimer=2
 		lNotOnTop=.t.
@@ -337,7 +335,7 @@ DEFINE CLASS frm_menu_comm AS form
 		gaMenu[nlis,5]=""
 		gaMenu[nlis,6]=null
 		
-		objMenu=NEWOBJECT("gmenu",ADDBS(dlibs)+"thmenu.vcx")
+		objMenu=NEWOBJECT("gmenu",ADDBS(_screen.classdir)+"thmenu.vcx")
 		objMenu.GralMenu(@gaMenu,lnPosicion,lnTimer,;
 			lNotOnTop,Thisform,lcCaption,lcScriptDestroy)
 		objMenu=null
@@ -345,12 +343,8 @@ DEFINE CLASS frm_menu_comm AS form
 	ENDPROC
 
 	PROCEDURE cmdOpenForms.Click
-		LOCAL nlis,i,lcScript,objMenu,lnPosicion,lnTimer,lNotOntop,;
-				dlibs
-		ADDPROPERTY(_SCREEN,"CLASSDIR",ADDBS(SYS(5))+"desa\vfp_test_grupo\clases")
-		dlibs=ADDBS(SYS(5))+"desa\vfp_test_grupo\clases"	
-		
-		objMenu=NEWOBJECT("gmenu",ADDBS(dlibs)+"thmenu.vcx")
+		LOCAL objMenu
+		objMenu=NEWOBJECT("gmenu",ADDBS(_screen.classdir)+"thmenu.vcx")
 		objMenu.gmforms()
 		objMenu=null
 		

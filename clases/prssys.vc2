@@ -4931,7 +4931,6 @@ DEFINE CLASS frmscript AS form
 
 	PROCEDURE Destroy
 		LOCAL fcr,nfop,obj,objFun
-		
 		TRY
 			LOCAL loex as Exception
 			obj=NEWOBJECT("prsfun","clases\prssys.vcx")
@@ -5474,7 +5473,7 @@ DEFINE CLASS funmark AS custom
 	ENDPROC
 
 	PROCEDURE Destroy
-		release oform
+		*release oform
 		if !empty(this.garelea)
 			kerelea=alltrim(this.garelea)
 			if right(kerelea,1)=","

@@ -88,6 +88,7 @@ DEFINE CLASS frmmenu AS form
 		*p: autoshut
 		*p: barras
 		*p: condishut
+		*p: implement
 		*p: onunloadquit
 		*p: operonshut
 		*p: scriptdestroy
@@ -104,6 +105,7 @@ DEFINE CLASS frmmenu AS form
 	DoCreate = .T.
 	Height = 250
 	Icon = ..\graphics\fibona5inv.ico
+	implement = .F.
 	KeyPreview = .T.
 	Left = 0
 	MaxButton = .F.
@@ -195,9 +197,8 @@ DEFINE CLASS frmmenu AS form
 	ENDPROC
 
 	PROCEDURE Destroy
-		LOCAL lcScriptDestroy,lcScriptParam,lnScript,lnparam,i,;
-			lcRelease,lnLines
-		LOCAL ARRAY gaScript(1),gaparam(1),gaLines(1)
+		LOCAL lcScriptDestroy,lcScriptParam,lnScript,lnparam
+		LOCAL ARRAY gaScript(1),gaparam(1)
 		STORE 0 TO lnScript,lnParam
 		lcScriptDestroy=this.scriptdestroy
 		IF !EMPTY(lcScriptDestroy)
@@ -227,14 +228,7 @@ DEFINE CLASS frmmenu AS form
 			ENDCASE
 		ENDIF
 		
-		IF PEMSTATUS(_screen,"gRelease",5)
-			lnLines=Alines(gaLines,_screen.gRelease,5,",")
-			FOR i=1 to lnLines
-				lcRelease=gaLines[i]
-				RELEASE &lcRelease
-			NEXT
-			REMOVEPROPERTY(_screen,"gRelease")
-		ENDIF
+		
 		IF PEMSTATUS(_screen,"gmenu1",5)
 			_screen.RemoveObject("gmenu1")
 		ENDIF
@@ -271,9 +265,13 @@ DEFINE CLASS frmmenu AS form
 	ENDPROC
 
 	PROCEDURE Init
-		LPARAMETERS xnWinType
-		this.WindowType=EVL(xnWinType,0)
+		LPARAMETERS xnWinType,xcNameImplem
+		IF VARTYPE(xcNameImplem)#"C" OR EMPTY(xcNameImplem)
+			xcNameImplem="oFrmCopy"
+		ENDIF
 		
+		this.WindowType=EVL(xnWinType,0)
+		this.implement=xcNameImplem
 	ENDPROC
 
 	PROCEDURE KeyPress
@@ -391,10 +389,10 @@ DEFINE CLASS gedit AS editbox
 	ENDPROC
 
 	PROCEDURE Init
+		LOCAL lcClassdir
 		IF !PEMSTATUS(thisform,"gmenu1",5)
-			local lcRoot
-			lcRoot=ADdbs(iif(PEMSTATUS(_screen,"ClassDir",5),_Screen.Classdir,""))
-			thisform.NewObject("gmenu1","gmenu",lcRoot+"thmenu.vcx","",.t.)
+			lcClassdir=IIF(PEMSTATUS(_screen,"Classdir",5),ADDBS(_screen.Classdir),"")
+			thisform.NewObject("gmenu1","gmenu",lcClassDir+"thmenu.vcx","",.t.)
 		ENDIF
 		
 		
@@ -453,7 +451,7 @@ DEFINE CLASS gmenu AS custom
 		*a: ^gamenu[1,0]		&& Array de Menu
 	*</DefinedPropArrayMethod>
 
-	classdir = ""
+	classdir = .F.
 	Name = "gmenu"
 	nitems = 0		&& Cantidad de Items de Menu
 	Width = 30
@@ -524,7 +522,7 @@ DEFINE CLASS gmenu AS custom
 	ENDPROC
 
 	PROCEDURE bindhide
-		LPARAMETERS xoObject,xnModo,xlNotMMScreen
+		LPARAMETERS xoObject,xnModo,xlNotMMScreen,xcNameMenu
 		IF VARTYPE(xnModo)#"N"
 			xnMOdo=0
 		ENDIF
@@ -620,7 +618,7 @@ DEFINE CLASS gmenu AS custom
 		LOCAL lcCommand,objSel,lnotFocus,LnBarra,;
 			lcsel,objSel,lnInitSel,lnLength,lcText,lRelease,oform,;
 			lcSubCommand,lQuit,lcExtract,objParam,lnMess,lcTrueCommand,;
-			lDoit
+			lDoit,lcNameMenu
 			
 		lDoit=.T.
 		TRY
@@ -632,6 +630,8 @@ DEFINE CLASS gmenu AS custom
 			lcCommand=UPPER(ALLTRIM(xoLabel.Comando))
 			lcSubCommand=xoLabel.SubCommand
 			objParam=xoLabel.objform
+			lcNameMenu=oform.implement
+			
 			IF PEMSTATUS(oform,"OperOnShut",5)
 				oform.operonshut=lcSubCommand
 			ENDIF
@@ -711,39 +711,18 @@ DEFINE CLASS gmenu AS custom
 							IF !EMPTY(lcName)
 								RELEASE &lcName
 								PUBLIC &lcname
-								IF !PEMSTATUS(_Screen,"gRelease",5)
-									Addproperty(_Screen,"gRelease",lcName+",")
-								ELSE
-									_Screen.gRelease=_Screen.gRelease+lcName+","
-								ENDIF
 							ENDIF
 							
 							DO case
 							CASE !EMPTY(lcName) AND !EMPTY(lcParam)
-								if _vfp.StartMode#0
-									DO FORM &lcForm NAME &lcname WITH &lcParam
-								ELSE
-									DO FORM ..\vfp_test_grupo\forms\&lcForm NAME &lcName WITH &lcParam
-								ENDIF
-
+		
+								DO FORM &lcForm NAME &lcname WITH &lcParam				
 							CASE !EMPTY(lcname) AND EMPTY(lcparam)
-								IF _vfp.StartMode#0
-									DO FORM &lcForm NAME &lcname
-								ELSE
-									DO FORM ..\vfp_test_grupo\forms\&lcForm NAME &lcname
-								ENDIF
+								DO FORM &lcForm NAME &lcname
 							CASE EMPTY(lcName) AND !EMPTY(lcParam)
-								IF _vfp.StartMode#0
-									DO FORM &lcForm WITH &lcparam.
-								ELSE
-									DO FORM ..\vfp_test_grupo\forms\&lcForm WITH &lcparam.
-								ENDIF
+								DO FORM &lcForm WITH &lcParam
 							CASE EMPTY(lcName) AND EMPTY(lcParam)
-								IF _vfp.StartMode#0
-									DO FORM &lcForm
-								ELSE
-									DO FORM ..\vfp_test_grupo\forms\&lcForm
-								ENDIF
+								DO FORM &lcform
 							ENDCASE
 						ENDIF
 						
@@ -984,7 +963,14 @@ DEFINE CLASS gmenu AS custom
 	PROCEDURE getpopup		&& Genera el menu popup
 		LPARAMETERS xoform,xoObjeto,xnModo,xnMouseObj,xnTimer,;
 			xlNotBind,xnItemsMenu,xlNotMMScreen,xlNotOnTop,xoCondiShut,;
-			xcCaption,xcScriptDestroy,xlNotImage,xnMinWidth
+			xcCaption,xcScriptDestroy,xlNotImage,xnMinWidth,xcNameMenu
+		
+		
+		
+		IF VARTYPE(xcNamemenu)#"C" OR EMPTY(xcNameMenu)
+			xcNameMenu="OFRMCOPY"
+		ENDIF	
+		
 			
 		IF VARTYPE(xoform)#"O"
 			xoForm=_Screen
@@ -1006,11 +992,11 @@ DEFINE CLASS gmenu AS custom
 		ENDIF
 		
 		
-		IF PEMSTATUS(_screen,"ofrmCopy",5)
-			IF VARTYPE(_screen.ofrmCopy)="O"
-				_screen.ofrmcopy.release
+		IF PEMSTATUS(_screen,xcNamemenu,5)
+			IF VARTYPE(_screen.&xcNameMenu.)="O"
+				_screen.&xcNameMenu..release
 			ENDIF
-			REMOVEPROPERTY(_screen,"oFrmCopy")
+			REMOVEPROPERTY(_screen,xcNameMenu)
 		ENDIF
 		IF PEMSTATUS(_screen,"MenuModo",5)
 			REMOVEPROPERTY(_screen,"MenuModo")
@@ -1018,7 +1004,7 @@ DEFINE CLASS gmenu AS custom
 		
 		LOCAL ARRAY gaMouse(1),gaProp(4,3)
 		LOCAL I,lnLabels,lnTop,lnWid,lnAdd,lAutoCenter,;
-			lnTop,lnLeft,lnBarHei,lcRoot
+			lnTop,lnLeft,lnBarHei,lcRoot,objMenu
 		
 		lnTop=25
 		lnLeft=10
@@ -1044,12 +1030,17 @@ DEFINE CLASS gmenu AS custom
 			* xnMouseObj: 0-Screen 1-Objeto 2-Read_topLeft
 		
 			* Con Formulario
+		
+			ADDPROPERTY(_Screen,xcNameMenu,NEWOBJECT("FrmMenu",this.classdir+"thmenu.vcx"))
 			
-			ADDPROPERTY(_Screen,"oFrmCopy",NEWOBJECT("FrmMenu",this.classdir+"thmenu.vcx"))
-			_screen.ofrmCopy.NewObject("Cnt_Copy","Cntmenu",this.classdir+"thmenu.vcx")
-			_Screen.objCopy=_screen.ofrmCopy
+			objMenu=_Screen.&xcNameMenu.
+			
+			objMenu.NewObject("Cnt_Copy","Cntmenu",this.classdir+"thmenu.vcx")
+			if UPPER(xcNameMenu)=="OFRMCOPY"
+				_Screen.objCopy=objMenu
+			ENDIF
 			*.Cnt_Copy	
-			WITH _screen.oFrmCopy
+			WITH objMenu
 				DO case
 					CASE xnMouseObj=0
 						.top=MCOL(_Screen.Name,3)
@@ -1074,7 +1065,7 @@ DEFINE CLASS gmenu AS custom
 				.Cnt_Copy.visible=.t.
 			ENDWITH	
 			FOR I=1 TO ALEN(This.gaMenu,1)
-				lnLabels=This.addlabel(_Screen.oFrmCopy.Cnt_Copy ,;
+				lnLabels=This.addlabel(objMenu.Cnt_Copy ,;
 					This.gaMenu[i,1],;
 					This.gaMenu[i,2],;
 					This.gaMenu[i,3],;
@@ -1084,12 +1075,12 @@ DEFINE CLASS gmenu AS custom
 					this.gaMenu[i,6])
 			NEXT	
 			
-			FOR EACH ocontrol IN _Screen.oFrmCopy.Cnt_Copy.Controls
+			FOR EACH ocontrol IN objMenu.Cnt_Copy.Controls
 				IF INLIST(LOWER(ocontrol.Class),"labmenu","shline")
 					lntop=oControl.top+oControl.Height
 				ENDIF
 			ENDFOR
-			WITH _Screen.oFrmCopy.Cnt_copy
+			WITH objMenu.Cnt_copy
 				.BackStyle=1
 				.BackColor=RGB(255,255,255)
 				.Shape3d1.visible=.f.
@@ -1098,7 +1089,7 @@ DEFINE CLASS gmenu AS custom
 				.Height=lnTop + 3
 			ENDWITH		
 		
-			WITH _Screen.oFrmCopy
+			WITH objMenu
 				.Titlebar=IIF(EMPTY(xcCaption),0,1)
 				IF !EMPTY(xcCaption)
 					.Caption=xcCaption
@@ -1132,28 +1123,28 @@ DEFINE CLASS gmenu AS custom
 			DO CASE
 		
 				CASE INLIST(xnMouseObj,0,1)
-					this.putwithin(_Screen.oFrmCopy)
+					this.putwithin(objMenu)
 			
 		
 				CASE xnMouseObj=3
-					_Screen.oFrmcopy.Autocenter=.t.
+					objMenu.Autocenter=.t.
 				CASE xnMouseObj=4
 					* INferior derecha
-					WITH _screen.oFrmcopy
+					WITH objMenu
 						.top=_Screen.Height-.Height-2-lnBarHei
 						.Left=_Screen.Width - .Width - 2
 					ENDWITH
 		
 				CASE xnMouseObj=5
 					* Inferior izquierda
-					WITH _screen.oFrmcopy
+					WITH objMenu
 						.top=_Screen.Height-.Height-2-lnBarHei
 						.Left=2
 					ENDWITH
 				
 			ENDCASE
 				
-			_screen.ofrmcopy.Show()
+			objMenu.Show()
 		ELSE
 		
 			IF PEMSTATUS(xoForm,"Cnt_Copy",5)
@@ -1205,7 +1196,7 @@ DEFINE CLASS gmenu AS custom
 			
 		ENDIF
 		IF !xlNotBind
-			this.bindhide(xoForm,lnModo,xlNotMMScreen)
+			this.bindhide(xoForm,lnModo,xlNotMMScreen,xcNamemenu)
 		ENDIF
 		
 		IF VARTYPE(xoObjeto)="O" AND xoObjeto.name # _screen.Name
@@ -1379,10 +1370,10 @@ DEFINE CLASS gmenu AS custom
 		lnAdd=IIF(EMPTY(xcShutDown),2,4)
 		
 		IF PEMSTATUS(_screen,"ofrmCopy",5)
-			IF VARTYPE(_screen.ofrmCopy)="O"
-				_screen.ofrmcopy.release
+			IF VARTYPE(_Screen.OpenForms)="O"
+				_Screen.OpenForms.release
 			ENDIF
-			REMOVEPROPERTY(_screen,"oFrmCopy")
+			REMOVEPROPERTY(_screen,"OpenForms")
 		ENDIF
 		IF PEMSTATUS(_screen,"MenuModo",5)
 			REMOVEPROPERTY(_screen,"MenuModo")
@@ -1440,12 +1431,15 @@ DEFINE CLASS gmenu AS custom
 		lTimer=.T.
 		lnotMMScreen=!EMPTY(xcShutDown)
 		lnMouse=IIF(EMPTY(xcShutDown),0,3)
-		This.getpopup(_Screen,_Screen,1,lnMouse,lTimer,.f.,FmCount,lNotMMScreen,.f.,null,lcCaption)
+		
+		This.getpopup(_Screen,_Screen,1,lnMouse,lTimer,.f.,FmCount,;
+			lNotMMScreen,.f.,null,lcCaption,.f.,.f.,150,"OPENFORMS")
 		
 		*
+		
 		*!*	LPARAMETERS xoform,xoObjeto,xnModo,xnMouseObj,xnTimer,;
-		*!*		xlNotBind,xnForms,xlNotMMScreen,xlNotOnTop,xoCondiShut,;
-		*!*		xcCaption
+		*!*		xlNotBind,xnItemsMenu,xlNotMMScreen,xlNotOnTop,xoCondiShut,;
+		*!*		xcCaption,xcScriptDestroy,xlNotImage,xnMinWidth
 		************************************************************************
 		
 		
@@ -1491,6 +1485,7 @@ DEFINE CLASS gmenu AS custom
 			lnModo,lnPosicion,lnTimer,lNotBind,lNotMMScreen
 		
 		lNotBind=!xlBindHide
+		
 		
 		* Para capitalización de claves.
 		LOCAL ARRAY gaClave(15)
@@ -1604,11 +1599,11 @@ DEFINE CLASS gmenu AS custom
 		
 		*</Verificación y Capitalización>
 		
-		IF PEMSTATUS(_screen,"ofrmCopy",5)
-			IF VARTYPE(_screen.ofrmCopy)="O"
-				_screen.ofrmcopy.release
+		IF PEMSTATUS(_screen,"gralMenu",5)
+			IF VARTYPE(_screen.gralMenu)="O"
+				_screen.gralMenu.release
 			ENDIF
-			REMOVEPROPERTY(_screen,"oFrmCopy")
+			REMOVEPROPERTY(_screen,"gralMenu")
 		ENDIF
 		IF PEMSTATUS(_screen,"MenuModo",5)
 			REMOVEPROPERTY(_screen,"MenuModo")
@@ -1626,11 +1621,12 @@ DEFINE CLASS gmenu AS custom
 				
 			This.getPopup(_Screen,_Screen,lnModo,lnPosicion,lnTimer,;
 				lNotBind,lnRow,lNotMMScreen,xlnotOntop,;
-				xoCondiShut,xcCaption,xcSCriptDestroy)
+				xoCondiShut,xcCaption,xcSCriptDestroy,.f.,,"gralMenu")
 		
 		
-		*		LPARAMETERS xoform,xoObjeto,xnModo,xnMouseObj,xnTimer,;
-		*			xlNotBind,xnForms,xlNotMMScreen,xlNotOnTop,xoCondishut
+		*!*	LPARAMETERS xoform,xoObjeto,xnModo,xnMouseObj,xnTimer,;
+		*!*		xlNotBind,xnItemsMenu,xlNotMMScreen,xlNotOnTop,xoCondiShut,;
+		*!*		xcCaption,xcScriptDestroy,xlNotImage,xnMinWidth,xcNameMenu
 		
 		CATCH TO loMenu
 			loMenu.UserValue=PROGRAM()
@@ -2034,7 +2030,7 @@ DEFINE CLASS gmenu AS custom
 		IF !PEMSTATUS(_Screen,"objCopy",5)
 			ADDPROPERTY(_Screen,"ObjCopy",null)
 		ENDIF
-		this.classdir=ADDBS(IIF(PEMSTATUS(_screen,"ClassDir",5),_screen.classdir,"Clases"))
+		this.classdir=ADDBS(IIF(PEMSTATUS(_screen,"ClassDir",5),_screen.classdir,"Libs"))
 		
 		IF xlAdded
 			BINDEVENT(thisform,"Destroy",this,"releasemenu")
@@ -2150,7 +2146,7 @@ DEFINE CLASS gmenu AS custom
 		IF VARTYPE(xnFlag)#"N"
 			xnFlag=0
 		ENDIF
-		fcr="OpenOnShut.txt"
+		fcr=ADDBS(_Screen.dapli)+"OpenOnShut.txt"
 		
 		DO case
 			CASE xnFlag=0
@@ -2198,8 +2194,8 @@ DEFINE CLASS gmenu AS custom
 			FOR ii_=1 TO nfCount
 				lDoit=IIF(xnFlag#3,.t.,_Screen.Forms[ii_].visible)	
 				IF ldoit
-					=FPUTS(n_fop,CHR(9)+"<open>"+TRANSFORM(ii_)+"-"+This.Qualifer(_screen.Forms[ii_].caption);
-						+this.Qualifer(_Screen.forms[ii_].name)+"</open>")
+					=FPUTS(n_fop,CHR(9)+"<open>"+TRANSFORM(ii_)+"-"+this.qualifer(_screen.Forms[ii_].caption);
+						+this.qualifer(_Screen.forms[ii_].name)+"</open>")
 					lnVisi=lnVisi+1
 				ENDIF
 				
@@ -2738,7 +2734,7 @@ DEFINE CLASS labmenu AS label
 	
 	PROCEDURE Click
 		LOCAL lnfIni,lnFPost,lnfDiff,i,lnIt,lcCaption,;
-			lcCaptionIni,lcNameIni
+			lcCaptionIni,lcNameIni,ldoit
 		STORE "" TO lcCaption,lcCaptionIni,lcNameIni
 		lnIt=ALEN(this.gaforms,1)
 		IF lnIt=1 AND ISNULL(this.gaforms[1,1])
@@ -2751,30 +2747,47 @@ DEFINE CLASS labmenu AS label
 			lcNameIni=_Screen.Forms(1).Name
 		ENDIF
 		This.parent.gmenu1.Convoca(tHIS)
-		lnfPost=_Screen.FormCount
-		lnDiff=_Screen.FormCount - lnfIni
-		IF lnDiff=0 AND lnfPost>0 AND !EMPTY(lcNameIni)
-			DO case
-				CASE _Screen.Forms(1).Name = lcNameINi AND ;
-					_screen.Forms(1).Caption # lcCaptionIni
-					lnDiff=1
-				CASE _Screen.Forms(1).Name # lcNameIni
-					lndiff=1
-				
-			ENDCASE
+		
+		IF _Screen.FormCount>0 
+			lDoit=EMPTY(lnfIni)
+			IF !lDoit
+				&& otro form.scx
+				ldoit=IIF(_screen.Forms(1).Name # lcNameIni , .t. ,.f.)
+				IF !ldoit
+					&& otra sesión del mismo form, diferenciado por Caption
+					ldoit=IIF(_screen.Forms(1).Caption # lcCaptionIni,.t.,.f.)
+				ENDIF
+			ENDIF
+		ENDIF
+		IF ldoit
+			this.gaforms[1,1]=_Screen.Forms(1)
+			this.gaforms[1,2]=lcCaption
 		ENDIF
 		
-		IF lnDiff>0
-			FOR i=1 TO lnDiff
-				lcCaption=ALLTRIM(_Screen.Forms(i).Caption)
-				IF ASCAN(this.gaforms,lcCaption)=0
-					lnIt=lnIt+1
-					DIMENSION this.gaForms(lnIt,2)
-					this.gaforms[lnIt,1]=_Screen.Forms(i)
-					this.gaforms[lnIt,2]=lcCaption
-				ENDIF
-			NEXT
-		ENDIF
+		*!*	lnfPost=_Screen.FormCount
+		*!*	lnDiff=_Screen.FormCount - lnfIni
+		*!*	IF lnDiff=0 AND lnfPost>0 AND !EMPTY(lcNameIni)
+		*!*		DO case
+		*!*			CASE _Screen.Forms(1).Name = lcNameINi AND ;
+		*!*				_screen.Forms(1).Caption # lcCaptionIni
+		*!*				lnDiff=1
+		*!*			CASE _Screen.Forms(1).Name # lcNameIni
+		*!*				lndiff=1
+		*!*			
+		*!*		ENDCASE
+		*!*	ENDIF
+		
+		*!*	IF lnDiff>0
+		*!*		FOR i=1 TO lnDiff
+		*!*			lcCaption=ALLTRIM(_Screen.Forms(i).Caption)
+		*!*			IF ASCAN(this.gaforms,lcCaption)=0
+		*!*				lnIt=lnIt+1
+		*!*				DIMENSION this.gaForms(lnIt,2)
+		*!*				this.gaforms[lnIt,1]=_Screen.Forms(i)
+		*!*				this.gaforms[lnIt,2]=lcCaption
+		*!*			ENDIF
+		*!*		NEXT
+		*!*	ENDIF
 		
 	ENDPROC
 
