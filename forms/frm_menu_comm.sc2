@@ -97,12 +97,19 @@ DEFINE CLASS frm_menu_comm AS form
 	ENDPROC
 
 	PROCEDURE Load
-		LOCAL lcRoot,objShell
+		LOCAL lcRoot,objShell,lcTemp
 		LOCAL cdir
 		objShell=CreateObject("Wscript.Shell")
-		lcRoot=ADDBS(objShell.CurrentDirectory)+"Clases"
+		lcRoot=objShell.CurrentDirectory
 		objShell=null
-		ADDPROPERTY(_screen,"ClassDir",lcRoot)
+		lcTemp=ADDBS(lcRoot)+"Temp"
+		IF !DIRECTORY(lcTemp)
+			MD &lcTemp
+		ENDIF
+		
+		ADDPROPERTY(_screen,"ClassDir",ADDBS(lcRoot)+"Clases")
+		ADDPROPERTY(_screen,"DAPLI",lcRoot)
+		ADDPROPERTY(_Screen,"DTEMP",lcTemp)
 		
 		
 	ENDPROC
@@ -172,6 +179,25 @@ DEFINE CLASS frm_menu_comm AS form
 		DIMENSION gamenu(nlis,6)
 		gaMenu[nlis,1]=[\<Primer Test de Foxbin Plastic]
 		gaMenu[nlis,2]="<DOFORM>frm_Test1</DOFORM><NAME>gloFirsTest</NAME>"
+		gaMenu[nlis,3]=.T.
+		gaMenu[nlis,4]=nlis
+		gaMenu[nlis,5]=""
+		gaMenu[nlis,6]=null
+		lRaya=.f.
+		
+		
+		*Script Program
+		TEXT TO lcScript NOSHOW PRETEXT 1		
+			LOCAL objfun
+			objfun=NEWOBJECT("prsfun","clases\prssys")
+			objFun.genScript()
+			OBJFUN=NULL
+		ENDTEXT
+		
+		nlis=nLis+1
+		DIMENSION gamenu(nlis,6)
+		gaMenu[nlis,1]=[Theodore \<Script Program]
+		gaMenu[nlis,2]="<SCRIPT>"+lcScript+"</SCRIPT>"
 		gaMenu[nlis,3]=.T.
 		gaMenu[nlis,4]=nlis
 		gaMenu[nlis,5]=""
