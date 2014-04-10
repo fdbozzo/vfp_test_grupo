@@ -77,10 +77,11 @@ DEFINE CLASS frmmenu AS form
  	*< CLASSDATA: Baseclass="form" Timestamp="" Scale="Pixels" Uniqueid="" />
 
 	*-- OBJECTDATA items order determines ZOrder / El orden de los items OBJECTDATA determina el ZOrder 
-	*< OBJECTDATA: ObjPath="Timer1" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="tmrMenu1" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="Gmove1" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="Timer2" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="tmrMenu2" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="imgMenu" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="tmrMenu3" UniqueID="" Timestamp="" />
 
 	*<DefinedPropArrayMethod>
 		*m: *countmyforms
@@ -138,23 +139,33 @@ DEFINE CLASS frmmenu AS form
 		Width = 32
 		*< END OBJECT: BaseClass="image" />
 
-	ADD OBJECT 'Timer1' AS timer WITH ;
+	ADD OBJECT 'tmrMenu1' AS timer WITH ;
 		Enabled = .F., ;
 		Height = 23, ;
 		Interval = 200, ;
 		Left = 32, ;
-		Name = "Timer1", ;
+		Name = "tmrMenu1", ;
 		Top = 24, ;
 		Width = 23
 		*< END OBJECT: BaseClass="timer" />
 
-	ADD OBJECT 'Timer2' AS timer WITH ;
+	ADD OBJECT 'tmrMenu2' AS timer WITH ;
 		Enabled = .F., ;
 		Height = 23, ;
 		Interval = 200, ;
 		Left = 75, ;
-		Name = "Timer2", ;
+		Name = "tmrMenu2", ;
 		Top = 25, ;
+		Width = 23
+		*< END OBJECT: BaseClass="timer" />
+
+	ADD OBJECT 'tmrMenu3' AS timer WITH ;
+		Enabled = .F., ;
+		Height = 23, ;
+		Interval = 200, ;
+		Left = 121, ;
+		Name = "tmrMenu3", ;
+		Top = 27, ;
 		Width = 23
 		*< END OBJECT: BaseClass="timer" />
 	
@@ -295,7 +306,7 @@ DEFINE CLASS frmmenu AS form
 		
 	ENDPROC
 
-	PROCEDURE Timer1.Timer
+	PROCEDURE tmrMenu1.Timer
 		LOCAL lnBarras,lnForms,lRelease
 		lnBarras=thisform.barras+1
 		lnForms=_Screen.FormCount
@@ -315,7 +326,7 @@ DEFINE CLASS frmmenu AS form
 		
 	ENDPROC
 
-	PROCEDURE Timer2.Timer
+	PROCEDURE tmrMenu2.Timer
 		LOCAL ocontrol,oLabel,lcSCript,lnForms
 		lnForms=0
 		FOR EACH OCONTROL IN THISFORM.Controls
@@ -354,6 +365,60 @@ DEFINE CLASS frmmenu AS form
 				thisform.Release
 			ENDIF
 		ENDIF
+		
+		
+		
+	ENDPROC
+
+	PROCEDURE tmrMenu3.Timer
+		LOCAL ocontrol,oLabel,lcSCript,lnForms,objActive
+		TRY
+			LOCAL loex as Exception
+			objActive=_Screen.ActiveForm
+			lnForms=0
+			FOR EACH OCONTROL IN THISFORM.Controls
+				IF oControl.class#"Cntmenu"
+					LOOP
+				ENDIF
+				FOR EACH oLabel IN ocontrol.controls
+					IF olabel.Class#"Labmenu"
+						LOOP
+					ENDIF
+				
+					IF !ISNULL(olabel.gaforms[1,1])
+						lnforms=lnforms+1
+					ENDIF
+						
+					lcScript=olabel.Condenable
+					IF !EMPTY(lcScript)
+						oLabel.Enabled=EVALUATE(lcScript)
+					ELSE
+						IF olabel.comando=="<CLOSEMYFORMS/>"
+							olabel.Enabled=IIF(lnforms>0,.t.,.f.)
+						ELSE
+							*oLabel.Enabled=ISNULL(olabel.gaforms[1,1])
+							IF ISNULL(olabel.gaforms[1,1])
+								olabel.gaforms[1,2]=""
+								thisform.Closable=IIF(thisform.countmyforms()=0,.t.,.f.)
+								oLabel.Enabled=.t.
+							ELSE
+								olabel.Enabled=IIF(olabel.gaforms[1,1]=objACtive,.f.,.t.)
+							ENDIF
+						ENDIF
+					ENDIF
+				ENDFOR
+			ENDFOR
+		CATCH TO loEx
+		
+		FINALLY
+			IF thisform.autoshut
+				IF ISNULL(thisform.condishut)
+					this.Enabled=.f.
+					thisform.Release
+				ENDIF
+			ENDIF
+		ENDTRY
+		
 		
 		
 		
@@ -618,13 +683,14 @@ DEFINE CLASS gmenu AS custom
 		LOCAL lcCommand,objSel,lnotFocus,LnBarra,;
 			lcsel,objSel,lnInitSel,lnLength,lcText,lRelease,oform,;
 			lcSubCommand,lQuit,lcExtract,objParam,lnMess,lcTrueCommand,;
-			lDoit,lcNameMenu
+			lDoit,lcNameMenu,oFormLabel,lJump
 			
 		lDoit=.T.
 		TRY
 			LOCAL loEx as Exception
 			objSel=xolabel.parent.objCall
 			oform=xoLabel.parent.parent
+			oformLabel=xolabel.gaforms[1,1]
 			LnBarra=xoLabel.barra
 			lcTrueCommand=xoLabel.comando
 			lcCommand=UPPER(ALLTRIM(xoLabel.Comando))
@@ -685,47 +751,63 @@ DEFINE CLASS gmenu AS custom
 					ENDIF
 		
 				CASE LEFT(LcCommand,LEN("<SCRIPT>"))=="<SCRIPT>"
-					lcExtract=STREXTRACT(lcCommand,"<SCRIPT>","</SCRIPT>")
-					IF ISNULL(objParam)
-						EXECSCRIPT(lcExtract)
-					ELSE
 		
-						EXECSCRIPT(lcExtract,objparam)
+					IF VARTYPE(oFormLabel)="O"
+						oFormLabel.WindowState=0
+						oFormLabel.Show()
+						lJump=.t.
 					ENDIF
-				
+					IF !lJump		
+						lcExtract=STREXTRACT(lcCommand,"<SCRIPT>","</SCRIPT>")
+						IF ISNULL(objParam)
+							EXECSCRIPT(lcExtract)
+						ELSE
+		
+							EXECSCRIPT(lcExtract,objparam)
+						ENDIF
+					ENDIF
+					
 				
 				CASE LEFT(lcCommand,LEN("<DOFORM>"))=="<DOFORM>"
-				
-					LcForm=STREXTRACT(lcCommand,"<DOFORM>","</DOFORM>")
-					lcName=STREXTRACT(lcCommand,"<NAME>","</NAME>")
-					lcParam=STREXTRACT(lcCommand,"<PARAM>","</PARAM>")		
-		*!*				MESSAGEBOX(lcForm+","+lcName+","+lcParam)
 		
-					loName=IIF(EMPTY(lcName),lcForm,lcName)	
-					IF !EMPTY(lcForm)
-		
-						IF VARTYPE(&loname)="O"
-							&loname..Windostate=0
-							&loname..Show()
-						ELSE
-							IF !EMPTY(lcName)
-								RELEASE &lcName
-								PUBLIC &lcname
-							ENDIF
-							
-							DO case
-							CASE !EMPTY(lcName) AND !EMPTY(lcParam)
-		
-								DO FORM &lcForm NAME &lcname WITH &lcParam				
-							CASE !EMPTY(lcname) AND EMPTY(lcparam)
-								DO FORM &lcForm NAME &lcname
-							CASE EMPTY(lcName) AND !EMPTY(lcParam)
-								DO FORM &lcForm WITH &lcParam
-							CASE EMPTY(lcName) AND EMPTY(lcParam)
-								DO FORM &lcform
-							ENDCASE
-						ENDIF
+					IF VARTYPE(oFormLabel)="O"
+						oFormLabel.WindowState=0
+						oFormLabel.Show()
+						lJump=.t.
+					ENDIF
 						
+		
+					IF !lJump
+						LcForm=STREXTRACT(lcCommand,"<DOFORM>","</DOFORM>")
+						lcName=STREXTRACT(lcCommand,"<NAME>","</NAME>")
+						lcParam=STREXTRACT(lcCommand,"<PARAM>","</PARAM>")		
+		
+						loName=IIF(EMPTY(lcName),lcForm,lcName)	
+						IF !EMPTY(lcForm)
+		
+							IF VARTYPE(&loname)="O"
+								&loname..Windostate=0
+								&loname..Show()
+							ELSE
+								IF !EMPTY(lcName)
+									RELEASE &lcName
+									PUBLIC &lcname
+								ENDIF
+							
+								DO case
+								CASE !EMPTY(lcName) AND !EMPTY(lcParam)
+		
+									DO FORM &lcForm NAME &lcname WITH &lcParam				
+								CASE !EMPTY(lcname) AND EMPTY(lcparam)
+									DO FORM &lcForm NAME &lcname
+								CASE EMPTY(lcName) AND !EMPTY(lcParam)
+									DO FORM &lcForm WITH &lcParam
+								CASE EMPTY(lcName) AND EMPTY(lcParam)
+									DO FORM &lcform
+								ENDCASE
+							ENDIF
+						
+						ENDIF
 					ENDIF
 								
 				
@@ -777,7 +859,13 @@ DEFINE CLASS gmenu AS custom
 					ENDIF
 				ENDIF
 				IF AT("<SHUTDOWN>",lcCommand)>0
-					_screen.objCopy.onUnloadQuit=.t.
+					IF PEMSTATUS(_screen,"ObjCopy",5) AND VARTYPE(_screen.objcopy)="O"
+						_screen.objCopy.onUnloadQuit=.t.
+					ENDIF
+					IF PEMSTATUS(_screen,"openforms",5) AND VARTYPE(_screen.openforms)="O"
+						_screen.openforms.onUnloadQuit=.t.
+					ENDIF
+					
 					this.Shutforms()
 					lRelease=.f.
 					lnotFocus=.t.	
@@ -971,6 +1059,7 @@ DEFINE CLASS gmenu AS custom
 			xcNameMenu="OFRMCOPY"
 		ENDIF	
 		
+		
 			
 		IF VARTYPE(xoform)#"O"
 			xoForm=_Screen
@@ -1036,7 +1125,7 @@ DEFINE CLASS gmenu AS custom
 			objMenu=_Screen.&xcNameMenu.
 			
 			objMenu.NewObject("Cnt_Copy","Cntmenu",this.classdir+"thmenu.vcx")
-			if UPPER(xcNameMenu)=="OFRMCOPY"
+			IF UPPER(xcNameMenu)=="OFRMCOPY"
 				_Screen.objCopy=objMenu
 			ENDIF
 			*.Cnt_Copy	
@@ -1100,16 +1189,15 @@ DEFINE CLASS gmenu AS custom
 				.MaxHeight=.height
 				.MaxWidth=.Width
 				.barras=xnItemsMenu
-				.Timer1.Enabled=IIF(xnTimer=1,.t.,.f.)
-				.Timer2.Enabled=IIF(xnTimer=2,.t.,.f.)
+				.tmrMenu1.Enabled=IIF(xnTimer=1,.t.,.f.)
+				.tmrMenu2.Enabled=IIF(xnTimer=2,.t.,.f.)
+				.tmrMenu3.Enabled=IIF(xnTimer=3,.t.,.f.)
 				.AutoShut=!ISNULL(xoCondishut)
 				.CondiShut=xoCondishut
 				.ScriptDestroy=xcScriptDestroy
 				
-		*		.Alwaysontop=!xlNotBind
 				.AlwaysOnTop=IIF(xlNotBind,.f.,!xlNotOntop)
 				IF !.alwaysontop
-				*	.imgMenu.Visible=.t.
 					.imgMenu.top=.Height-.IMgMenu.Height-4
 					.imgMenu.left=.Width - .imgMenu.Width - 4
 					.imgMenu.zorder(0)
@@ -1462,15 +1550,15 @@ DEFINE CLASS gmenu AS custom
 		*!*	xgaArray	Matriz de 6 columnas
 		*!*	xnPosicion 	0-MouseScreen 1-MouseObjeto 2-Config 3-Autocenter
 		*!*				4-Esq Inf derecha 5-Esq Inf Izquierda
-		*!*	xnTimer 0-Ninguno, 1-Timer1, 2-Timer2
-		*!*	Timer1: Permite que el menú se cierre cuando se hace click en otro objeto
-		*!*	Timer2: Lee la propiedad Condenable. Determina si un item está activo o no
+		*!*	xnTimer 0-Ninguno, 1-tmrMenu1, 2-tmrMenu2 3-tmrMenu3
+		*!*	tmrMenu1: Permite que el menú se cierre cuando se hace click en otro objeto
+		*!*	tmrMenu2: Lee la propiedad Condenable. Determina si un item está activo o no
+		*!*	tmrMenu3: Para trabajo con varios forms, deshabilita el _Screen.ActiveForm
 		*!*	xoCondishut: Referencia objeto Form. Si se cierra xoCondishut, se cierra el menú
 		*!*	xcCaption: Caption del frmMenu. Si tiene un valor, se mostrará la TitleBar
 		*!*	xcScripDestroy: Script que ejecutará frmMenu.Destroy.
 		*!*	xcScripDestroy Formato: "<SCRIPT>Comandos</SCRIPT><PARAM>Parametros</PARAM>"
 		*!*	xlBindHide: Si el formulario se cierra cuando el puntero del mouse abandona el form.
-		*!*	xcNameMenu: El menú puede implementarse con un nombre particular O "GRALMENU" (Default)
 		*!*	--------------------------------------------------------------------------
 		*!*	Tags:
 		*!*	1) Separador: xgaArray[i,1]="<RAYA/>"
@@ -1481,7 +1569,6 @@ DEFINE CLASS gmenu AS custom
 		*!*	2.4) <CLOSETHIS/>		Cierra el Menú
 		*!*	<PREVENT>Mensaje para Messagebox</PREVENT> con Shutdown,CloseForms,CloseMyForms,CloseThis
 		*!*	2.5) <SCRIPT>Comandos</SCRIPT><PARAM>Param1,param2,param3</PARAM>
-		
 		
 		LOCAL fmCount,i,j,ji,lnRow,lnCol,lError,lcMens,;
 			lnModo,lnPosicion,lnTimer,lNotBind,lNotMMScreen
@@ -1603,6 +1690,15 @@ DEFINE CLASS gmenu AS custom
 		
 		*</Verificación y Capitalización>
 		
+		*!*	IF PEMSTATUS(_screen,"gralMenu",5)
+		*!*		IF VARTYPE(_screen.gralMenu)="O"
+		*!*			_screen.gralMenu.release
+		*!*		ENDIF
+		*!*		REMOVEPROPERTY(_screen,"gralMenu")
+		*!*	ENDIF
+		*!*	IF PEMSTATUS(_screen,"MenuModo",5)
+		*!*		REMOVEPROPERTY(_screen,"MenuModo")
+		*!*	ENDIF
 		
 		TRY
 			LOCAL loMenu as Exception
@@ -2141,7 +2237,7 @@ DEFINE CLASS gmenu AS custom
 		IF VARTYPE(xnFlag)#"N"
 			xnFlag=0
 		ENDIF
-		fcr=ADDBS(_Screen.dapli)+"OpenOnShut.txt"
+		fcr=ADDBS(_screen.dapli)+"OpenOnShut.txt"
 		
 		DO case
 			CASE xnFlag=0
@@ -2189,8 +2285,8 @@ DEFINE CLASS gmenu AS custom
 			FOR ii_=1 TO nfCount
 				lDoit=IIF(xnFlag#3,.t.,_Screen.Forms[ii_].visible)	
 				IF ldoit
-					=FPUTS(n_fop,CHR(9)+"<open>"+TRANSFORM(ii_)+"-"+this.qualifer(_screen.Forms[ii_].caption);
-						+this.qualifer(_Screen.forms[ii_].name)+"</open>")
+					=FPUTS(n_fop,CHR(9)+"<open>"+TRANSFORM(ii_)+"-"+this.Qualifer(_screen.Forms[ii_].caption);
+						+this.Qualifer(_Screen.forms[ii_].name)+"</open>")
 					lnVisi=lnVisi+1
 				ENDIF
 				

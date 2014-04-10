@@ -127,7 +127,7 @@ DEFINE CLASS frm_menu_comm AS form
 		lcCaption="Formularios del Sistema"
 		lcNameMenu="mnFormus"
 		lnPosicion=5
-		lnTimer=2
+		lnTimer=3
 		lNotOnTop=.t.
 		*lcScriptDestroy="<SCRIPT></SCRIPT>"
 		lcScriptDestroy=""
