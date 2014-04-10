@@ -104,7 +104,7 @@ DEFINE CLASS frmmenu AS form
 	Caption = "Form"
 	condishut = null
 	DoCreate = .T.
-	Height = 250
+	Height = 120
 	Icon = ..\graphics\fibona5inv.ico
 	implement = .F.
 	KeyPreview = .T.
@@ -120,21 +120,21 @@ DEFINE CLASS frmmenu AS form
 	ShowWindow = 1
 	TitleBar = 1
 	Top = 0
-	Width = 375
+	Width = 200
 
 	ADD OBJECT 'Gmove1' AS gmove WITH ;
-		Left = 265, ;
+		Left = 76, ;
 		Name = "Gmove1", ;
-		Top = 182
+		Top = 57
 		*< END OBJECT: ClassLib="thmenu.vcx" BaseClass="custom" />
 
 	ADD OBJECT 'imgMenu' AS image WITH ;
 		Height = 17, ;
-		Left = 256, ;
+		Left = 33, ;
 		Name = "imgMenu", ;
 		Picture = ..\graphics\mnumage.bmp, ;
 		ToolTipText = "Enfocar el Menú", ;
-		Top = 115, ;
+		Top = 58, ;
 		Visible = .F., ;
 		Width = 32
 		*< END OBJECT: BaseClass="image" />
@@ -153,9 +153,9 @@ DEFINE CLASS frmmenu AS form
 		Enabled = .F., ;
 		Height = 23, ;
 		Interval = 200, ;
-		Left = 75, ;
+		Left = 59, ;
 		Name = "tmrMenu2", ;
-		Top = 25, ;
+		Top = 24, ;
 		Width = 23
 		*< END OBJECT: BaseClass="timer" />
 
@@ -163,9 +163,9 @@ DEFINE CLASS frmmenu AS form
 		Enabled = .F., ;
 		Height = 23, ;
 		Interval = 200, ;
-		Left = 121, ;
+		Left = 83, ;
 		Name = "tmrMenu3", ;
-		Top = 27, ;
+		Top = 24, ;
 		Width = 23
 		*< END OBJECT: BaseClass="timer" />
 	
@@ -338,24 +338,22 @@ DEFINE CLASS frmmenu AS form
 					LOOP
 				ENDIF
 				
-				IF !ISNULL(olabel.gaforms[1,1])
-					lnforms=lnforms+1
+				IF !EMPTY(olabel.Condenable)
+					oLabel.Enabled=EVALUATE(olabel.Condenable)
+					LOOP
 				ENDIF
-						
-				lcScript=olabel.Condenable
-				IF !EMPTY(lcScript)
-					oLabel.Enabled=EVALUATE(lcScript)
+				
+				IF olabel.comando=="<CLOSEMYFORMS/>"
+					olabel.Enabled=IIF(lnforms>0,.t.,.f.)
+					LOOP
+				ENDIF
+				
+				oLabel.Enabled=ISNULL(olabel.gaforms[1,1])
+				IF ISNULL(olabel.gaforms[1,1])
+					olabel.gaforms[1,2]=""
+					thisform.Closable=IIF(thisform.countmyforms()=0,.t.,.f.)
 				ELSE
-					IF olabel.comando=="<CLOSEMYFORMS/>"
-						olabel.Enabled=IIF(lnforms>0,.t.,.f.)
-					ELSE
-						oLabel.Enabled=ISNULL(olabel.gaforms[1,1])
-						IF ISNULL(olabel.gaforms[1,1])
-							olabel.gaforms[1,2]=""
-							thisform.Closable=IIF(thisform.countmyforms()=0,.t.,.f.)
-						ENDIF
-						
-					ENDIF
+					lnforms=lnforms+1		
 				ENDIF
 			ENDFOR
 		ENDFOR
@@ -366,6 +364,29 @@ DEFINE CLASS frmmenu AS form
 			ENDIF
 		ENDIF
 		
+		*!*			IF olabel.Class#"Labmenu"
+		*!*				LOOP
+		*!*			ENDIF
+		*!*			
+		*!*			IF !ISNULL(olabel.gaforms[1,1])
+		*!*				lnforms=lnforms+1
+		*!*			ENDIF
+		*!*					
+		*!*			lcScript=olabel.Condenable
+		*!*			IF !EMPTY(lcScript)
+		*!*				oLabel.Enabled=EVALUATE(lcScript)
+		*!*			ELSE
+		*!*				IF olabel.comando=="<CLOSEMYFORMS/>"
+		*!*					olabel.Enabled=IIF(lnforms>0,.t.,.f.)
+		*!*				ELSE
+		*!*					oLabel.Enabled=ISNULL(olabel.gaforms[1,1])
+		*!*					IF ISNULL(olabel.gaforms[1,1])
+		*!*						olabel.gaforms[1,2]=""
+		*!*						thisform.Closable=IIF(thisform.countmyforms()=0,.t.,.f.)
+		*!*					ENDIF
+		*!*					
+		*!*				ENDIF
+		*!*			ENDIF
 		
 		
 	ENDPROC
@@ -385,27 +406,27 @@ DEFINE CLASS frmmenu AS form
 						LOOP
 					ENDIF
 				
-					IF !ISNULL(olabel.gaforms[1,1])
-						lnforms=lnforms+1
+		*!*				IF !ISNULL(olabel.gaforms[1,1])
+		*!*					lnforms=lnforms+1
+		*!*				ENDIF
+		
+					IF !EMPTY(olabel.Condenable)
+						oLabel.Enabled=EVALUATE(olabel.Condenable)
+						LOOP
 					ENDIF
-						
-					lcScript=olabel.Condenable
-					IF !EMPTY(lcScript)
-						oLabel.Enabled=EVALUATE(lcScript)
+					IF  olabel.comando=="<CLOSEMYFORMS/>"
+						olabel.Enabled=IIF(lnforms>0,.t.,.f.)
+						LOOP
+					ENDIF
+		
+					IF ISNULL(olabel.gaforms[1,1])
+						olabel.gaforms[1,2]=""
+						thisform.Closable=IIF(thisform.countmyforms()=0,.t.,.f.)
+						oLabel.Enabled=.t.
 					ELSE
-						IF olabel.comando=="<CLOSEMYFORMS/>"
-							olabel.Enabled=IIF(lnforms>0,.t.,.f.)
-						ELSE
-							*oLabel.Enabled=ISNULL(olabel.gaforms[1,1])
-							IF ISNULL(olabel.gaforms[1,1])
-								olabel.gaforms[1,2]=""
-								thisform.Closable=IIF(thisform.countmyforms()=0,.t.,.f.)
-								oLabel.Enabled=.t.
-							ELSE
-								olabel.Enabled=IIF(olabel.gaforms[1,1]=objACtive,.f.,.t.)
-							ENDIF
-						ENDIF
-					ENDIF
+						lnforms=lnforms+1			
+						olabel.Enabled=IIF(olabel.gaforms[1,1]=objACtive,.f.,.t.)
+					ENDIF			
 				ENDFOR
 			ENDFOR
 		CATCH TO loEx
@@ -419,7 +440,23 @@ DEFINE CLASS frmmenu AS form
 			ENDIF
 		ENDTRY
 		
-		
+		*!*				lcScript=olabel.Condenable
+		*!*				IF !EMPTY(lcScript)
+		*!*					oLabel.Enabled=EVALUATE(lcScript)
+		*!*				ELSE
+		*!*					IF olabel.comando=="<CLOSEMYFORMS/>"
+		*!*						olabel.Enabled=IIF(lnforms>0,.t.,.f.)
+		*!*					ELSE
+		*!*						*oLabel.Enabled=ISNULL(olabel.gaforms[1,1])
+		*!*						IF ISNULL(olabel.gaforms[1,1])
+		*!*							olabel.gaforms[1,2]=""
+		*!*							thisform.Closable=IIF(thisform.countmyforms()=0,.t.,.f.)
+		*!*							oLabel.Enabled=.t.
+		*!*						ELSE
+		*!*							olabel.Enabled=IIF(olabel.gaforms[1,1]=objACtive,.f.,.t.)
+		*!*						ENDIF
+		*!*					ENDIF
+		*!*				ENDIF
 		
 		
 	ENDPROC
@@ -1196,8 +1233,10 @@ DEFINE CLASS gmenu AS custom
 				.CondiShut=xoCondishut
 				.ScriptDestroy=xcScriptDestroy
 				
+		*		.Alwaysontop=!xlNotBind
 				.AlwaysOnTop=IIF(xlNotBind,.f.,!xlNotOntop)
 				IF !.alwaysontop
+				*	.imgMenu.Visible=.t.
 					.imgMenu.top=.Height-.IMgMenu.Height-4
 					.imgMenu.left=.Width - .imgMenu.Width - 4
 					.imgMenu.zorder(0)
@@ -1550,10 +1589,9 @@ DEFINE CLASS gmenu AS custom
 		*!*	xgaArray	Matriz de 6 columnas
 		*!*	xnPosicion 	0-MouseScreen 1-MouseObjeto 2-Config 3-Autocenter
 		*!*				4-Esq Inf derecha 5-Esq Inf Izquierda
-		*!*	xnTimer 0-Ninguno, 1-tmrMenu1, 2-tmrMenu2 3-tmrMenu3
+		*!*	xnTimer 0-Ninguno, 1-tmrMenu1, 2-tmrMenu2
 		*!*	tmrMenu1: Permite que el menú se cierre cuando se hace click en otro objeto
 		*!*	tmrMenu2: Lee la propiedad Condenable. Determina si un item está activo o no
-		*!*	tmrMenu3: Para trabajo con varios forms, deshabilita el _Screen.ActiveForm
 		*!*	xoCondishut: Referencia objeto Form. Si se cierra xoCondishut, se cierra el menú
 		*!*	xcCaption: Caption del frmMenu. Si tiene un valor, se mostrará la TitleBar
 		*!*	xcScripDestroy: Script que ejecutará frmMenu.Destroy.
