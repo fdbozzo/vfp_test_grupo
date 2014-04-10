@@ -1453,7 +1453,8 @@ DEFINE CLASS gmenu AS custom
 			xoCondishut,;
 			xcCaption,;
 			xcSCriptDestroy,;
-			xlBindHide
+			xlBindHide,;
+			xcNameMenu
 			
 		EXTERNAL ARRAY xgaArray
 		
@@ -1469,6 +1470,7 @@ DEFINE CLASS gmenu AS custom
 		*!*	xcScripDestroy: Script que ejecutará frmMenu.Destroy.
 		*!*	xcScripDestroy Formato: "<SCRIPT>Comandos</SCRIPT><PARAM>Parametros</PARAM>"
 		*!*	xlBindHide: Si el formulario se cierra cuando el puntero del mouse abandona el form.
+		*!*	xcNameMenu: El menú puede implementarse con un nombre particular O "GRALMENU" (Default)
 		*!*	--------------------------------------------------------------------------
 		*!*	Tags:
 		*!*	1) Separador: xgaArray[i,1]="<RAYA/>"
@@ -1485,7 +1487,9 @@ DEFINE CLASS gmenu AS custom
 			lnModo,lnPosicion,lnTimer,lNotBind,lNotMMScreen
 		
 		lNotBind=!xlBindHide
-		
+		IF VARTYPE(xcNameMenu)#"C" OR EMPTY(xcNameMenu)
+			xcNameMenu="gralMenu"
+		ENDIF
 		
 		* Para capitalización de claves.
 		LOCAL ARRAY gaClave(15)
@@ -1599,15 +1603,6 @@ DEFINE CLASS gmenu AS custom
 		
 		*</Verificación y Capitalización>
 		
-		IF PEMSTATUS(_screen,"gralMenu",5)
-			IF VARTYPE(_screen.gralMenu)="O"
-				_screen.gralMenu.release
-			ENDIF
-			REMOVEPROPERTY(_screen,"gralMenu")
-		ENDIF
-		IF PEMSTATUS(_screen,"MenuModo",5)
-			REMOVEPROPERTY(_screen,"MenuModo")
-		ENDIF
 		
 		TRY
 			LOCAL loMenu as Exception
@@ -1621,7 +1616,7 @@ DEFINE CLASS gmenu AS custom
 				
 			This.getPopup(_Screen,_Screen,lnModo,lnPosicion,lnTimer,;
 				lNotBind,lnRow,lNotMMScreen,xlnotOntop,;
-				xoCondiShut,xcCaption,xcSCriptDestroy,.f.,,"gralMenu")
+				xoCondiShut,xcCaption,xcSCriptDestroy,.f.,,xcNameMenu)
 		
 		
 		*!*	LPARAMETERS xoform,xoObjeto,xnModo,xnMouseObj,xnTimer,;

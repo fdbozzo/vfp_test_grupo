@@ -106,7 +106,8 @@ DEFINE CLASS frm_menu_comm AS form
 		IF !DIRECTORY(lcTemp)
 			MD &lcTemp
 		ENDIF
-		
+		SET DEFAULT TO &LcRoot
+		SET PATH TO FORMS;CLASES;PROGS;GRAPHICS
 		ADDPROPERTY(_screen,"ClassDir",ADDBS(lcRoot)+"Clases")
 		ADDPROPERTY(_screen,"DAPLI",lcRoot)
 		ADDPROPERTY(_Screen,"DTEMP",lcTemp)
@@ -122,8 +123,9 @@ DEFINE CLASS frm_menu_comm AS form
 	PROCEDURE cmdMenu.Click
 		LOCAL nlis,i,lcScript,objMenu,lnPosicion,lnTimer,lNotOntop,;
 			lcCaption,lRaya,lshat,ldoti,lcScriptDestroy,;
-			lcMensaje
+			lcMensaje,lnNameMenu
 		lcCaption="Formularios del Sistema"
+		lcNameMenu="mnFormus"
 		lnPosicion=5
 		lnTimer=2
 		lNotOnTop=.t.
@@ -337,9 +339,18 @@ DEFINE CLASS frm_menu_comm AS form
 		
 		objMenu=NEWOBJECT("gmenu",ADDBS(_screen.classdir)+"thmenu.vcx")
 		objMenu.GralMenu(@gaMenu,lnPosicion,lnTimer,;
-			lNotOnTop,Thisform,lcCaption,lcScriptDestroy)
+			lNotOnTop,Thisform,lcCaption,lcScriptDestroy,.f.,lcNameMenu)
 		objMenu=null
 		
+		*!*			LPARAMETERS xgaARray,;
+		*!*				xnPosicion,;
+		*!*				xnTimer,;
+		*!*				xlNotOntop,;
+		*!*				xoCondishut,;
+		*!*				xcCaption,;
+		*!*				xcSCriptDestroy,;
+		*!*				xlBindHide,;
+		*!*				xcNameMenu
 	ENDPROC
 
 	PROCEDURE cmdOpenForms.Click
