@@ -3470,12 +3470,15 @@ DEFINE CLASS cntscrip AS container
 	ENDPROC
 
 	PROCEDURE guardar
+		lparameters xlComo
 		LOCAL lcFile,lnHand,nl,lnMess,i,obj,lcFullpath,lcFolder
 		LOCAL ARRAY galines(1)
 		lcFullpath=FULLPATH("")
 		lcFolder=thisform.folder
-		
-		lcFile=PUTFILE("Archivo",this.fileused,"txt")
+		lcFile=iif(xlComo,"",this.fileused)
+		if empty(lcfile)
+			lcFile=PUTFILE("Archivo",this.fileused,"txt")
+		ENDIF
 		IF EMPTY(lcFile)
 			RETURN
 		ENDIF
@@ -11209,8 +11212,8 @@ DEFINE CLASS prsfun AS custom
 	PROCEDURE genscript
 		LOCAL lCreate
 		lCreate=.T.
-
-
+		
+		
 		IF PEMSTATUS(_screen,"oFrmStand",5)
 			IF VARTYPE(_screen.oFrmStand)="O"
 				*_screen.oFrmStand.Release
