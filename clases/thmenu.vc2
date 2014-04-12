@@ -84,14 +84,19 @@ DEFINE CLASS frmmenu AS form
 	*< OBJECTDATA: ObjPath="tmrMenu3" UniqueID="" Timestamp="" />
 
 	*<DefinedPropArrayMethod>
+		*m: *capture
 		*m: *countmyforms
 		*m: *getlabel
+		*m: *objfollow
+		*m: *opera
 		*p: autoshut
 		*p: barras
 		*p: condishut
+		*p: cursorcolor
 		*p: implement
 		*p: onunloadquit
 		*p: operonshut
+		*p: qlabels
 		*p: scriptdestroy
 		*p: showimage
 	*</DefinedPropArrayMethod>
@@ -103,6 +108,7 @@ DEFINE CLASS frmmenu AS form
 	BorderStyle = 0
 	Caption = "Form"
 	condishut = null
+	cursorcolor = .F.
 	DoCreate = .T.
 	Height = 120
 	Icon = ..\graphics\fibona5inv.ico
@@ -114,6 +120,7 @@ DEFINE CLASS frmmenu AS form
 	Name = "frmmenu"
 	onunloadquit = .F.
 	operonshut = 
+	qlabels = 0
 	scriptdestroy = .F.
 	showimage = .T.
 	ShowTips = .T.
@@ -173,6 +180,69 @@ DEFINE CLASS frmmenu AS form
 		IF !this.AlwaysOnTop
 			this.imgMenu.Visible=.F.
 		ENDIF
+		
+	ENDPROC
+
+	PROCEDURE capture
+		LPARAMETERS xnkey
+		* 5 REsta (arriba=)
+		* 24 suma (abajo)
+		LOCAL lcTiene,lcGo,objCont,lnColor,oControl,oLabel,;
+			lcNameCont
+		
+		lctiene=""
+		lncolor=this.cursorcolor
+		FOR EACH OCONTROL IN THISFORM.Controls
+			IF oControl.class#"Cntmenu"
+				LOOP
+			ENDIF
+			objCont=ocontrol
+			FOR EACH oLabel IN ocontrol.controls
+				IF olabel.Class#"Labmenu"
+					LOOP
+				ENDIF
+				IF olabel.enabled AND olabel.BackStyle=1 ;
+						AND olabel.backcolor=lnColor
+					lcTiene=olabel.name
+					EXIT
+				ENDIF
+			ENDFOR
+		
+		ENDFOR
+		IF EMPTY(lcTiene)
+			lcGo="labmenu1"
+		ELSE
+			DO WHILE .t.
+				lcGo=this.objfollow(lcTiene,IIF(xnKey=24,1,-1))
+				IF !PEMSTATUS(objCont,lcGo,5)
+					IF xnKey=24
+						lcGo="Labmenu1"
+				
+					ELSE
+						lcGo="Labmenu"+TRANSFORM(this.qlabels)
+					ENDIF
+					EXIT
+					
+				ENDIF
+				IF objCont.&lcGo..Enabled
+					EXIT
+				ENDIF
+				lcTiene=lcGo
+			ENDDO
+			
+			
+		ENDIF
+		
+		objCont.gmenu1.desactiver(objCont)
+		WITH objCont.&lcGo.
+			.BackColor=lnColor
+			.Forecolor=RGB(255,255,255)
+			.BackStyle=1
+		ENDWITH
+		
+		
+		
+		
 		
 	ENDPROC
 
@@ -277,19 +347,28 @@ DEFINE CLASS frmmenu AS form
 
 	PROCEDURE Init
 		LPARAMETERS xnWinType,xcNameImplem
+		
 		IF VARTYPE(xcNameImplem)#"C" OR EMPTY(xcNameImplem)
 			xcNameImplem="oFrmCopy"
 		ENDIF
 		
 		this.WindowType=EVL(xnWinType,0)
 		this.implement=xcNameImplem
+		
 	ENDPROC
 
 	PROCEDURE KeyPress
 		LPARAMETERS nKeyCode, nShiftAltCtrl
-		IF BETWEEN(nKeyCode,65,122)
-			this.getlabel(nKeyCode)
-		ENDIF
+		DO CASE
+			CASE BETWEEN(nKeyCode,65,122)
+				this.getlabel(nKeyCode)
+			CASE INLIST(nKeyCode,5,24)
+				this.capture(nKeyCode)
+				
+			CASE nKeyCode=13
+				this.opera()	
+		ENDCASE
+		
 		
 	ENDPROC
 
@@ -297,6 +376,57 @@ DEFINE CLASS frmmenu AS form
 		DECLARE LONG SendMessage IN "User32";
 		LONG HANDLE, LONG wMsg, ;
 		LONG wParam, LONG LPARAM
+		
+		this.cursorcolor=RGB(10,36,106)
+	ENDPROC
+
+	PROCEDURE objfollow
+		LPARAMETERS xcObjeto,xnAdd
+		************************************
+		* Para un objeto "text1", si xnAdd=1 Devolvera "text2"
+		* Para un Objeto "Text1", si xnAdd= -1, Devolvera "Text1"
+		* --------------------------------------------------------
+		LOCAL lcnum,lnNum
+		IF VARTYPE(xcObjeto)#"C" OR empty(xcObjeto)
+			RETURN ""
+		ENDIF
+		IF VARTYPE(xnAdd)#"N" OR empty(xnAdd)
+			xnADd=1
+		ENDIF
+		lcNum=CHRTRAN(xcObjeto,CHRTRAN(xcObjeto,"1234567890",""),"")
+		lnNUm=VAL(lcNum)+xnAdd
+		RETURN IIF(lnNum>-1,STRTRAN(xcObjeto,lcnum)+TRANSFORM(lnNum),xcObjeto)
+		
+	ENDPROC
+
+	PROCEDURE opera
+		LOCAL ocontrol,oLabel,objCont,lnColor,objSel
+		objSel=null
+		lncolor=this.cursorcolor
+		FOR EACH OCONTROL IN THISFORM.Controls
+			IF oControl.class#"Cntmenu"
+				LOOP
+			ENDIF
+			objCont=ocontrol
+			FOR EACH oLabel IN ocontrol.controls
+				IF olabel.Class#"Labmenu"
+					LOOP
+				ENDIF
+				IF olabel.enabled AND olabel.BackStyle=1 ;
+						AND olabel.backcolor=lnColor
+					objSel=olabel
+					EXIT
+				ENDIF
+			ENDFOR
+		
+		ENDFOR
+		IF ISNULL(objSel)
+			RETURN
+		ENDIF
+		objSel.click()
+		
+		
+		
 	ENDPROC
 
 	PROCEDURE Unload
@@ -517,6 +647,7 @@ DEFINE CLASS gmenu AS custom
 		*m: *closemyforms
 		*m: *convoca
 		*m: *countmyforms
+		*m: *desactiver
 		*m: *gcopypaste
 		*m: *getfopen
 		*m: *getpopup		&& Genera el menu popup
@@ -542,6 +673,7 @@ DEFINE CLASS gmenu AS custom
 		*m: *stuffmenu
 		*m: *wokupas
 		*p: classdir
+		*p: cursorcolor
 		*p: kttmat
 		*p: kttord
 		*p: lbclose
@@ -554,13 +686,26 @@ DEFINE CLASS gmenu AS custom
 	*</DefinedPropArrayMethod>
 
 	classdir = .F.
+	cursorcolor = 6956042
 	Name = "gmenu"
 	nitems = 0		&& Cantidad de Items de Menu
 	Width = 30
 	
 	PROCEDURE addlabel
-		LPARAMETERS xoCnt,xcCaption,xcCommand,xlEnabled,xnWid,xnBarra,xcSubCommand,xoParam
-		LOCAL oControl,lnCont,lntop,lcName,lcControlClass,lctry
+		LPARAMETERS xoCnt,;
+				xcCaption,;
+				xcCommand,;
+				xlEnabled,;
+				xnWid,;
+				xnBarra,;
+				xcSubCommand,;
+				xoParam,;
+				xlTextbox
+				
+		LOCAL oControl,lnCont,lntop,lcName,lcControlClass,lctry,lcObjeto,;
+			lnLab,lnShp,lcNameShape
+		STORE 0 TO lnLab,lnShp,lnCont	
+		lcObjeto=IIF(xlTextbox,"txtmenu","labmenu")
 		lcTry="\<"
 		IF VARTYPE(xnBarra)#"N"
 			xnBarra=0
@@ -569,7 +714,7 @@ DEFINE CLASS gmenu AS custom
 			xcSubCommand=""
 		ENDIF
 		
-		lnCont=0
+		
 		lnTop=3
 		IF UPPER(xcCaption)#"<RAYA/>"
 			xoCnt.wkeys=xoCnt.Wkeys+UPPER(LEFT(xcCommand,1))+","
@@ -577,20 +722,24 @@ DEFINE CLASS gmenu AS custom
 		FOR EACH oControl IN xoCnt.Controls
 			lcControlClass=LOWER(oControl.Class)
 			DO case
-				CASE lcControlClass="labmenu"
+				CASE INLIST(lcControlClass,"labmenu","txtmenu")
 					lnCont=lnCont+1	
+					lnLab=lnLab+1
 					lntop=lnTop+oControl.Height			
 				CASE lcControlClass="shline"
 					lnCont=lnCont+1		
+					lnShp=lnShp + 1
 					lntop=lnTop+oControl.Height + 1
 			ENDCASE
 			
 		
 		ENDFOR
 		lnCont=lnCont+1
-		lcName="LabMenu"+TRANSFORM(lnCont)
+		*lcName="LabMenu"+TRANSFORM(lnCont)
 		DO CASE
 			CASE UPPER(xcCaption)=="<RAYA/>"
+				lnShp = lnShp + 1
+				lcName="shpMenu"+TRANSFORM(lnShp)
 				xoCnt.newObject(lcName,"ShLine",this.classdir+"thmenu.vcx")
 				WITH xoCnt.&lcName
 					.top=lnTop
@@ -602,14 +751,21 @@ DEFINE CLASS gmenu AS custom
 				ENDWITH
 					
 			OTHERWISE
-			
-				xoCnt.NewObject(lcName,"Labmenu",this.classdir+"thmenu.vcx")
+				
+			*	xoCnt.NewObject(lcName,"Labmenu",this.classdir+"thmenu.vcx")
+				lnLab = lnLab + 1
+				lcName="LabMenu"+TRANSFORM(lnLab)
+				xoCnt.NewObject(lcName,lcObjeto,this.classdir+"thmenu.vcx")
 				WITH xoCnt.&lcName.
 					.top=lntop
 					.left=3
 					.Width=xnWid
-					.Caption=" "+IIF(AT(lcTry,xcCaption)=0,lcTry,"")+xcCaption
-		*			.Caption=" \<"+xcCaption
+					.height=17
+					IF xlTextbox
+						.Value=" "+IIF(AT(lcTry,xcCaption)=0,lcTry,"")+xcCaption
+					ELSE
+						.Caption=" "+IIF(AT(lcTry,xcCaption)=0,lcTry,"")+xcCaption
+					ENDIF
 					.Enabled=xlEnabled
 					.Comando=xccommand
 					.Barra=IIF(EMPTY(xnBarra),lnCont,xnBarra)
@@ -619,6 +775,7 @@ DEFINE CLASS gmenu AS custom
 					.visible=.t.
 				ENDWITH
 		ENDCASE
+		xoCnt.parent.qlabels=lnLab
 		RETURN lnCont
 		
 	ENDPROC
@@ -700,7 +857,7 @@ DEFINE CLASS gmenu AS custom
 				LOOP
 			ENDIF
 			FOR EACH olabel IN ocontrol.Controls
-				IF olabel.class#"Labmenu"
+				IF !INLIST(olabel.class,"Labmenu","Txtmenu")
 					LOOP
 				ENDIF
 				
@@ -735,6 +892,7 @@ DEFINE CLASS gmenu AS custom
 			objParam=xoLabel.objform
 			lcNameMenu=oform.implement
 			
+		
 			IF PEMSTATUS(oform,"OperOnShut",5)
 				oform.operonshut=lcSubCommand
 			ENDIF
@@ -946,10 +1104,14 @@ DEFINE CLASS gmenu AS custom
 				LOOP
 			ENDIF
 			FOR EACH olabel IN ocontrol.Controls
-				IF olabel.class#"Labmenu"
+		*!*			IF olabel.class#"Labmenu"
+		*!*				LOOP
+		*!*			ENDIF
+			
+				IF !INLIST(olabel.class,"Labmenu","Txtmenu")
 					LOOP
 				ENDIF
-				
+					
 				FOR j=1 TO ALEN(olabel.gaForms,1)
 					IF !ISNULL(olabel.gaForms[j,1])
 						lnForms=lnForms + 1
@@ -958,6 +1120,18 @@ DEFINE CLASS gmenu AS custom
 			ENDFOR
 		ENDFOR
 		RETURN lnForms
+		
+	ENDPROC
+
+	PROCEDURE desactiver
+		LPARAMETERS xoCnt
+		LOCAL ocontrol
+		FOR EACH ocontrol IN xoCnt.controls
+			IF INLIST(ocontrol.baseclass,"Label","Textbox")
+				oControl.BackStyle=0
+				ocontrol.ForeColor=RGB(0,0,0)
+			ENDIF
+		ENDFOR
 		
 	ENDPROC
 
@@ -1088,15 +1262,17 @@ DEFINE CLASS gmenu AS custom
 	PROCEDURE getpopup		&& Genera el menu popup
 		LPARAMETERS xoform,xoObjeto,xnModo,xnMouseObj,xnTimer,;
 			xlNotBind,xnItemsMenu,xlNotMMScreen,xlNotOnTop,xoCondiShut,;
-			xcCaption,xcScriptDestroy,xlNotImage,xnMinWidth,xcNameMenu
+			xcCaption,xcScriptDestroy,xlNotImage,xnMinWidth,xcNameMenu,;
+			xnCursorColor
 		
 		
 		
 		IF VARTYPE(xcNamemenu)#"C" OR EMPTY(xcNameMenu)
 			xcNameMenu="OFRMCOPY"
 		ENDIF	
-		
-		
+		IF VARTYPE(xnCursorColor)#"N"
+			xncursorcolor=this.cursorcolor
+		ENDIF
 			
 		IF VARTYPE(xoform)#"O"
 			xoForm=_Screen
@@ -1202,7 +1378,7 @@ DEFINE CLASS gmenu AS custom
 			NEXT	
 			
 			FOR EACH ocontrol IN objMenu.Cnt_Copy.Controls
-				IF INLIST(LOWER(ocontrol.Class),"labmenu","shline")
+				IF INLIST(LOWER(ocontrol.Class),"labmenu","txtmenu","shline")
 					lntop=oControl.top+oControl.Height
 				ENDIF
 			ENDFOR
@@ -1243,6 +1419,8 @@ DEFINE CLASS gmenu AS custom
 				ENDIF
 				.ShowImage=!xlNotImage		
 				.gmove1.gbindtit()
+				.CursorColor=xnCursorColor
+				
 		*		.AutoCenter=lAutoCenter
 		*		.Show()
 			ENDWITH	
@@ -1296,7 +1474,7 @@ DEFINE CLASS gmenu AS custom
 					this.gaMenu[i,4])
 			NEXT
 			FOR EACH ocontrol IN xoForm.Cnt_Copy.Controls
-				IF INLIST(LOWER(ocontrol.Class),"labmenu","shline")
+				IF INLIST(LOWER(ocontrol.Class),"labmenu","txtmenu","shline")
 					lntop=oControl.top+oControl.Height
 				ENDIF
 			ENDFOR
@@ -1581,7 +1759,8 @@ DEFINE CLASS gmenu AS custom
 			xcCaption,;
 			xcSCriptDestroy,;
 			xlBindHide,;
-			xcNameMenu
+			xcNameMenu,;
+			xnCursorColor
 			
 		EXTERNAL ARRAY xgaArray
 		
@@ -1750,7 +1929,8 @@ DEFINE CLASS gmenu AS custom
 				
 			This.getPopup(_Screen,_Screen,lnModo,lnPosicion,lnTimer,;
 				lNotBind,lnRow,lNotMMScreen,xlnotOntop,;
-				xoCondiShut,xcCaption,xcSCriptDestroy,.f.,,xcNameMenu)
+				xoCondiShut,xcCaption,xcSCriptDestroy,.f.,,xcNameMenu,;
+				xnCursorColor)
 		
 		
 		*!*	LPARAMETERS xoform,xoObjeto,xnModo,xnMouseObj,xnTimer,;
@@ -2164,6 +2344,9 @@ DEFINE CLASS gmenu AS custom
 		IF xlAdded
 			BINDEVENT(thisform,"Destroy",this,"releasemenu")
 		ENDIF
+		
+		*!*	This.Cursorcolor=RGB(10,36,106) && 6956042
+		
 		
 		*!*	------------------------------------------
 		*!*	<Implementación Formularios>
@@ -2652,39 +2835,30 @@ DEFINE CLASS gmenu AS custom
 
 	PROCEDURE setfondo
 		LPARAMETERS xoLabel,xlLeave
-		LOCAL oparent
+		LOCAL oparent,oControl,lnColor
+		lnColor=xoLabel.parent.Parent.CursorColor
 		IF !xlLeave
 			oparent=xolabel.parent
+			
 			FOR EACH ocontrol IN oparent.controls
-				IF ocontrol.baseclass="Label" 
+				IF INLIST(ocontrol.baseclass,"Label","Textbox")
 					oControl.BackStyle=0
 					ocontrol.ForeColor=RGB(0,0,0)
 				ENDIF
 			ENDFOR
 		ENDIF
+		
 		WITH xoLabel
 			.backstyle=IIF(xlLeave,0,1)
-			.Backcolor=IIF(xlLeave,RGB(255,255,255),RGB(10,36,106))
+			IF xolabel.baseclass="Label"
+				.Backcolor=IIF(xlLeave,RGB(255,255,255),lnColor)
+			ELSE
+				.DisabledBackcolor=IIF(xlLeave,RGB(255,255,255),lnColor)
+			ENDIF
 			.ForeColor=IIF(xlLeave,RGB(0,0,0),RGB(255,255,255))
 		ENDWITH
 		
-		RETURN
 		
-		*!*	LPARAMETERS xoLabel
-		*!*	oparent=xolabel.parent
-		*!*	FOR EACH ocontrol IN oparent.controls
-		*!*		IF ocontrol.baseclass="Label" AND oControl.enabled
-		*!*			IF LOWER(ocontrol.name)==LOWER(xolabel.name)
-		*!*				oControl.backstyle=1
-		*!*				ocontrol.Backcolor=RGB(0,0,128)
-		*!*				oControl.ForeColor=RGB(255,255,255)
-		*!*			ELSE
-		*!*				oControl.BackStyle=0
-		*!*				ocontrol.ForeColor=RGB(0,0,0)
-		*!*			ENDIF
-		*!*		ENDIF
-		*!*	ENDFOR
-		*!*	RETURN
 	ENDPROC
 
 	PROCEDURE showerror
@@ -3029,5 +3203,83 @@ DEFINE CLASS shline AS shape
 	Name = "shline"
 	SpecialEffect = 0
 	Width = 100
+
+ENDDEFINE
+
+DEFINE CLASS txtmenu AS textbox 
+ 	*< CLASSDATA: Baseclass="textbox" Timestamp="" Scale="Pixels" Uniqueid="" />
+
+	*<DefinedPropArrayMethod>
+		*p: barra
+		*p: comando
+		*p: condenable
+		*p: objform
+		*p: subcommand
+		*a: ^gaforms[1,2]
+	*</DefinedPropArrayMethod>
+
+	BackStyle = 0
+	barra = 0
+	BorderStyle = 0
+	comando = 
+	condenable = .F.
+	DisabledBackColor = 255,255,255
+	FontSize = 8
+	Height = 17
+	Name = "txtmenu"
+	objform = null
+	ReadOnly = .T.
+	SpecialEffect = 1
+	subcommand = 
+	Width = 100
+	
+	PROCEDURE Click
+		LOCAL lnfIni,lnFPost,lnfDiff,i,lnIt,lcCaption,;
+			lcCaptionIni,lcNameIni,ldoit
+		STORE "" TO lcCaption,lcCaptionIni,lcNameIni
+		lnIt=ALEN(this.gaforms,1)
+		IF lnIt=1 AND ISNULL(this.gaforms[1,1])
+			lnIt=0
+		ENDIF
+		
+		lnfIni=_screen.FormCount
+		IF lnfIni>0
+			lcCaptionIni=_Screen.Forms(1).caption
+			lcNameIni=_Screen.Forms(1).Name
+		ENDIF
+		This.parent.gmenu1.Convoca(tHIS)
+		
+		IF _Screen.FormCount>0 
+			lDoit=EMPTY(lnfIni)
+			IF !lDoit
+				&& otro form.scx
+				ldoit=IIF(_screen.Forms(1).Name # lcNameIni , .t. ,.f.)
+				IF !ldoit
+					&& otra sesión del mismo form, diferenciado por Caption
+					ldoit=IIF(_screen.Forms(1).Caption # lcCaptionIni,.t.,.f.)
+				ENDIF
+			ENDIF
+		ENDIF
+		IF ldoit
+			this.gaforms[1,1]=_Screen.Forms(1)
+			this.gaforms[1,2]=lcCaption
+		ENDIF
+	ENDPROC
+
+	PROCEDURE Init
+		DIMENSION this.gaforms(1,2)
+		this.gaforms[1,1]=null	&& form Object
+		this.gaforms[1,2]=""	&& Form.caption
+	ENDPROC
+
+	PROCEDURE MouseLeave
+		LPARAMETERS nButton, nShift, nXCoord, nYCoord
+		This.Parent.gmenu1.SEtfondo(This,.T.)
+	ENDPROC
+
+	PROCEDURE MouseMove
+		LPARAMETERS nButton, nShift, nXCoord, nYCoord
+		This.Parent.gmenu1.SEtfondo(This)
+	ENDPROC
 
 ENDDEFINE

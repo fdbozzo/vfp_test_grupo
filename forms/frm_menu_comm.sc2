@@ -339,7 +339,8 @@ DEFINE CLASS frm_menu_comm AS form
 		
 		objMenu=NEWOBJECT("gmenu",ADDBS(_screen.classdir)+"thmenu.vcx")
 		objMenu.GralMenu(@gaMenu,lnPosicion,lnTimer,;
-			lNotOnTop,Thisform,lcCaption,lcScriptDestroy,.f.,lcNameMenu)
+			lNotOnTop,Thisform,lcCaption,lcScriptDestroy,.f.,;
+				lcNameMenu,RGB(0,128,192))
 		objMenu=null
 		
 		*!*			LPARAMETERS xgaARray,;
@@ -350,7 +351,11 @@ DEFINE CLASS frm_menu_comm AS form
 		*!*				xcCaption,;
 		*!*				xcSCriptDestroy,;
 		*!*				xlBindHide,;
-		*!*				xcNameMenu
+		*!*				xcNameMenu,;
+		*!*				xnCursorColor
+		
+		
+		
 	ENDPROC
 
 	PROCEDURE cmdOpenForms.Click
