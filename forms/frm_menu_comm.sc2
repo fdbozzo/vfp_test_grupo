@@ -107,7 +107,7 @@ DEFINE CLASS frm_menu_comm AS form
 			MD &lcTemp
 		ENDIF
 		SET DEFAULT TO &LcRoot
-		SET PATH TO FORMS;CLASES;PROGS;GRAPHICS
+		SET PATH TO FORMS;CLASES;PRGS;GRAPHICS
 		ADDPROPERTY(_screen,"ClassDir",ADDBS(lcRoot)+"Clases")
 		ADDPROPERTY(_screen,"DAPLI",lcRoot)
 		ADDPROPERTY(_Screen,"DTEMP",lcTemp)
@@ -317,6 +317,27 @@ DEFINE CLASS frm_menu_comm AS form
 		ENDIF
 		
 		
+		*frm_inspect
+		nlis=nLis+1
+		DIMENSION gamenu(nlis,6)
+		gaMenu[nlis,1]=[\<Procedures en vcx]
+		gaMenu[nlis,2]="<DOFORM>frm_Inspect</DOFORM><NAME>gloInspect</NAME>"
+		gaMenu[nlis,3]=.T.
+		gaMenu[nlis,4]=nlis
+		gaMenu[nlis,5]=""
+		gaMenu[nlis,6]=null
+		lRaya=.f.
+		
+		IF !lRaya
+			nLis=nLis+1
+			DIMENSION gamenu(nlis,6)
+			gaMenu[nlis,1]=[<RAYA/>]
+			gaMenu[nlis,2]=""
+			gaMenu[nlis,3]=.F.
+			gaMenu[nlis,4]=nlis
+			gaMenu[nlis,5]=""
+			gaMenu[nlis,6]=null
+		ENDIF
 		
 		nlis=nlis+1
 		DIMENSION gamenu(nlis,6)
