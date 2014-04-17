@@ -1931,7 +1931,7 @@ DEFINE CLASS cntalma AS container
 
 	PROCEDURE Init
 		local lcRoot
-		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"mzmanak.vcx"),"clases\mzmanak")
+		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"mzmanak.vcx"),"mzmanak")
 		SYS(2002)
 		This.AddProperty("objManak",null)
 		This.AddProperty("frmManak",null)
@@ -2008,7 +2008,7 @@ DEFINE CLASS cntalma AS container
 
 	PROCEDURE CmCalc.Click
 		local lcRoot
-		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"mzmanak.vcx"),"clases\mzmanak")
+		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"mzmanak.vcx"),"mzmanak")
 		SYS(2002,1)
 		IF ISNULL(this.Parent.frmManak)
 			this.Parent.frmmanak=NEWOBJECT("frmCalc",lcRoot,"",0)
@@ -2112,6 +2112,1980 @@ DEFINE CLASS cntalma AS container
 		ENDWITH
 		
 		this.Parent.gmes(this.Parent.ano,this.Parent.mes)
+	ENDPROC
+
+	PROCEDURE Text1.ProgrammaticChange
+		this.Visible=!EMPTY(this.Value)
+		
+	ENDPROC
+
+	PROCEDURE Text10.ProgrammaticChange
+		this.Visible=!EMPTY(this.Value)
+		
+	ENDPROC
+
+	PROCEDURE Text11.ProgrammaticChange
+		this.Visible=!EMPTY(this.Value)
+		
+	ENDPROC
+
+	PROCEDURE Text12.ProgrammaticChange
+		this.Visible=!EMPTY(this.Value)
+		
+	ENDPROC
+
+	PROCEDURE Text13.ProgrammaticChange
+		this.Visible=!EMPTY(this.Value)
+		
+	ENDPROC
+
+	PROCEDURE Text14.ProgrammaticChange
+		this.Visible=!EMPTY(this.Value)
+		
+	ENDPROC
+
+	PROCEDURE Text15.ProgrammaticChange
+		this.Visible=!EMPTY(this.Value)
+		
+	ENDPROC
+
+	PROCEDURE Text16.ProgrammaticChange
+		this.Visible=!EMPTY(this.Value)
+		
+	ENDPROC
+
+	PROCEDURE Text17.ProgrammaticChange
+		this.Visible=!EMPTY(this.Value)
+		
+	ENDPROC
+
+	PROCEDURE Text18.ProgrammaticChange
+		this.Visible=!EMPTY(this.Value)
+		
+	ENDPROC
+
+	PROCEDURE Text19.ProgrammaticChange
+		this.Visible=!EMPTY(this.Value)
+		
+	ENDPROC
+
+	PROCEDURE Text2.ProgrammaticChange
+		this.Visible=!EMPTY(this.Value)
+		
+	ENDPROC
+
+	PROCEDURE Text20.ProgrammaticChange
+		this.Visible=!EMPTY(this.Value)
+		
+	ENDPROC
+
+	PROCEDURE Text21.ProgrammaticChange
+		this.Visible=!EMPTY(this.Value)
+		
+	ENDPROC
+
+	PROCEDURE Text22.ProgrammaticChange
+		this.Visible=!EMPTY(this.Value)
+		
+	ENDPROC
+
+	PROCEDURE Text23.ProgrammaticChange
+		this.Visible=!EMPTY(this.Value)
+		
+	ENDPROC
+
+	PROCEDURE Text24.ProgrammaticChange
+		this.Visible=!EMPTY(this.Value)
+		
+	ENDPROC
+
+	PROCEDURE Text25.ProgrammaticChange
+		this.Visible=!EMPTY(this.Value)
+		
+	ENDPROC
+
+	PROCEDURE Text26.ProgrammaticChange
+		this.Visible=!EMPTY(this.Value)
+		
+	ENDPROC
+
+	PROCEDURE Text27.ProgrammaticChange
+		this.Visible=!EMPTY(this.Value)
+		
+	ENDPROC
+
+	PROCEDURE Text28.ProgrammaticChange
+		this.Visible=!EMPTY(this.Value)
+		
+	ENDPROC
+
+	PROCEDURE Text29.ProgrammaticChange
+		this.Visible=!EMPTY(this.Value)
+		
+	ENDPROC
+
+	PROCEDURE Text3.ProgrammaticChange
+		this.Visible=!EMPTY(this.Value)
+		
+	ENDPROC
+
+	PROCEDURE Text30.ProgrammaticChange
+		this.Visible=!EMPTY(this.Value)
+		
+	ENDPROC
+
+	PROCEDURE Text31.ProgrammaticChange
+		this.Visible=!EMPTY(this.Value)
+		
+	ENDPROC
+
+	PROCEDURE Text32.ProgrammaticChange
+		this.Visible=!EMPTY(this.Value)
+		
+	ENDPROC
+
+	PROCEDURE Text33.ProgrammaticChange
+		this.Visible=!EMPTY(this.Value)
+		
+	ENDPROC
+
+	PROCEDURE Text34.ProgrammaticChange
+		this.Visible=!EMPTY(this.Value)
+		
+	ENDPROC
+
+	PROCEDURE Text35.ProgrammaticChange
+		this.Visible=!EMPTY(this.Value)
+		
+	ENDPROC
+
+	PROCEDURE Text36.ProgrammaticChange
+		this.Visible=!EMPTY(this.Value)
+		
+	ENDPROC
+
+	PROCEDURE Text37.ProgrammaticChange
+		this.Visible=!EMPTY(this.Value)
+		
+	ENDPROC
+
+	PROCEDURE Text38.ProgrammaticChange
+		this.Visible=!EMPTY(this.Value)
+		
+	ENDPROC
+
+	PROCEDURE Text39.ProgrammaticChange
+		this.Visible=!EMPTY(this.Value)
+		
+	ENDPROC
+
+	PROCEDURE Text4.ProgrammaticChange
+		this.Visible=!EMPTY(this.Value)
+		
+	ENDPROC
+
+	PROCEDURE Text40.ProgrammaticChange
+		this.Visible=!EMPTY(this.Value)
+		
+	ENDPROC
+
+	PROCEDURE Text41.ProgrammaticChange
+		this.Visible=!EMPTY(this.Value)
+		
+	ENDPROC
+
+	PROCEDURE Text42.ProgrammaticChange
+		this.Visible=!EMPTY(this.Value)
+		
+	ENDPROC
+
+	PROCEDURE Text5.ProgrammaticChange
+		this.Visible=!EMPTY(this.Value)
+		
+	ENDPROC
+
+	PROCEDURE Text6.ProgrammaticChange
+		this.Visible=!EMPTY(this.Value)
+		
+	ENDPROC
+
+	PROCEDURE Text7.ProgrammaticChange
+		this.Visible=!EMPTY(this.Value)
+		
+	ENDPROC
+
+	PROCEDURE Text8.ProgrammaticChange
+		this.Visible=!EMPTY(this.Value)
+		
+	ENDPROC
+
+	PROCEDURE Text9.ProgrammaticChange
+		this.Visible=!EMPTY(this.Value)
+		
+	ENDPROC
+
+ENDDEFINE
+
+DEFINE CLASS cntfrm_manak AS container 
+ 	*< CLASSDATA: Baseclass="container" Timestamp="" Scale="Pixels" Uniqueid="" />
+
+	*-- OBJECTDATA items order determines ZOrder / El orden de los items OBJECTDATA determina el ZOrder 
+	*< OBJECTDATA: ObjPath="Shape3d1" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Gmarco1" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Gmarco2" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Text1" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Text2" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Text3" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Text4" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Text5" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Text6" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Text7" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Text8" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Text9" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Text10" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Text11" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Text12" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Text13" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Text14" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Text15" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Text16" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Text17" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Text18" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Text19" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Text20" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Text21" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Text22" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Text23" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Text24" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Text25" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Text26" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Text27" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Text28" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Text29" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Text30" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Text31" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Text32" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Text33" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Text34" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Text35" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Gmarco3" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Text36" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Text37" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Text38" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Text39" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Text40" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Text41" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Text42" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Cntfe" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Cntfe.Gmarco4" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Cntfe.Glab1" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Cntfe.Semaf1001" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="CntTit" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="CntTit.Gmarco1" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="CntTit.Glab1" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="CntTit.Gmarco2" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="CntTit.Glab2" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="CntTit.Gmarco3" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="CntTit.Glab3" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="CntTit.Gmarco4" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="CntTit.Glab4" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="CntTit.Gmarco5" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="CntTit.Glab5" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="CntTit.Gmarco6" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="CntTit.Glab6" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="CntTit.Gmarco7" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="CntTit.Glab7" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="CntTit.Gmarco8" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Spinner1" UniqueID="" Timestamp="" />
+
+	*<DefinedPropArrayMethod>
+		*m: *bindclick
+		*m: *binddbl
+		*m: *bindfo
+		*m: *bindgo
+		*m: *bindlost
+		*m: *gmes
+		*m: *manak_bind
+		*m: *objfollow
+		*p: ano
+		*p: dbcolor
+		*p: dia
+		*p: diafoco
+		*p: fechasel
+		*p: focolor
+		*p: masdias
+		*p: mes
+		*p: script
+		*p: selmes
+		*p: selperi
+		*a: ^adiasem[7,0]		&& Dias de la semana
+		*a: ^zenmes[12,0]		&& matriz de meses
+	*</DefinedPropArrayMethod>
+
+	ano = .F.
+	BackStyle = 1
+	BorderWidth = 0
+	dbcolor = .F.
+	dia = .F.
+	diafoco = 
+	fechasel = .F.
+	focolor = .F.
+	Height = 155
+	masdias = 30
+	mes = .F.
+	Name = "cntfrm_manak"
+	script = 
+	selmes = .F.
+	selperi = .F.
+	Width = 204
+
+	ADD OBJECT 'Cntfe' AS container WITH ;
+		BackStyle = 0, ;
+		BorderWidth = 0, ;
+		Height = 19, ;
+		Left = 4, ;
+		Name = "Cntfe", ;
+		Top = 4, ;
+		Width = 177
+		*< END OBJECT: BaseClass="container" />
+
+	ADD OBJECT 'Cntfe.Glab1' AS glab WITH ;
+		Caption = "Mes y Año", ;
+		Left = 6, ;
+		Name = "Glab1", ;
+		Top = 3
+		*< END OBJECT: ClassLib="mzmanak.vcx" BaseClass="label" />
+
+	ADD OBJECT 'Cntfe.Gmarco4' AS gmarco WITH ;
+		BackColor = 255,255,255, ;
+		Height = 18, ;
+		Left = 1, ;
+		Name = "Gmarco4", ;
+		Top = 1, ;
+		Width = 176
+		*< END OBJECT: ClassLib="mzmanak.vcx" BaseClass="shape" />
+
+	ADD OBJECT 'Cntfe.Semaf1001' AS semaf100 WITH ;
+		Left = 156, ;
+		Name = "Semaf1001", ;
+		Top = 0, ;
+		Visible = .F., ;
+		iamarillo.Height = 18, ;
+		iamarillo.Name = "iamarillo", ;
+		iamarillo.Width = 20, ;
+		irojo.Height = 18, ;
+		irojo.Name = "irojo", ;
+		irojo.Width = 20, ;
+		iverde.Height = 18, ;
+		iverde.Name = "iverde", ;
+		iverde.Visible = .T., ;
+		iverde.Width = 20
+		*< END OBJECT: ClassLib="mzmanak.vcx" BaseClass="container" />
+
+	ADD OBJECT 'CntTit' AS container WITH ;
+		BackStyle = 0, ;
+		BorderWidth = 0, ;
+		Height = 18, ;
+		Left = 4, ;
+		Name = "CntTit", ;
+		Top = 22, ;
+		Width = 177
+		*< END OBJECT: BaseClass="container" />
+
+	ADD OBJECT 'CntTit.Glab1' AS glab WITH ;
+		Caption = "Dom", ;
+		ForeColor = 255,255,255, ;
+		Left = 4, ;
+		Name = "Glab1", ;
+		Top = 2
+		*< END OBJECT: ClassLib="mzmanak.vcx" BaseClass="label" />
+
+	ADD OBJECT 'CntTit.Glab2' AS glab WITH ;
+		Caption = "Lun", ;
+		ForeColor = 255,255,255, ;
+		Left = 30, ;
+		Name = "Glab2", ;
+		Top = 2
+		*< END OBJECT: ClassLib="mzmanak.vcx" BaseClass="label" />
+
+	ADD OBJECT 'CntTit.Glab3' AS glab WITH ;
+		Caption = "Mar", ;
+		ForeColor = 255,255,255, ;
+		Left = 55, ;
+		Name = "Glab3", ;
+		Top = 2
+		*< END OBJECT: ClassLib="mzmanak.vcx" BaseClass="label" />
+
+	ADD OBJECT 'CntTit.Glab4' AS glab WITH ;
+		Caption = "Mie", ;
+		ForeColor = 255,255,255, ;
+		Left = 80, ;
+		Name = "Glab4", ;
+		Top = 2
+		*< END OBJECT: ClassLib="mzmanak.vcx" BaseClass="label" />
+
+	ADD OBJECT 'CntTit.Glab5' AS glab WITH ;
+		Caption = "Jue", ;
+		ForeColor = 255,255,255, ;
+		Left = 105, ;
+		Name = "Glab5", ;
+		Top = 2
+		*< END OBJECT: ClassLib="mzmanak.vcx" BaseClass="label" />
+
+	ADD OBJECT 'CntTit.Glab6' AS glab WITH ;
+		Caption = "Vie", ;
+		ForeColor = 255,255,255, ;
+		Left = 130, ;
+		Name = "Glab6", ;
+		Top = 2
+		*< END OBJECT: ClassLib="mzmanak.vcx" BaseClass="label" />
+
+	ADD OBJECT 'CntTit.Glab7' AS glab WITH ;
+		Caption = "Sab", ;
+		ForeColor = 255,255,255, ;
+		Left = 155, ;
+		Name = "Glab7", ;
+		Top = 2
+		*< END OBJECT: ClassLib="mzmanak.vcx" BaseClass="label" />
+
+	ADD OBJECT 'CntTit.Gmarco1' AS gmarco WITH ;
+		BackColor = 255,0,0, ;
+		BorderColor = 242,247,243, ;
+		Height = 17, ;
+		Left = 1, ;
+		Name = "Gmarco1", ;
+		Top = 1, ;
+		Width = 26
+		*< END OBJECT: ClassLib="mzmanak.vcx" BaseClass="shape" />
+
+	ADD OBJECT 'CntTit.Gmarco2' AS gmarco WITH ;
+		BackColor = 73,136,160, ;
+		BorderColor = 242,247,243, ;
+		Height = 17, ;
+		Left = 26, ;
+		Name = "Gmarco2", ;
+		Top = 1, ;
+		Width = 26
+		*< END OBJECT: ClassLib="mzmanak.vcx" BaseClass="shape" />
+
+	ADD OBJECT 'CntTit.Gmarco3' AS gmarco WITH ;
+		BackColor = 73,136,160, ;
+		BorderColor = 242,247,243, ;
+		Height = 17, ;
+		Left = 51, ;
+		Name = "Gmarco3", ;
+		Top = 1, ;
+		Width = 26
+		*< END OBJECT: ClassLib="mzmanak.vcx" BaseClass="shape" />
+
+	ADD OBJECT 'CntTit.Gmarco4' AS gmarco WITH ;
+		BackColor = 73,136,160, ;
+		BorderColor = 242,247,243, ;
+		Height = 17, ;
+		Left = 76, ;
+		Name = "Gmarco4", ;
+		Top = 1, ;
+		Width = 26
+		*< END OBJECT: ClassLib="mzmanak.vcx" BaseClass="shape" />
+
+	ADD OBJECT 'CntTit.Gmarco5' AS gmarco WITH ;
+		BackColor = 73,136,160, ;
+		BorderColor = 242,247,243, ;
+		Height = 17, ;
+		Left = 101, ;
+		Name = "Gmarco5", ;
+		Top = 1, ;
+		Width = 26
+		*< END OBJECT: ClassLib="mzmanak.vcx" BaseClass="shape" />
+
+	ADD OBJECT 'CntTit.Gmarco6' AS gmarco WITH ;
+		BackColor = 73,136,160, ;
+		BorderColor = 242,247,243, ;
+		Height = 17, ;
+		Left = 126, ;
+		Name = "Gmarco6", ;
+		Top = 1, ;
+		Width = 26
+		*< END OBJECT: ClassLib="mzmanak.vcx" BaseClass="shape" />
+
+	ADD OBJECT 'CntTit.Gmarco7' AS gmarco WITH ;
+		BackColor = 1,150,199, ;
+		BorderColor = 242,247,243, ;
+		Height = 17, ;
+		Left = 151, ;
+		Name = "Gmarco7", ;
+		Top = 1, ;
+		Width = 26
+		*< END OBJECT: ClassLib="mzmanak.vcx" BaseClass="shape" />
+
+	ADD OBJECT 'CntTit.Gmarco8' AS gmarco WITH ;
+		BackStyle = 0, ;
+		Height = 17, ;
+		Left = 1, ;
+		Name = "Gmarco8", ;
+		Top = 1, ;
+		Width = 176
+		*< END OBJECT: ClassLib="mzmanak.vcx" BaseClass="shape" />
+
+	ADD OBJECT 'Gmarco1' AS gmarco WITH ;
+		Height = 18, ;
+		Left = 205, ;
+		Name = "Gmarco1", ;
+		Top = 40, ;
+		Width = 176
+		*< END OBJECT: ClassLib="mzmanak.vcx" BaseClass="shape" />
+
+	ADD OBJECT 'Gmarco2' AS gmarco WITH ;
+		Height = 18, ;
+		Left = 205, ;
+		Name = "Gmarco2", ;
+		Top = 108, ;
+		Width = 176
+		*< END OBJECT: ClassLib="mzmanak.vcx" BaseClass="shape" />
+
+	ADD OBJECT 'Gmarco3' AS gmarco WITH ;
+		Height = 18, ;
+		Left = 205, ;
+		Name = "Gmarco3", ;
+		Top = 125, ;
+		Width = 176
+		*< END OBJECT: ClassLib="mzmanak.vcx" BaseClass="shape" />
+
+	ADD OBJECT 'Shape3d1' AS shape3d WITH ;
+		Height = 147, ;
+		Left = 201, ;
+		Name = "Shape3d1", ;
+		Top = 1, ;
+		Width = 185
+		*< END OBJECT: ClassLib="mzmanak.vcx" BaseClass="shape" />
+
+	ADD OBJECT 'Spinner1' AS spinner WITH ;
+		BorderColor = 114,136,141, ;
+		FontSize = 8, ;
+		Height = 18, ;
+		Left = 136, ;
+		Name = "Spinner1", ;
+		SpecialEffect = 1, ;
+		Top = 5, ;
+		Width = 17
+		*< END OBJECT: BaseClass="spinner" />
+
+	ADD OBJECT 'Text1' AS textbox WITH ;
+		Alignment = 3, ;
+		BorderColor = 114,136,141, ;
+		DisabledBackColor = 255,91,91, ;
+		DisabledForeColor = 255,255,255, ;
+		FontBold = .F., ;
+		FontSize = 8, ;
+		ForeColor = 255,255,255, ;
+		Format = "Z", ;
+		Height = 18, ;
+		InputMask = "99", ;
+		Left = 5, ;
+		Name = "Text1", ;
+		ReadOnly = .T., ;
+		SelectedBackColor = 10,36,106, ;
+		SelectedForeColor = 255,255,255, ;
+		SelectOnEntry = .T., ;
+		SpecialEffect = 1, ;
+		Top = 40, ;
+		Value = 0, ;
+		Width = 26
+		*< END OBJECT: BaseClass="textbox" />
+
+	ADD OBJECT 'Text10' AS textbox WITH ;
+		Alignment = 3, ;
+		BorderColor = 114,136,141, ;
+		DisabledBackColor = 242,247,243, ;
+		DisabledForeColor = 0,0,0, ;
+		FontBold = .F., ;
+		FontSize = 8, ;
+		Format = "Z", ;
+		Height = 18, ;
+		InputMask = "99", ;
+		Left = 55, ;
+		Name = "Text10", ;
+		ReadOnly = .T., ;
+		SelectedBackColor = 10,36,106, ;
+		SelectedForeColor = 255,255,255, ;
+		SelectOnEntry = .T., ;
+		SpecialEffect = 1, ;
+		Top = 57, ;
+		Value = 0, ;
+		Width = 26
+		*< END OBJECT: BaseClass="textbox" />
+
+	ADD OBJECT 'Text11' AS textbox WITH ;
+		Alignment = 3, ;
+		BorderColor = 114,136,141, ;
+		DisabledBackColor = 242,247,243, ;
+		DisabledForeColor = 0,0,0, ;
+		FontBold = .F., ;
+		FontSize = 8, ;
+		Format = "Z", ;
+		Height = 18, ;
+		InputMask = "99", ;
+		Left = 80, ;
+		Name = "Text11", ;
+		ReadOnly = .T., ;
+		SelectedBackColor = 10,36,106, ;
+		SelectedForeColor = 255,255,255, ;
+		SelectOnEntry = .T., ;
+		SpecialEffect = 1, ;
+		Top = 57, ;
+		Value = 0, ;
+		Width = 26
+		*< END OBJECT: BaseClass="textbox" />
+
+	ADD OBJECT 'Text12' AS textbox WITH ;
+		Alignment = 3, ;
+		BorderColor = 114,136,141, ;
+		DisabledBackColor = 242,247,243, ;
+		DisabledForeColor = 0,0,0, ;
+		FontBold = .F., ;
+		FontSize = 8, ;
+		Format = "Z", ;
+		Height = 18, ;
+		InputMask = "99", ;
+		Left = 105, ;
+		Name = "Text12", ;
+		ReadOnly = .T., ;
+		SelectedBackColor = 10,36,106, ;
+		SelectedForeColor = 255,255,255, ;
+		SelectOnEntry = .T., ;
+		SpecialEffect = 1, ;
+		Top = 57, ;
+		Value = 0, ;
+		Width = 26
+		*< END OBJECT: BaseClass="textbox" />
+
+	ADD OBJECT 'Text13' AS textbox WITH ;
+		Alignment = 3, ;
+		BorderColor = 114,136,141, ;
+		DisabledBackColor = 242,247,243, ;
+		DisabledForeColor = 0,0,0, ;
+		FontBold = .F., ;
+		FontSize = 8, ;
+		Format = "Z", ;
+		Height = 18, ;
+		InputMask = "99", ;
+		Left = 130, ;
+		Name = "Text13", ;
+		ReadOnly = .T., ;
+		SelectedBackColor = 10,36,106, ;
+		SelectedForeColor = 255,255,255, ;
+		SelectOnEntry = .T., ;
+		SpecialEffect = 1, ;
+		Top = 57, ;
+		Value = 0, ;
+		Width = 26
+		*< END OBJECT: BaseClass="textbox" />
+
+	ADD OBJECT 'Text14' AS textbox WITH ;
+		Alignment = 3, ;
+		BorderColor = 114,136,141, ;
+		DisabledBackColor = 1,173,231, ;
+		DisabledForeColor = 255,255,255, ;
+		FontBold = .F., ;
+		FontSize = 8, ;
+		ForeColor = 255,255,255, ;
+		Format = "Z", ;
+		Height = 18, ;
+		InputMask = "99", ;
+		Left = 155, ;
+		Name = "Text14", ;
+		ReadOnly = .T., ;
+		SelectedBackColor = 10,36,106, ;
+		SelectedForeColor = 255,255,255, ;
+		SelectOnEntry = .T., ;
+		SpecialEffect = 1, ;
+		Top = 57, ;
+		Value = 0, ;
+		Width = 26
+		*< END OBJECT: BaseClass="textbox" />
+
+	ADD OBJECT 'Text15' AS textbox WITH ;
+		Alignment = 3, ;
+		BorderColor = 114,136,141, ;
+		DisabledBackColor = 255,91,91, ;
+		DisabledForeColor = 255,255,255, ;
+		FontBold = .F., ;
+		FontSize = 8, ;
+		ForeColor = 255,255,255, ;
+		Format = "Z", ;
+		Height = 18, ;
+		InputMask = "99", ;
+		Left = 5, ;
+		Name = "Text15", ;
+		ReadOnly = .T., ;
+		SelectedBackColor = 10,36,106, ;
+		SelectedForeColor = 255,255,255, ;
+		SelectOnEntry = .T., ;
+		SpecialEffect = 1, ;
+		Top = 74, ;
+		Value = 0, ;
+		Width = 26
+		*< END OBJECT: BaseClass="textbox" />
+
+	ADD OBJECT 'Text16' AS textbox WITH ;
+		Alignment = 3, ;
+		BorderColor = 114,136,141, ;
+		DisabledBackColor = 242,247,243, ;
+		DisabledForeColor = 0,0,0, ;
+		FontBold = .F., ;
+		FontSize = 8, ;
+		Format = "Z", ;
+		Height = 18, ;
+		InputMask = "99", ;
+		Left = 30, ;
+		Name = "Text16", ;
+		ReadOnly = .T., ;
+		SelectedBackColor = 10,36,106, ;
+		SelectedForeColor = 255,255,255, ;
+		SelectOnEntry = .T., ;
+		SpecialEffect = 1, ;
+		Top = 74, ;
+		Value = 0, ;
+		Width = 26
+		*< END OBJECT: BaseClass="textbox" />
+
+	ADD OBJECT 'Text17' AS textbox WITH ;
+		Alignment = 3, ;
+		BorderColor = 114,136,141, ;
+		DisabledBackColor = 242,247,243, ;
+		DisabledForeColor = 0,0,0, ;
+		FontBold = .F., ;
+		FontSize = 8, ;
+		Format = "Z", ;
+		Height = 18, ;
+		InputMask = "99", ;
+		Left = 55, ;
+		Name = "Text17", ;
+		ReadOnly = .T., ;
+		SelectedBackColor = 10,36,106, ;
+		SelectedForeColor = 255,255,255, ;
+		SelectOnEntry = .T., ;
+		SpecialEffect = 1, ;
+		Top = 74, ;
+		Value = 0, ;
+		Width = 26
+		*< END OBJECT: BaseClass="textbox" />
+
+	ADD OBJECT 'Text18' AS textbox WITH ;
+		Alignment = 3, ;
+		BorderColor = 114,136,141, ;
+		DisabledBackColor = 242,247,243, ;
+		DisabledForeColor = 0,0,0, ;
+		FontBold = .F., ;
+		FontSize = 8, ;
+		Format = "Z", ;
+		Height = 18, ;
+		InputMask = "99", ;
+		Left = 80, ;
+		Name = "Text18", ;
+		ReadOnly = .T., ;
+		SelectedBackColor = 10,36,106, ;
+		SelectedForeColor = 255,255,255, ;
+		SelectOnEntry = .T., ;
+		SpecialEffect = 1, ;
+		Top = 74, ;
+		Value = 0, ;
+		Width = 26
+		*< END OBJECT: BaseClass="textbox" />
+
+	ADD OBJECT 'Text19' AS textbox WITH ;
+		Alignment = 3, ;
+		BorderColor = 114,136,141, ;
+		DisabledBackColor = 242,247,243, ;
+		DisabledForeColor = 0,0,0, ;
+		FontBold = .F., ;
+		FontSize = 8, ;
+		Format = "Z", ;
+		Height = 18, ;
+		InputMask = "99", ;
+		Left = 105, ;
+		Name = "Text19", ;
+		ReadOnly = .T., ;
+		SelectedBackColor = 10,36,106, ;
+		SelectedForeColor = 255,255,255, ;
+		SelectOnEntry = .T., ;
+		SpecialEffect = 1, ;
+		Top = 74, ;
+		Value = 0, ;
+		Width = 26
+		*< END OBJECT: BaseClass="textbox" />
+
+	ADD OBJECT 'Text2' AS textbox WITH ;
+		Alignment = 3, ;
+		BorderColor = 114,136,141, ;
+		DisabledBackColor = 242,247,243, ;
+		DisabledForeColor = 0,0,0, ;
+		FontBold = .F., ;
+		FontSize = 8, ;
+		Format = "Z", ;
+		Height = 18, ;
+		InputMask = "99", ;
+		Left = 30, ;
+		Name = "Text2", ;
+		ReadOnly = .T., ;
+		SelectedBackColor = 10,36,106, ;
+		SelectedForeColor = 255,255,255, ;
+		SelectOnEntry = .T., ;
+		SpecialEffect = 1, ;
+		Top = 40, ;
+		Value = 0, ;
+		Width = 26
+		*< END OBJECT: BaseClass="textbox" />
+
+	ADD OBJECT 'Text20' AS textbox WITH ;
+		Alignment = 3, ;
+		BorderColor = 114,136,141, ;
+		DisabledBackColor = 242,247,243, ;
+		DisabledForeColor = 0,0,0, ;
+		FontBold = .F., ;
+		FontSize = 8, ;
+		Format = "Z", ;
+		Height = 18, ;
+		InputMask = "99", ;
+		Left = 130, ;
+		Name = "Text20", ;
+		ReadOnly = .T., ;
+		SelectedBackColor = 10,36,106, ;
+		SelectedForeColor = 255,255,255, ;
+		SelectOnEntry = .T., ;
+		SpecialEffect = 1, ;
+		Top = 74, ;
+		Value = 0, ;
+		Width = 26
+		*< END OBJECT: BaseClass="textbox" />
+
+	ADD OBJECT 'Text21' AS textbox WITH ;
+		Alignment = 3, ;
+		BorderColor = 114,136,141, ;
+		DisabledBackColor = 1,173,231, ;
+		DisabledForeColor = 255,255,255, ;
+		FontBold = .F., ;
+		FontSize = 8, ;
+		ForeColor = 255,255,255, ;
+		Format = "Z", ;
+		Height = 18, ;
+		InputMask = "99", ;
+		Left = 155, ;
+		Name = "Text21", ;
+		ReadOnly = .T., ;
+		SelectedBackColor = 10,36,106, ;
+		SelectedForeColor = 255,255,255, ;
+		SelectOnEntry = .T., ;
+		SpecialEffect = 1, ;
+		Top = 74, ;
+		Value = 0, ;
+		Width = 26
+		*< END OBJECT: BaseClass="textbox" />
+
+	ADD OBJECT 'Text22' AS textbox WITH ;
+		Alignment = 3, ;
+		BorderColor = 114,136,141, ;
+		DisabledBackColor = 255,91,91, ;
+		DisabledForeColor = 255,255,255, ;
+		FontBold = .F., ;
+		FontSize = 8, ;
+		ForeColor = 255,255,255, ;
+		Format = "Z", ;
+		Height = 18, ;
+		InputMask = "99", ;
+		Left = 5, ;
+		Name = "Text22", ;
+		ReadOnly = .T., ;
+		SelectedBackColor = 10,36,106, ;
+		SelectedForeColor = 255,255,255, ;
+		SelectOnEntry = .T., ;
+		SpecialEffect = 1, ;
+		Top = 91, ;
+		Value = 0, ;
+		Width = 26
+		*< END OBJECT: BaseClass="textbox" />
+
+	ADD OBJECT 'Text23' AS textbox WITH ;
+		Alignment = 3, ;
+		BorderColor = 114,136,141, ;
+		DisabledBackColor = 242,247,243, ;
+		DisabledForeColor = 0,0,0, ;
+		FontBold = .F., ;
+		FontSize = 8, ;
+		Format = "Z", ;
+		Height = 18, ;
+		InputMask = "99", ;
+		Left = 30, ;
+		Name = "Text23", ;
+		ReadOnly = .T., ;
+		SelectedBackColor = 10,36,106, ;
+		SelectedForeColor = 255,255,255, ;
+		SelectOnEntry = .T., ;
+		SpecialEffect = 1, ;
+		Top = 91, ;
+		Value = 0, ;
+		Width = 26
+		*< END OBJECT: BaseClass="textbox" />
+
+	ADD OBJECT 'Text24' AS textbox WITH ;
+		Alignment = 3, ;
+		BorderColor = 114,136,141, ;
+		DisabledBackColor = 242,247,243, ;
+		DisabledForeColor = 0,0,0, ;
+		FontBold = .F., ;
+		FontSize = 8, ;
+		Format = "Z", ;
+		Height = 18, ;
+		InputMask = "99", ;
+		Left = 55, ;
+		Name = "Text24", ;
+		ReadOnly = .T., ;
+		SelectedBackColor = 10,36,106, ;
+		SelectedForeColor = 255,255,255, ;
+		SelectOnEntry = .T., ;
+		SpecialEffect = 1, ;
+		Top = 91, ;
+		Value = 0, ;
+		Width = 26
+		*< END OBJECT: BaseClass="textbox" />
+
+	ADD OBJECT 'Text25' AS textbox WITH ;
+		Alignment = 3, ;
+		BorderColor = 114,136,141, ;
+		DisabledBackColor = 242,247,243, ;
+		DisabledForeColor = 0,0,0, ;
+		FontBold = .F., ;
+		FontSize = 8, ;
+		Format = "Z", ;
+		Height = 18, ;
+		InputMask = "99", ;
+		Left = 80, ;
+		Name = "Text25", ;
+		ReadOnly = .T., ;
+		SelectedBackColor = 10,36,106, ;
+		SelectedForeColor = 255,255,255, ;
+		SelectOnEntry = .T., ;
+		SpecialEffect = 1, ;
+		Top = 91, ;
+		Value = 0, ;
+		Width = 26
+		*< END OBJECT: BaseClass="textbox" />
+
+	ADD OBJECT 'Text26' AS textbox WITH ;
+		Alignment = 3, ;
+		BorderColor = 114,136,141, ;
+		DisabledBackColor = 242,247,243, ;
+		DisabledForeColor = 0,0,0, ;
+		FontBold = .F., ;
+		FontSize = 8, ;
+		Format = "Z", ;
+		Height = 18, ;
+		InputMask = "99", ;
+		Left = 105, ;
+		Name = "Text26", ;
+		ReadOnly = .T., ;
+		SelectedBackColor = 10,36,106, ;
+		SelectedForeColor = 255,255,255, ;
+		SelectOnEntry = .T., ;
+		SpecialEffect = 1, ;
+		Top = 91, ;
+		Value = 0, ;
+		Width = 26
+		*< END OBJECT: BaseClass="textbox" />
+
+	ADD OBJECT 'Text27' AS textbox WITH ;
+		Alignment = 3, ;
+		BorderColor = 114,136,141, ;
+		DisabledBackColor = 242,247,243, ;
+		DisabledForeColor = 0,0,0, ;
+		FontBold = .F., ;
+		FontSize = 8, ;
+		Format = "Z", ;
+		Height = 18, ;
+		InputMask = "99", ;
+		Left = 130, ;
+		Name = "Text27", ;
+		ReadOnly = .T., ;
+		SelectedBackColor = 10,36,106, ;
+		SelectedForeColor = 255,255,255, ;
+		SelectOnEntry = .T., ;
+		SpecialEffect = 1, ;
+		Top = 91, ;
+		Value = 0, ;
+		Width = 26
+		*< END OBJECT: BaseClass="textbox" />
+
+	ADD OBJECT 'Text28' AS textbox WITH ;
+		Alignment = 3, ;
+		BorderColor = 114,136,141, ;
+		DisabledBackColor = 1,173,231, ;
+		DisabledForeColor = 255,255,255, ;
+		FontBold = .F., ;
+		FontSize = 8, ;
+		ForeColor = 255,255,255, ;
+		Format = "Z", ;
+		Height = 18, ;
+		InputMask = "99", ;
+		Left = 155, ;
+		Name = "Text28", ;
+		ReadOnly = .T., ;
+		SelectedBackColor = 10,36,106, ;
+		SelectedForeColor = 255,255,255, ;
+		SelectOnEntry = .T., ;
+		SpecialEffect = 1, ;
+		Top = 91, ;
+		Value = 0, ;
+		Width = 26
+		*< END OBJECT: BaseClass="textbox" />
+
+	ADD OBJECT 'Text29' AS textbox WITH ;
+		Alignment = 3, ;
+		BorderColor = 114,136,141, ;
+		DisabledBackColor = 255,91,91, ;
+		DisabledForeColor = 255,255,255, ;
+		FontBold = .F., ;
+		FontSize = 8, ;
+		ForeColor = 255,255,255, ;
+		Format = "Z", ;
+		Height = 18, ;
+		InputMask = "99", ;
+		Left = 5, ;
+		Name = "Text29", ;
+		ReadOnly = .T., ;
+		SelectedBackColor = 10,36,106, ;
+		SelectedForeColor = 255,255,255, ;
+		SelectOnEntry = .T., ;
+		SpecialEffect = 1, ;
+		Top = 108, ;
+		Value = 0, ;
+		Width = 26
+		*< END OBJECT: BaseClass="textbox" />
+
+	ADD OBJECT 'Text3' AS textbox WITH ;
+		Alignment = 3, ;
+		BorderColor = 114,136,141, ;
+		DisabledBackColor = 242,247,243, ;
+		DisabledForeColor = 0,0,0, ;
+		FontBold = .F., ;
+		FontSize = 8, ;
+		Format = "Z", ;
+		Height = 18, ;
+		InputMask = "99", ;
+		Left = 55, ;
+		Name = "Text3", ;
+		ReadOnly = .T., ;
+		SelectedBackColor = 10,36,106, ;
+		SelectedForeColor = 255,255,255, ;
+		SelectOnEntry = .T., ;
+		SpecialEffect = 1, ;
+		Top = 40, ;
+		Value = 0, ;
+		Width = 26
+		*< END OBJECT: BaseClass="textbox" />
+
+	ADD OBJECT 'Text30' AS textbox WITH ;
+		Alignment = 3, ;
+		BorderColor = 114,136,141, ;
+		DisabledBackColor = 242,247,243, ;
+		DisabledForeColor = 0,0,0, ;
+		FontBold = .F., ;
+		FontSize = 8, ;
+		Format = "Z", ;
+		Height = 18, ;
+		InputMask = "99", ;
+		Left = 30, ;
+		Name = "Text30", ;
+		ReadOnly = .T., ;
+		SelectedBackColor = 10,36,106, ;
+		SelectedForeColor = 255,255,255, ;
+		SelectOnEntry = .T., ;
+		SpecialEffect = 1, ;
+		Top = 108, ;
+		Value = 0, ;
+		Width = 26
+		*< END OBJECT: BaseClass="textbox" />
+
+	ADD OBJECT 'Text31' AS textbox WITH ;
+		Alignment = 3, ;
+		BorderColor = 114,136,141, ;
+		DisabledBackColor = 242,247,243, ;
+		DisabledForeColor = 0,0,0, ;
+		FontBold = .F., ;
+		FontSize = 8, ;
+		Format = "Z", ;
+		Height = 18, ;
+		InputMask = "99", ;
+		Left = 55, ;
+		Name = "Text31", ;
+		ReadOnly = .T., ;
+		SelectedBackColor = 10,36,106, ;
+		SelectedForeColor = 255,255,255, ;
+		SelectOnEntry = .T., ;
+		SpecialEffect = 1, ;
+		Top = 108, ;
+		Value = 0, ;
+		Width = 26
+		*< END OBJECT: BaseClass="textbox" />
+
+	ADD OBJECT 'Text32' AS textbox WITH ;
+		Alignment = 3, ;
+		BorderColor = 114,136,141, ;
+		DisabledBackColor = 242,247,243, ;
+		DisabledForeColor = 0,0,0, ;
+		FontBold = .F., ;
+		FontSize = 8, ;
+		Format = "Z", ;
+		Height = 18, ;
+		InputMask = "99", ;
+		Left = 80, ;
+		Name = "Text32", ;
+		ReadOnly = .T., ;
+		SelectedBackColor = 10,36,106, ;
+		SelectedForeColor = 255,255,255, ;
+		SelectOnEntry = .T., ;
+		SpecialEffect = 1, ;
+		Top = 108, ;
+		Value = 0, ;
+		Width = 26
+		*< END OBJECT: BaseClass="textbox" />
+
+	ADD OBJECT 'Text33' AS textbox WITH ;
+		Alignment = 3, ;
+		BorderColor = 114,136,141, ;
+		DisabledBackColor = 242,247,243, ;
+		DisabledForeColor = 0,0,0, ;
+		FontBold = .F., ;
+		FontSize = 8, ;
+		Format = "Z", ;
+		Height = 18, ;
+		InputMask = "99", ;
+		Left = 105, ;
+		Name = "Text33", ;
+		ReadOnly = .T., ;
+		SelectedBackColor = 10,36,106, ;
+		SelectedForeColor = 255,255,255, ;
+		SelectOnEntry = .T., ;
+		SpecialEffect = 1, ;
+		Top = 108, ;
+		Value = 0, ;
+		Width = 26
+		*< END OBJECT: BaseClass="textbox" />
+
+	ADD OBJECT 'Text34' AS textbox WITH ;
+		Alignment = 3, ;
+		BorderColor = 114,136,141, ;
+		DisabledBackColor = 242,247,243, ;
+		DisabledForeColor = 0,0,0, ;
+		FontBold = .F., ;
+		FontSize = 8, ;
+		Format = "Z", ;
+		Height = 18, ;
+		InputMask = "99", ;
+		Left = 130, ;
+		Name = "Text34", ;
+		ReadOnly = .T., ;
+		SelectedBackColor = 10,36,106, ;
+		SelectedForeColor = 255,255,255, ;
+		SelectOnEntry = .T., ;
+		SpecialEffect = 1, ;
+		Top = 108, ;
+		Value = 0, ;
+		Width = 26
+		*< END OBJECT: BaseClass="textbox" />
+
+	ADD OBJECT 'Text35' AS textbox WITH ;
+		Alignment = 3, ;
+		BorderColor = 114,136,141, ;
+		DisabledBackColor = 1,173,231, ;
+		DisabledForeColor = 255,255,255, ;
+		FontBold = .F., ;
+		FontSize = 8, ;
+		ForeColor = 255,255,255, ;
+		Format = "Z", ;
+		Height = 18, ;
+		InputMask = "99", ;
+		Left = 155, ;
+		Name = "Text35", ;
+		ReadOnly = .T., ;
+		SelectedBackColor = 10,36,106, ;
+		SelectedForeColor = 255,255,255, ;
+		SelectOnEntry = .T., ;
+		SpecialEffect = 1, ;
+		Top = 108, ;
+		Value = 0, ;
+		Width = 26
+		*< END OBJECT: BaseClass="textbox" />
+
+	ADD OBJECT 'Text36' AS textbox WITH ;
+		Alignment = 3, ;
+		BorderColor = 114,136,141, ;
+		DisabledBackColor = 255,91,91, ;
+		DisabledForeColor = 255,255,255, ;
+		FontBold = .F., ;
+		FontSize = 8, ;
+		ForeColor = 255,255,255, ;
+		Format = "Z", ;
+		Height = 18, ;
+		InputMask = "99", ;
+		Left = 5, ;
+		Name = "Text36", ;
+		ReadOnly = .T., ;
+		SelectedBackColor = 10,36,106, ;
+		SelectedForeColor = 255,255,255, ;
+		SelectOnEntry = .T., ;
+		SpecialEffect = 1, ;
+		Top = 125, ;
+		Value = 0, ;
+		Width = 26
+		*< END OBJECT: BaseClass="textbox" />
+
+	ADD OBJECT 'Text37' AS textbox WITH ;
+		Alignment = 3, ;
+		BorderColor = 114,136,141, ;
+		DisabledBackColor = 242,247,243, ;
+		DisabledForeColor = 0,0,0, ;
+		FontBold = .F., ;
+		FontSize = 8, ;
+		Format = "Z", ;
+		Height = 18, ;
+		InputMask = "99", ;
+		Left = 30, ;
+		Name = "Text37", ;
+		ReadOnly = .T., ;
+		SelectedBackColor = 10,36,106, ;
+		SelectedForeColor = 255,255,255, ;
+		SelectOnEntry = .T., ;
+		SpecialEffect = 1, ;
+		Top = 125, ;
+		Value = 0, ;
+		Width = 26
+		*< END OBJECT: BaseClass="textbox" />
+
+	ADD OBJECT 'Text38' AS textbox WITH ;
+		Alignment = 3, ;
+		BorderColor = 114,136,141, ;
+		DisabledBackColor = 242,247,243, ;
+		DisabledForeColor = 0,0,0, ;
+		FontBold = .F., ;
+		FontSize = 8, ;
+		Format = "Z", ;
+		Height = 18, ;
+		InputMask = "99", ;
+		Left = 55, ;
+		Name = "Text38", ;
+		ReadOnly = .T., ;
+		SelectedBackColor = 10,36,106, ;
+		SelectedForeColor = 255,255,255, ;
+		SelectOnEntry = .T., ;
+		SpecialEffect = 1, ;
+		Top = 125, ;
+		Value = 0, ;
+		Width = 26
+		*< END OBJECT: BaseClass="textbox" />
+
+	ADD OBJECT 'Text39' AS textbox WITH ;
+		Alignment = 3, ;
+		BorderColor = 114,136,141, ;
+		DisabledBackColor = 242,247,243, ;
+		DisabledForeColor = 0,0,0, ;
+		FontBold = .F., ;
+		FontSize = 8, ;
+		Format = "Z", ;
+		Height = 18, ;
+		InputMask = "99", ;
+		Left = 80, ;
+		Name = "Text39", ;
+		ReadOnly = .T., ;
+		SelectedBackColor = 10,36,106, ;
+		SelectedForeColor = 255,255,255, ;
+		SelectOnEntry = .T., ;
+		SpecialEffect = 1, ;
+		Top = 125, ;
+		Value = 0, ;
+		Width = 26
+		*< END OBJECT: BaseClass="textbox" />
+
+	ADD OBJECT 'Text4' AS textbox WITH ;
+		Alignment = 3, ;
+		BorderColor = 114,136,141, ;
+		DisabledBackColor = 242,247,243, ;
+		DisabledForeColor = 0,0,0, ;
+		FontBold = .F., ;
+		FontSize = 8, ;
+		Format = "Z", ;
+		Height = 18, ;
+		InputMask = "99", ;
+		Left = 80, ;
+		Name = "Text4", ;
+		ReadOnly = .T., ;
+		SelectedBackColor = 10,36,106, ;
+		SelectedForeColor = 255,255,255, ;
+		SelectOnEntry = .T., ;
+		SpecialEffect = 1, ;
+		Top = 40, ;
+		Value = 0, ;
+		Width = 26
+		*< END OBJECT: BaseClass="textbox" />
+
+	ADD OBJECT 'Text40' AS textbox WITH ;
+		Alignment = 3, ;
+		BorderColor = 114,136,141, ;
+		DisabledBackColor = 242,247,243, ;
+		DisabledForeColor = 0,0,0, ;
+		FontBold = .F., ;
+		FontSize = 8, ;
+		Format = "Z", ;
+		Height = 18, ;
+		InputMask = "99", ;
+		Left = 105, ;
+		Name = "Text40", ;
+		ReadOnly = .T., ;
+		SelectedBackColor = 10,36,106, ;
+		SelectedForeColor = 255,255,255, ;
+		SelectOnEntry = .T., ;
+		SpecialEffect = 1, ;
+		Top = 125, ;
+		Value = 0, ;
+		Width = 26
+		*< END OBJECT: BaseClass="textbox" />
+
+	ADD OBJECT 'Text41' AS textbox WITH ;
+		Alignment = 3, ;
+		BorderColor = 114,136,141, ;
+		DisabledBackColor = 242,247,243, ;
+		DisabledForeColor = 0,0,0, ;
+		FontBold = .F., ;
+		FontSize = 8, ;
+		Format = "Z", ;
+		Height = 18, ;
+		InputMask = "99", ;
+		Left = 130, ;
+		Name = "Text41", ;
+		ReadOnly = .T., ;
+		SelectedBackColor = 10,36,106, ;
+		SelectedForeColor = 255,255,255, ;
+		SelectOnEntry = .T., ;
+		SpecialEffect = 1, ;
+		Top = 125, ;
+		Value = 0, ;
+		Width = 26
+		*< END OBJECT: BaseClass="textbox" />
+
+	ADD OBJECT 'Text42' AS textbox WITH ;
+		Alignment = 3, ;
+		BorderColor = 114,136,141, ;
+		DisabledBackColor = 1,173,231, ;
+		DisabledForeColor = 255,255,255, ;
+		FontBold = .F., ;
+		FontSize = 8, ;
+		ForeColor = 255,255,255, ;
+		Format = "Z", ;
+		Height = 18, ;
+		InputMask = "99", ;
+		Left = 155, ;
+		Name = "Text42", ;
+		ReadOnly = .T., ;
+		SelectedBackColor = 10,36,106, ;
+		SelectedForeColor = 255,255,255, ;
+		SelectOnEntry = .T., ;
+		SpecialEffect = 1, ;
+		Top = 125, ;
+		Value = 0, ;
+		Width = 26
+		*< END OBJECT: BaseClass="textbox" />
+
+	ADD OBJECT 'Text5' AS textbox WITH ;
+		Alignment = 3, ;
+		BorderColor = 114,136,141, ;
+		DisabledBackColor = 242,247,243, ;
+		DisabledForeColor = 0,0,0, ;
+		FontBold = .F., ;
+		FontSize = 8, ;
+		Format = "Z", ;
+		Height = 18, ;
+		InputMask = "99", ;
+		Left = 105, ;
+		Name = "Text5", ;
+		ReadOnly = .T., ;
+		SelectedBackColor = 10,36,106, ;
+		SelectedForeColor = 255,255,255, ;
+		SelectOnEntry = .T., ;
+		SpecialEffect = 1, ;
+		Top = 40, ;
+		Value = 0, ;
+		Width = 26
+		*< END OBJECT: BaseClass="textbox" />
+
+	ADD OBJECT 'Text6' AS textbox WITH ;
+		Alignment = 3, ;
+		BorderColor = 114,136,141, ;
+		DisabledBackColor = 242,247,243, ;
+		DisabledForeColor = 0,0,0, ;
+		FontBold = .F., ;
+		FontSize = 8, ;
+		Format = "Z", ;
+		Height = 18, ;
+		InputMask = "99", ;
+		Left = 130, ;
+		Name = "Text6", ;
+		ReadOnly = .T., ;
+		SelectedBackColor = 10,36,106, ;
+		SelectedForeColor = 255,255,255, ;
+		SelectOnEntry = .T., ;
+		SpecialEffect = 1, ;
+		Top = 40, ;
+		Value = 0, ;
+		Width = 26
+		*< END OBJECT: BaseClass="textbox" />
+
+	ADD OBJECT 'Text7' AS textbox WITH ;
+		Alignment = 3, ;
+		BorderColor = 114,136,141, ;
+		DisabledBackColor = 1,173,231, ;
+		DisabledForeColor = 255,255,255, ;
+		FontBold = .F., ;
+		FontSize = 8, ;
+		ForeColor = 255,255,255, ;
+		Format = "Z", ;
+		Height = 18, ;
+		InputMask = "99", ;
+		Left = 155, ;
+		Name = "Text7", ;
+		ReadOnly = .T., ;
+		SelectedBackColor = 10,36,106, ;
+		SelectedForeColor = 255,255,255, ;
+		SelectOnEntry = .T., ;
+		SpecialEffect = 1, ;
+		Top = 40, ;
+		Value = 0, ;
+		Width = 26
+		*< END OBJECT: BaseClass="textbox" />
+
+	ADD OBJECT 'Text8' AS textbox WITH ;
+		Alignment = 3, ;
+		BorderColor = 114,136,141, ;
+		DisabledBackColor = 255,91,91, ;
+		DisabledForeColor = 255,255,255, ;
+		FontBold = .F., ;
+		FontSize = 8, ;
+		ForeColor = 255,255,255, ;
+		Format = "Z", ;
+		Height = 18, ;
+		InputMask = "99", ;
+		Left = 5, ;
+		Name = "Text8", ;
+		ReadOnly = .T., ;
+		SelectedBackColor = 10,36,106, ;
+		SelectedForeColor = 255,255,255, ;
+		SelectOnEntry = .T., ;
+		SpecialEffect = 1, ;
+		Top = 57, ;
+		Value = 0, ;
+		Width = 26
+		*< END OBJECT: BaseClass="textbox" />
+
+	ADD OBJECT 'Text9' AS textbox WITH ;
+		Alignment = 3, ;
+		BorderColor = 114,136,141, ;
+		DisabledBackColor = 242,247,243, ;
+		DisabledForeColor = 0,0,0, ;
+		FontBold = .F., ;
+		FontSize = 8, ;
+		Format = "Z", ;
+		Height = 18, ;
+		InputMask = "99", ;
+		Left = 30, ;
+		Name = "Text9", ;
+		ReadOnly = .T., ;
+		SelectedBackColor = 10,36,106, ;
+		SelectedForeColor = 255,255,255, ;
+		SelectOnEntry = .T., ;
+		SpecialEffect = 1, ;
+		Top = 57, ;
+		Value = 0, ;
+		Width = 26
+		*< END OBJECT: BaseClass="textbox" />
+	
+	PROCEDURE bindclick
+		LOCAL obj,nEvents,nSalto
+		nSalto=7
+		nEvents=AEVENTS(gaEvents,0)
+		IF nEvents=0
+			RETURN
+		ENDIF
+		obj=gaEvents[1]
+		WITH obj
+		*	this.dbcolor=.Disabledbackcolor
+		*	this.focolor=.Forecolor
+			.DisabledBackColor=RGB(10,36,106)
+			.ForeColor=RGB(255,255,255)
+			.FontBold=.t.
+		ENDWITH
+		
+		lnDay=obj.Value
+		lcName=obj.Name
+		vq=VAL(CHRTRAN(lcName,CHRTRAN(lcName,"1234567890",""),""))
+		nText=IIF(MOD(vq,7)=0,7, vq - INT(vq/7) * 7 )
+		lofoco="gLab"+LTRIM(STR(nText))
+		FOR EACH oControl IN This.cntTit.Controls
+			IF UPPER(ocontrol.baseclass)=="LABEL"
+				oControl.FontBold=.f.
+			ENDIF
+		ENDFOR
+		this.cntTit.&loFoco..FontBold=.t.
+		this.dia=lnDay
+		_Screen.Fechasel=DATE(this.ano,this.mes,this.dia)
+		
+		*!*	LdFEcha=DATE(this.ano,this.mes,this.dia)
+		*!*	lcFrase=this.adiasem[DOW(ldFEcha)]+" ";
+		*!*		+LTRIM(STR(lnDay))+" de "+this.selmes+" de "+LTRIM(STR(this.ano))
+		
+	ENDPROC
+
+	PROCEDURE binddbl
+		LOCAL obj,nEvents,nSalto
+		nSalto=7
+		nEvents=AEVENTS(gaEvents,0)
+		IF nEvents=0
+			RETURN
+		ENDIF
+		obj=gaEvents[1]
+		lnDay=obj.Value
+		lcFrase=LTRIM(STR(lnDay))+" de "+this.selmes+" de "+LTRIM(STR(this.ano))
+		this.dia=lnDay
+		_Screen.Fechasel=DATE(this.ano,this.mes,this.dia)
+		IF !EMPTY(this.script)
+			EXECSCRIPT(this.script,thisform)
+		ENDIF
+		
+		
+	ENDPROC
+
+	PROCEDURE bindfo
+		LOCAL obj,nEvents,nSalto
+		nSalto=7
+		nEvents=AEVENTS(gaEvents,0)
+		IF nEvents=0
+			RETURN
+		ENDIF
+		obj=gaEvents[1]
+		WITH obj
+			this.dbcolor=.Disabledbackcolor
+			this.focolor=.Forecolor
+			.DisabledBackColor=RGB(10,36,106)
+			.ForeColor=RGB(255,255,255)
+			.FontBold=.t.
+		ENDWITH
+		
+		lnDay=obj.Value
+		lcName=obj.Name
+		vq=VAL(CHRTRAN(lcName,CHRTRAN(lcName,"1234567890",""),""))
+		nText=IIF(MOD(vq,7)=0,7, vq - INT(vq/7) * 7 )
+		lofoco="gLab"+LTRIM(STR(nText))
+		FOR EACH oControl IN This.cntTit.Controls
+			IF UPPER(ocontrol.baseclass)=="LABEL"
+				oControl.FontBold=.f.
+			ENDIF
+		ENDFOR
+		this.cntTit.&loFoco..FontBold=.t.
+		this.dia=lnDay
+		_Screen.Fechasel=DATE(this.ano,this.mes,this.dia)
+		LdFEcha=DATE(this.ano,this.mes,this.dia)
+		lcFrase=this.adiasem[DOW(ldFEcha)]+" ";
+			+LTRIM(STR(lnDay))+" de "+this.selmes+" de "+LTRIM(STR(this.ano))
+		
+		
+	ENDPROC
+
+	PROCEDURE bindgo
+		LPARAMETERS nKeyCode, nShiftAltCtrl
+		
+		LOCAL obj,nEvents,nSalto,oCont,lcNum,lnNUm,lcName,lcOrd
+		nSalto=7
+		nEvents=AEVENTS(gaEvents,0)
+		IF nEvents=0
+			RETURN
+		ENDIF
+		obj=gaEvents[1]
+		lcNum=CHRTRAN(obj.name,CHRTRAN(obj.Name,"1234567890",""),"")
+		lnNum=VAL(lcNum)
+		
+		lcName=obj.Parent.Name
+		*MESSAGEBOX(obj.name+" "+lcName)
+		
+		lcOrd=CHRTRAN(lcName,CHRTRAN(lcName,"1234567890",""),"")
+		DO case
+			CASE nKeyCode=43 && +
+				NODEFAULT
+				lcCont=this.objfollow(obj.parent.Name)
+				IF PEMSTATUS(thisform,lcCont,5)
+					oCont=thisform.&lcCont
+					oCont.dia=this.dia		
+					oCont.gmes(oCont.ano,oCont.Mes,.t.)
+				ENDIF
+				
+			CASE nKeyCode=45 && -
+				NODEFAULT
+				lcCont=this.objfollow(obj.parent.Name,-1)
+				IF PEMSTATUS(thisform,lcCont,5)
+					oCont=thisform.&lcCont
+					oCont.dia=this.dia		
+					oCont.gmes(oCont.ano,oCont.Mes,.t.)		
+				ENDIF	
+			CASE nKeyCode=13
+				NODEFAULT
+				
+				lnDay=obj.Value
+				lcFrase=LTRIM(STR(lnDay))+" de "+this.selmes+" de "+LTRIM(STR(this.ano))
+				this.dia=lnDay
+				_Screen.Fechasel=DATE(this.ano,this.mes,this.dia)
+				IF !EMPTY(this.script)
+					EXECSCRIPT(this.script,thisform)
+				ENDIF
+			
+			CASE nKeyCode=5		&& UpArrow
+		
+				NODEFAULT
+				lcGo=this.objfollow(obj.name,-nSalto)
+				IF lcGo#obj.Name
+					IF PEMSTATUS(obj.parent,lcGo,5)
+						obj.parent.&lcGo..setfocus
+					ENDIF
+				ENDIF
+				
+				
+				
+			CASE nKeyCode=24	&& DnArrow
+				NODEFAULT
+				lcGo=this.objfollow(obj.name,nSalto)
+				IF PEMSTATUS(obj.parent,lcGo,5)
+					obj.parent.&lcGo..setfocus
+				ENDIF
+			CASE nKeyCode=4		&& RightArrow
+				NODEFAULT
+				lcGo=this.objfollow(obj.name)
+				IF PEMSTATUS(obj.parent,lcGo,5)
+					obj.parent.&lcGo..setfocus
+				ENDIF	
+			CASE nKeyCode=19	&& leftArrow
+				NODEFAULT
+				lcGo=this.objfollow(obj.name,-1)
+				IF PEMSTATUS(obj.parent,lcGo,5)
+					
+					obj.parent.&lcGo..setfocus
+				ENDIF		
+			
+			CASE nkeyCode=3		&& PageDown
+				NODEFAULT
+				lcCont=this.objfollow(lcName,4)
+				IF PEMSTATUS(thisform,lcCont,5)
+					oCont=thisform.&lcCont
+					oCont.dia=this.dia		
+					oCont.gmes(oCont.ano,oCont.Mes,.t.)
+				ELSE
+					IF VAL(lcOrd)#12
+						lcCont=this.objfollow(lcName,-7)
+						IF PEMSTATUS(thisform,lcCont,5)
+							oCont=thisform.&lcCont
+							oCont.dia=this.dia		
+							oCont.gmes(oCont.ano,oCont.Mes,.t.)			
+						ENDIF
+					ENDIF
+				ENDIF
+				
+			CASE nkeycode=18	&& PageUp	
+				NODEFAULT
+				IF VAL(lcOrd)=1
+					RETURN
+				ENDIF
+				
+				lcCont=this.objfollow(obj.parent.Name,-4)
+			*	MESSAGEBOX("lcOrd="+lcOrd+CHR(13);
+			*		+"Next cnt="+lcCont)
+			
+				lAlter=IIF(obj.Parent.Name==lcCont,.t.,.f.)
+				IF !lAlter
+					IF PEMSTATUS(thisform,lcCont,5)
+						oCont=thisform.&lcCont
+						oCont.dia=this.dia		
+						oCont.gmes(oCont.ano,oCont.Mes,.t.)
+					ELSE
+						lAlter=.t.
+					ENDIF
+				ENDIF
+				
+				IF lAlter
+					lcCont=this.objfollow(lcName,7)
+					IF PEMSTATUS(thisform,lcCont,5)
+						oCont=thisform.&lcCont
+						oCont.dia=this.dia		
+						oCont.gmes(oCont.ano,oCont.Mes,.t.)			
+					ENDIF
+				ENDIF		
+				
+						
+		ENDCASE
+		
+	ENDPROC
+
+	PROCEDURE bindlost
+		LOCAL obj,nEvents,nSalto
+		nSalto=7
+		nEvents=AEVENTS(gaEvents,0)
+		IF nEvents=0
+			RETURN
+		ENDIF
+		obj=gaEvents[1]
+		obj.DisabledBackColor=this.dbcolor
+		obj.Forecolor=this.focolor
+		obj.FontBold=.f.
+	ENDPROC
+
+	PROCEDURE Destroy
+		*
+		this.objManak=null
+		REMOVEPROPERTY(this,"objManak")
+	ENDPROC
+
+	PROCEDURE gmes
+		LPARAMETERS XNANO,XNMES,xlFoco
+		FD=DATE(XNANO,XNMES,1)
+		FF=this.objManak.Findemes(xnano,xnmes)
+		diafin=DAY(ff)
+		IF this.dia>diafin
+			this.dia=diafin
+		ENDIF
+		
+		BINI=DOW(FD)
+		nd=1
+		lcFoco="Text"+LTRIM(STR(bini))
+		FOR EACH OCONTROL IN this.Controls
+			IF UPPER(ocontrol.baseclass)=="TEXTBOX"
+				lcNum=CHRTRAN(ocontrol.name,CHRTRAN(ocontrol.Name,"1234567890",""),"")
+				lnNum=VAL(lcnum)
+				DO case
+					CASE INLIST(lnNUm,1,8,15,22,29,36)
+						*ocontrol.DisabledbackColor=RGB(255,0,0)
+						ocontrol.DisabledbackColor=RGB(255,91,90)
+						oControl.ForeColor=RGB(255,255,255)
+					
+					CASE INLIST(lnNUm,7,14,21,28,35,42)
+						*oControl.DisabledbackColor=RGB(1,150,199)
+						oControl.DisabledbackColor=RGB(1,173,231)
+						oControl.ForeColor=RGB(255,255,255)
+					
+					OTHERWISE
+						oControl.DisabledBackcolor=RGB(242,247,243)
+						oControl.ForeColor=RGB(0,0,0)
+					
+				ENDCASE
+				
+				oControl.Value=0
+			ENDIF
+		ENDFOR
+		* FERIADOS
+		* Clave1: DTOS(DIA)   [IFERIADOS]
+		* Clave2: MESANO   [IFERIMES]
+		
+		DO WHILE .T.
+			lctool=""
+		*	LFERIA=This.funmanak1.feriafix(this.mes*100+nd,@lcTool)
+			lFeria=This.objManak.feriafix(this.mes*100+nd,@lcTool)
+			IF !lFeria
+				LDDATE=DATE(THIS.ANO,THIS.MES,ND)
+				IF INDEXSEEK(DTOS(lddate),.f.,"curFeriados","IFERIADOS")
+					INDEXSEEK(DTOS(lddate),.t.,"curFeriados","IFERIADOS")
+					lcTool=ALLTRIM(curFeriados.motivo)
+					LFERIA=.T.
+				ENDIF
+			endif	
+		
+			lcText="Text"+LTRIM(STR(bini))
+			*this.&lcText.
+			WITH this.&lcText.
+				.Value=nd
+				IF LFERIA
+					.DisabledBackColor=RGB(255,0,0)
+					.ForeColor=RGB(255,255,255)
+				ENDIF			
+				.tooltiptext=lcTool
+			ENDWITH
+			
+			IF nd=this.dia
+				lcFoco="Text"+LTRIM(STR(bini))
+			ENDIF	
+			bini=bini+1	
+			nd=nd+1
+			IF nd>diafin
+				EXIT
+			ENDIF
+		ENDDO
+		nSumDia=0
+		FOR EACH ocontrol IN this.Controls
+			IF UPPER(ocontrol.baseclass)=="TEXTBOX"
+				lcNum=CHRTRAN(ocontrol.name,CHRTRAN(ocontrol.Name,"1234567890",""),"")
+				lnNum=VAL(lcnum)
+				IF BETWEEN(lnNum,36,42)
+					nSumDia=nSumdia+ocontrol.value
+				ENDIF
+					
+			ENDIF
+		ENDFOR
+		WITH this
+			.selmes=Proper(.ZenMes[.mes])
+			.CntFe.glab1.Caption=.Selmes+" de "+LTRIM(STR(.ano))
+			.gmarco3.Visible=!EMPTY(nSumDia)
+			.dbcolor=.&lcFoco..Disabledbackcolor
+			.focolor=.&lcfoco..Forecolor	
+		*	.gmarco3.Visible=.t.
+		*	obtop=IIF(.gmarco3.visible,.gmarco3.top+.gmarco3.Height,;
+		*		.gmarco2.top+.gmarco2.Height)-1
+		*
+		*	.Shape3d1.Height=obTop+.gmarco3.Height-.Shape3d1.top+5
+			.Height=.Shape3d1.Top+.Shape3d1.Height+1
+			.Width=.Shape3d1.width+1
+			IF xlFoco
+				.&lcFoco..SetFocus	
+			endif
+		ENDWITH
+		
+		
+	ENDPROC
+
+	PROCEDURE GotFocus
+		WITH this.cntfe
+			.glab1.FontBold=.t.
+			.semaf1001.Visible=.t.
+		ENDWITH
+		SYS(2002)
+	ENDPROC
+
+	PROCEDURE Init
+		LPARAMETERS xnAno,xnmes
+		local lcRoot
+		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"mzmanak.vcx"),"mzmanak")
+		This.AddProperty("objManak",null)
+		this.objManak=NEWOBJECT("funmanak",lcRoot,"",.t.)
+		with this
+			.ano=xnAno
+			.mes=xnMes
+			dimension .ZenMes(12)
+			.ZenMes[1] = "ENERO"
+			.ZenMes[2] = "FEBRERO"
+			.ZenMes[3] = "MARZO"
+			.ZenMes[4] = "ABRIL"
+			.ZenMes[5] = "MAYO"
+			.ZenMes[6] = "JUNIO"
+			.ZenMes[7] = "JULIO"
+			.ZenMes[8] = "AGOSTO"
+			.ZenMes[9] = "SEPTIEMBRE"
+			.ZenMes[10] = "OCTUBRE"
+			.ZenMes[11] = "NOVIEMBRE"
+			.ZenMes[12] = "DICIEMBRE"
+		
+			Dimension .aDiasem(7)
+			.aDiaSem[1]="Domingo"
+			.aDiaSem[2]="Lunes"
+			.aDiaSem[3]="Martes"
+			.aDiaSem[4]="Miércoles"
+			.aDiaSem[5]="Jueves"
+			.aDiaSem[6]="Viernes"
+			.aDiaSem[7]="Sábado"
+		
+			.dia=1
+			.selperi=.ano*100+.mes
+			.selmes=Proper(This.ZenMes[this.mes])
+			.masdias=30
+			.Shape3d1.Top=1
+			.Shape3d1.Left=1
+			.gmarco1.Top=.TExt1.Top
+			.gmarco2.Top=.text29.Top
+			.gmarco3.Top=.text36.Top
+			.gmarco1.Left=.TExt1.Left
+			.gmarco2.Left=.text29.Left
+			.gmarco3.Left=.text36.Left	
+			.CntFe.glab1.Caption=.Selmes+" de "+LTRIM(STR(.ano))
+		ENDWITH
+		WITH THIS.Cntfe.semaf1001
+			.vISIBLE=.F.
+			.IVERde.Visible=.T.
+			.IROJO.VISIBLE=.F.
+			.IAMARILLO.VISIBLE=.F.
+		ENDWITH
+		this.gmes(this.ano,this.mes)
+		*ADDPROPERTY(_screen,"Fechasel",null)
+		
+		
+		
+		
+		
+		
+		
+		
+	ENDPROC
+
+	PROCEDURE LostFocus
+		WITH this.cntfe
+			.glab1.FontBold=.f.
+			.semaf1001.Visible=.F.
+		ENDWITH
+		SYS(2002,1)
+		
+	ENDPROC
+
+	PROCEDURE manak_bind
+		LOCAL objIn
+		FOR EACH objin IN this.controls
+			IF UPPER(objIn.baseclass)=="TEXTBOX"
+				objIn.selectonentry=.t.
+				BINDEVENT(objIn,"KeyPress",this,"bindgo")
+				BINDEVENT(objIn,"Gotfocus",this,"bindfo")
+				BINDEVENT(objIN,"Click",this,"Bindclick")
+				BINDEVENT(objIn,"DblClick",this,"bindDbl")
+				BINDEVENT(objIn,"LostFocus",this,"BindLost")
+			ENDIF
+		ENDFOR
+	ENDPROC
+
+	PROCEDURE objfollow
+		LPARAMETERS xcObjeto , xnAdd
+		************************************
+		* Para un objeto "text1", si xnAdd=1 Devolvera "text2"
+		* Para un Objeto "Text1", si xnAdd= -1, Devolvera "Text1"
+		* --------------------------------------------------------
+		LOCAL lcnum,lnNum
+		IF VARTYPE(xcObjeto)#"C" OR empty(xcObjeto)
+			RETURN ""
+		ENDIF
+		IF VARTYPE(xnAdd)#"N" OR empty(xnAdd)
+			xnADd=1
+		ENDIF
+		lcNum=CHRTRAN(m.xcObjeto,CHRTRAN(m.xcObjeto,"1234567890",""),"")
+		lnNum=VAL(m.lcNum)+m.xnAdd
+		RETURN IIF(m.lnNum>0,STRTRAN(m.xcObjeto,m.lcnum)+LTRIM(STR(m.lnNum)),m.xcObjeto)
+		
+	ENDPROC
+
+	PROCEDURE Spinner1.DownClick
+		THIS.Parent.MES=THIS.Parent.MEs - 1
+		IF THIS.Parent.MES=0
+			THIS.Parent.MES=12
+			this.Parent.ano=THIS.Parent.ANO-1
+		ENDIF
+		THIS.Parent.GMEs(this.Parent.ano,this.Parent.mes,.t.)
+		
+		
+	ENDPROC
+
+	PROCEDURE Spinner1.UpClick
+		THIS.Parent.MES=THIS.Parent.MEs + 1
+		IF THIS.Parent.MES=13
+			THIS.Parent.MES=1
+			this.Parent.ano=THIS.Parent.ANO + 1
+		ENDIF
+		THIS.Parent.GMEs(this.Parent.ano,this.Parent.mes,.t.)
+		
+		
 	ENDPROC
 
 	PROCEDURE Text1.ProgrammaticChange
@@ -3644,6 +5618,7 @@ DEFINE CLASS cntmanak AS container
 
 	PROCEDURE bindgo
 		LPARAMETERS nKeyCode, nShiftAltCtrl
+		
 		LOCAL obj,nEvents,nSalto,oCont,lcNum,lnNUm,lcName,lcOrd
 		nSalto=7
 		nEvents=AEVENTS(gaEvents,0)
@@ -3655,6 +5630,8 @@ DEFINE CLASS cntmanak AS container
 		lnNum=VAL(lcNum)
 		
 		lcName=obj.Parent.Name
+		*MESSAGEBOX(obj.name+" "+lcName)
+		
 		lcOrd=CHRTRAN(lcName,CHRTRAN(lcName,"1234567890",""),"")
 		DO case
 			CASE nKeyCode=43 && +
@@ -3899,7 +5876,7 @@ DEFINE CLASS cntmanak AS container
 	PROCEDURE Init
 		LPARAMETERS xnAno,xnmes
 		local lcRoot
-		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"mzmanak.vcx"),"clases\mzmanak")
+		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"mzmanak.vcx"),"mzmanak")
 		This.AddProperty("objManak",null)
 		this.objManak=NEWOBJECT("funmanak",lcRoot,"",.t.)
 		with this
@@ -4400,7 +6377,7 @@ DEFINE CLASS frmanual AS form
 		LOCAL lnAno,lnMes,lnPeri,nTop,nLeft,nVert,nHoriz,nwid,nv,nh,;
 			lngtop,lngLeft,lcRoot
 		
-		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"mzmanak.vcx"),"clases\mzmanak")
+		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"mzmanak.vcx"),"mzmanak")
 		
 		thisform.Funmanak1.formublok(.f.)
 		thisform.LockScreen=.t.
@@ -4419,7 +6396,7 @@ DEFINE CLASS frmanual AS form
 				lnMes=1
 				lnAno=lnAno+1
 			endif
-			lcName="Cnt"+LTRIM(STR(i))
+			lcName="cnt_Mk"+LTRIM(STR(i))
 			IF PEMSTATUS(thisform,lcName,5)
 				thisform.RemoveObject(lcName)
 			endif
@@ -4448,27 +6425,27 @@ DEFINE CLASS frmanual AS form
 		NEXT
 		STORE 0 TO nVert,nHoriz,nv,nh
 		FOR EACH ocontrol IN thisform.Controls
-			IF UPPER(ocontrol.baseclass)=="CONTAINER"
-				IF UPPER(ocontrol.name)#"CNTINS"
-					ocontrol.visible=.t.
-					nv=ocontrol.top+oControl.Height
-					nh=ocontrol.left+oControl.Width
-					IF nv>nVert
-						nVert=nv
-					ENDIF
-					IF nh>nHoriz
-						nHoriz=nh
-					endif
-					FOR EACH objin IN ocontrol.controls
-						IF UPPER(objIn.baseclass)=="TEXTBOX"
-							objIn.selectonentry=.t.
-							BINDEVENT(objIn,"KeyPress",oControl,"bindgo")
-							BINDEVENT(objIn,"Gotfocus",oControl,"bindfo")
-							BINDEVENT(objIn,"DblClick",ocontrol,"bindDbl")
-							BINDEVENT(objIn,"LostFocus",ocontrol,"BindLost")
-						ENDIF
-					ENDFOR
+		*!*		IF UPPER(ocontrol.baseclass)=="CONTAINER"
+		*!*			IF UPPER(ocontrol.name)#"CNTINS"
+			IF ocontrol.class="Cntmanak"
+				ocontrol.visible=.t.
+				nv=ocontrol.top+oControl.Height
+				nh=ocontrol.left+oControl.Width
+				IF nv>nVert
+					nVert=nv
 				ENDIF
+				IF nh>nHoriz
+					nHoriz=nh
+				endif
+				FOR EACH objin IN ocontrol.controls
+					IF UPPER(objIn.baseclass)=="TEXTBOX"
+						objIn.selectonentry=.t.
+						BINDEVENT(objIn,"KeyPress",oControl,"bindgo")
+						BINDEVENT(objIn,"Gotfocus",oControl,"bindfo")
+						BINDEVENT(objIn,"DblClick",ocontrol,"bindDbl")
+						BINDEVENT(objIn,"LostFocus",ocontrol,"BindLost")
+					ENDIF
+				ENDFOR
 			ENDIF
 		ENDFOR
 		WITH thisform
@@ -4483,7 +6460,7 @@ DEFINE CLASS frmanual AS form
 		thisform.LockScreen= .F.
 		*Thisform.Funmanak1.formublok(.t.)
 		nas=ASCAN(thisform.gacont,lnPeri)
-		lcCont=IIF(nas#0,thisform.gacont(nas+1),"Cnt1")
+		lcCont=IIF(nas#0,thisform.gacont(nas+1),"cnt_Mk1")
 		IF PEMSTATUS(thisform,lcCont,5)
 			lobj=thisform.&lcCont
 			WITH lobj
@@ -4498,7 +6475,7 @@ DEFINE CLASS frmanual AS form
 	PROCEDURE Init
 		LPARAMETERS xnAno,xnMes,xoObjeto,xnWindowType
 		local lcRoot
-		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"mzmanak.vcx"),"clases\mzmanak")		
+		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"mzmanak.vcx"),"mzmanak")		
 		this.NewObject("Funsombra1","FunSombra",lcRoot)
 		this.NewObject("FunManak1","FunManak",lcRoot)
 		this.funmanak1.genFeriados()
@@ -5359,7 +7336,7 @@ DEFINE CLASS frmcalc AS form
 	PROCEDURE Init
 		parameters xnWin
 		local lcRoot
-		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"mzmanak.vcx"),"clases\mzmanak")
+		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"mzmanak.vcx"),"mzmanak")
 		if Vartype(xnWin)#"N"
 			xnwin=0
 		ENDIF
@@ -5625,7 +7602,7 @@ DEFINE CLASS frmmanak AS form
 
 	AlwaysOnTop = .T.
 	BackColor = 184,201,197
-	Caption = "Theodore Alamanque"
+	Caption = "Theodore Almanaque"
 	DoCreate = .T.
 	formcall = .F.
 	frmmanak = null
@@ -5662,7 +7639,7 @@ DEFINE CLASS frmmanak AS form
 		LPARAMETERS xnAno,xnMes,xnDia,xnWint_objeto,xnWindowType
 		LOCAL dFEcha,lcRoot
 		
-		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"mzmanak.vcx"),"clases\mzmanak")
+		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"mzmanak.vcx"),"mzmanak")
 		IF VARTYPE(xnAno)#"N".or.empty(xnAno)
 			xnAno=YEAR(DATE())
 		ENDIF
@@ -5734,7 +7711,7 @@ DEFINE CLASS frmmanak AS form
 
 	PROCEDURE Load
 		this.formcall=null
-		*!*	this.objFun=NEWOBJECT("funmanak","clases\mzmanak","",.t.)
+		*!*	this.objFun=NEWOBJECT("funmanak","mzmanak","",.t.)
 		*!*	this.objfun.genFeriados()
 		
 		
@@ -5790,6 +7767,7 @@ DEFINE CLASS funmanak AS custom
 		*m: *formublok
 		*m: *genferiados
 		*m: *getfopen
+		*m: *getmanak
 		*m: *getvaltag
 		*m: *gnombremes
 		*m: *gstandar
@@ -6006,13 +7984,24 @@ DEFINE CLASS funmanak AS custom
 	ENDPROC
 
 	PROCEDURE formublok
-		lparameters xlFija
-		with thisform
-			.MaxWidth=iif(xlFija,.Width,-1)
-			.MinWidth=iif(xlFija,.Width,-1)
-			.MaxHeight=iif(xlFija,.Height,-1)
-			.MinHeight=iif(xlFija,.Height,-1)
-		endwith
+		lparameters xlFija ,xoForm
+		IF VARTYPE(xoForm)="O"
+			with xoForm
+				.MaxWidth=iif(xlFija,.Width,-1)
+				.MinWidth=iif(xlFija,.Width,-1)
+				.MaxHeight=iif(xlFija,.Height,-1)
+				.MinHeight=iif(xlFija,.Height,-1)
+			ENDWITH
+		
+		ELSE
+			with thisform
+				.MaxWidth=iif(xlFija,.Width,-1)
+				.MinWidth=iif(xlFija,.Width,-1)
+				.MaxHeight=iif(xlFija,.Height,-1)
+				.MinHeight=iif(xlFija,.Height,-1)
+			ENDWITH
+		ENDIF
+		
 	ENDPROC
 
 	PROCEDURE genferiados
@@ -6441,6 +8430,104 @@ DEFINE CLASS funmanak AS custom
 		
 	ENDPROC
 
+	PROCEDURE getmanak
+		LPARAMETERS xoForm,xnTop,xnLeft,xcScript,xnAno,xnMes,xnDia
+		IF VARTYPE(xntop)#"N" OR EMPTY(xnTop)
+			xnTop=3
+		ENDIF
+		IF VARTYPE(xnLeft)#"N" OR EMPTY(xnleft)
+			xnLeft=3
+		ENDIF
+		IF VARTYPE(xcScript)#"C"
+			xcScript=""
+		ENDIF
+		
+		IF VARTYPE(xnAno)#"N" OR EMPTY(xnAno)
+			xnAno=YEAR(DATE())
+		ENDIF
+		IF VARTYPE(xnMes)#"N" OR EMPTY(xnMes)
+			xnMes=MONTH(DATE())
+		ENDIF
+		IF VARTYPE(xnDia)#"N" OR EMPTY(xnDia)
+			xnDia=DAY(DATE())
+		ENDIF
+		
+		IF !USED("curFeriados")
+			this.genferiados()
+		ENDIF
+		
+			
+		LOCAL lnAno,lnMes,lnPeri,nTop,nLeft,nVert,nHoriz,nwid,nv,nh,;
+			lngtop,lngLeft,lcRoot,ocontrol,objin,;
+			objCnt,lcname
+		
+		if !pemstatus(_screen,"Fechasel",5)
+			Addproperty(_screen,"FechaSel",null)
+		endif
+		
+		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"mzmanak.vcx"),"mzmanak")
+		
+		xoform.LockScreen=.t.
+		IF !PEMSTATUS(xoform,"gaCont",5)
+			ADDPROPERTY(xoForm,"gaCont[1,3]","")
+		ENDIF
+		
+		
+		lnAno=xnAno
+		lnMes=xnMes
+		lnPeri=xnAno*100+lnMes
+		SYS(2002)
+		STORE xnTop TO nTop,lnGtop
+		STORE xnLeft TO nLeft,lnGleft
+		STORE .f. TO lSalto
+		STORE 0 TO nWid
+		
+		lnCount=0
+		FOR EACH ocontrol IN xoform.controls
+			IF oControl.Class="Cntfrm_manak"
+				lnCount=lncount+1
+			ENDIF
+		ENDFOR
+		lnCount=lnCount+1
+		lcName="cnt_Mk"+TRANSFORM(lnCount)
+		
+		xoform.NewObject(lcName,"cntfrm_manak",lcRoot,"",lnAno,lnMes)
+		WITH xoform
+			DIMENSION .gacont[lnCount,3]
+			.Gacont[lnCount,1]=This.gNombreMes(lnMes,.t.,.f.)+" "+LTRIM(STR(lnAno))
+			.Gacont[lnCount,2]=lnAno*100+lnMes
+			.gacont[lnCount,3]=lcName
+		ENDWITH
+		objCnt=xoform.&lcName.
+		WITH objCnt
+			nWid=.Width
+			.Top=nTop
+			.Left=nLeft
+			.visible=.t.
+		ENDWITH
+		xoForm.NewObject("funsombra1","funsombra",Addbs(_Screen.Classdir)+"mzmanak","",.t.)
+		xoForm.funsombra1.getBind(objCnt,.t.)
+		xoform.LockScreen= .F.
+		
+		nas=ASCAN(xoform.gacont,lnPeri)
+		lcCont=IIF(nas#0,xoform.gacont(nas+1),"cnt_Mk1")
+		IF PEMSTATUS(xoform,lcCont,5)
+			lobj=xoform.&lcCont
+			WITH lobj
+				*.Dia=DAY(DATE())
+				.dia=xndia
+				.gmes(lobj.ano,lobj.mes,.t.)
+			ENDWITH
+		ENDIF
+		IF UPPER(LEFT(xcScript,LEN("LPARAMETERS")))#"LPARAMETERS"
+			xcScript="LPARAMETERS poForm"+CHR(13)+xcSCript
+		ENDIF
+		
+		objCnt.Script=xcScript
+		RETURN objCnt
+		
+	ENDPROC
+
 	PROCEDURE getvaltag
 		LPARAMETERS xcTag,xlReturnObj
 		**************************************
@@ -6624,7 +8711,7 @@ DEFINE CLASS funmanak AS custom
 		*cObjWid="Cnt1<Left=3>"
 		local gnAdd,lcLeft,nAlterLeft,nresp,oobjWid,oObjHei,oObjCmg,lnREst,lcRoot
 		
-		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"mzmanak.vcx"),"clases\mzmanak")
+		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"mzmanak.vcx"),"mzmanak")
 		nAlterLeft=0
 		
 		cObjWid=UPPER(ALLTRIM(cObjWid))
@@ -6857,7 +8944,7 @@ DEFINE CLASS funmanak AS custom
 	PROCEDURE putraya
 		LPARAMETERS xObjeto
 		LOCAL lntop,lnLeft,lnWid,lnHei,lcRoot
-		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"mzmanak.vcx"),"clases\mzmanak")
+		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"mzmanak.vcx"),"mzmanak")
 		IF PCOUNT()=0
 			thisform.objfocus=Null
 			Thisform.imr2.visible=.f.
@@ -7361,7 +9448,11 @@ DEFINE CLASS funsombra AS custom
 	ENDPROC
 
 	PROCEDURE Init
-		This.getBind(thisform)
+		LPARAMETERS xlNotBind
+		IF !xlNotbind
+			This.getBind(thisform)
+		ENDIF
+		
 	ENDPROC
 
 	PROCEDURE rmvshape
@@ -7534,7 +9625,7 @@ DEFINE CLASS txfecha AS textbox
 	PROCEDURE convoca
 		LPARAMETERS xnVal
 		local lcRoot
-		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"mzmanak.vcx"),"clases\mzmanak")
+		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"mzmanak.vcx"),"mzmanak")
 		this.pedido=.t.
 		LOCAL dfe,nyear,nmes,ndia
 		dfe=this.Value
@@ -7615,7 +9706,7 @@ DEFINE CLASS txfechan AS textbox
 	PROCEDURE convoca
 		LPARAMETERS xnVal
 		LOCAL dfe,nyear,nmes,lcRoot
-		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"mzmanak.vcx"),"clases\mzmanak")
+		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"mzmanak.vcx"),"mzmanak")
 		dfe=this.Value
 		IF EMPTY(dfe)
 			dfe=DATE()

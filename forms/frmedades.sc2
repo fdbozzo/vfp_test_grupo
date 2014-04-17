@@ -62,6 +62,10 @@ DEFINE CLASS frmedades AS form
 	*< OBJECTDATA: ObjPath="lblCnvMes" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="Shape13" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="lblCnvAnual" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="cntDiaSelect" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="cntDiaSelect.shpDiaSelect" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="cntDiaSelect.lblDiaSelect" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="cntDiaSelect.txtDiaSelect" UniqueID="" Timestamp="" />
 
 	*<DefinedPropArrayMethod>
 		*m: *calcedad
@@ -79,7 +83,8 @@ DEFINE CLASS frmedades AS form
 	Left = 0
 	Name = "FRMEDADES"
 	Top = 0
-	Width = 411
+	Width = 615
+	WindowState = 0
 
 	ADD OBJECT 'cmdCalculadora' AS commandbutton WITH ;
 		AutoSize = .F., ;
@@ -118,6 +123,53 @@ DEFINE CLASS frmedades AS form
 		Top = 27, ;
 		Width = 50
 		*< END OBJECT: BaseClass="commandbutton" />
+
+	ADD OBJECT 'cntDiaSelect' AS container WITH ;
+		BackStyle = 0, ;
+		BorderWidth = 0, ;
+		Height = 22, ;
+		Left = 407, ;
+		Name = "cntDiaSelect", ;
+		Top = 171, ;
+		Width = 169
+		*< END OBJECT: BaseClass="container" />
+
+	ADD OBJECT 'cntDiaSelect.lblDiaSelect' AS label WITH ;
+		AutoSize = .T., ;
+		BackStyle = 0, ;
+		Caption = "Almanaque Form", ;
+		FontSize = 8, ;
+		Height = 16, ;
+		Left = 5, ;
+		Name = "lblDiaSelect", ;
+		TabIndex = 10, ;
+		Top = 4, ;
+		Width = 83
+		*< END OBJECT: BaseClass="label" />
+
+	ADD OBJECT 'cntDiaSelect.shpDiaSelect' AS shape WITH ;
+		BackColor = 220,228,224, ;
+		BorderColor = 114,136,141, ;
+		Height = 21, ;
+		Left = 1, ;
+		Name = "shpDiaSelect", ;
+		Top = 1, ;
+		Width = 106
+		*< END OBJECT: BaseClass="shape" />
+
+	ADD OBJECT 'cntDiaSelect.txtDiaSelect' AS textbox WITH ;
+		Alignment = 3, ;
+		BorderColor = 114,136,141, ;
+		FontSize = 8, ;
+		Format = "D", ;
+		Height = 21, ;
+		Left = 104, ;
+		Name = "txtDiaSelect", ;
+		SpecialEffect = 1, ;
+		Top = 1, ;
+		Value = (CTOD("")), ;
+		Width = 63
+		*< END OBJECT: BaseClass="textbox" />
 
 	ADD OBJECT 'Label1' AS label WITH ;
 		AutoSize = .T., ;
@@ -788,7 +840,8 @@ DEFINE CLASS frmedades AS form
 	ENDPROC
 
 	PROCEDURE Init
-		LOCAL lcDir
+		LOCAL lcDir,objfun,objCreate,lcScript
+		
 		lcDir=thisform.micurdir(.f.)
 		SET DEFAULT TO &lcDir
 		IF !PEMSTATUS(_screen,"ClassDir",5)
@@ -797,8 +850,27 @@ DEFINE CLASS frmedades AS form
 		ADDPROPERTY(thisform,"stsafety",SET("Safety"))
 		SET SAFETY OFF
 		
+		*<Incorpora un almanaque al form>
+		TEXT TO lcScript TEXTMERGE NOSHOW PRETEXT 1
+		LPARAMETERS poForm
+		poForm.cntDiaSelect.txtDiaSelect.Value=_screen.fechasel
+		poForm.cntDiaSelect.txtDiaSelect.setfocus
+		ENDTEXT
+		objFun=NEWOBJECT("funmanak",ADDBS(_screen.classdir)+"mzmanak","",.t.)
+		ObjCreate=objFun.getmanak(thisform,;
+			this.shpMarco.top-1,;
+			this.shpmarco.Left+this.shpmarco.width-1,;
+			lcScript)
+		objFun=null
+		objCreate.visible=.t.
+		ObjCreate.manak_bind()
+		*</Incorpora un almanaque al form>
+		
 		WITH thisform
-			.Width=.shpMarco.left*2+.shpMarco.Width
+			.cntDiaSelect.left=objCreate.left+1
+			.CntDiaSelect.top=objCreate.top+objCreate.Height
+			
+			.Width=.shpMarco.left*2+.shpMarco.Width+objCreate.Width
 			.Height=.shpMarco.top*2+.shpMarco.Height
 			.MaxHeight=.Height
 			.MaxWidth=.Width
