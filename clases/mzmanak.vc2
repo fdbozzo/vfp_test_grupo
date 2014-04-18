@@ -2396,7 +2396,7 @@ DEFINE CLASS cntfrm_manak AS container
 	*< OBJECTDATA: ObjPath="CntTit.Gmarco7" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="CntTit.Glab7" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="CntTit.Gmarco8" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="Spinner1" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="cmgMeses" UniqueID="" Timestamp="" />
 
 	*<DefinedPropArrayMethod>
 		*m: *bindclick
@@ -2413,6 +2413,7 @@ DEFINE CLASS cntfrm_manak AS container
 		*p: diafoco
 		*p: fechasel
 		*p: focolor
+		*p: lastfocus
 		*p: masdias
 		*p: mes
 		*p: script
@@ -2430,14 +2431,48 @@ DEFINE CLASS cntfrm_manak AS container
 	diafoco = 
 	fechasel = .F.
 	focolor = .F.
-	Height = 155
+	Height = 236
+	lastfocus = null
 	masdias = 30
 	mes = .F.
 	Name = "cntfrm_manak"
 	script = 
 	selmes = .F.
 	selperi = .F.
-	Width = 204
+	Width = 305
+
+	ADD OBJECT 'cmgMeses' AS commandgroup WITH ;
+		BorderStyle = 0, ;
+		ButtonCount = 2, ;
+		Height = 17, ;
+		Left = 121, ;
+		Name = "cmgMeses", ;
+		Top = 5, ;
+		Value = 1, ;
+		Width = 40, ;
+		Command1.BackColor = 149,177,171, ;
+		Command1.Caption = "", ;
+		Command1.DisabledPicture = ..\graphics\fle1132leftgn.bmp, ;
+		Command1.Height = 16, ;
+		Command1.Left = 1, ;
+		Command1.Name = "cmdMesAnt", ;
+		Command1.Picture = ..\graphics\fle1132leftg.bmp, ;
+		Command1.SpecialEffect = 1, ;
+		Command1.ToolTipText = "Mes Anterior", ;
+		Command1.Top = 1, ;
+		Command1.Width = 19, ;
+		Command2.BackColor = 149,177,171, ;
+		Command2.Caption = "", ;
+		Command2.DisabledPicture = ..\graphics\fle1132rigthgn.bmp, ;
+		Command2.Height = 16, ;
+		Command2.Left = 20, ;
+		Command2.Name = "cmdMesSig", ;
+		Command2.Picture = ..\graphics\fle1132rightg.bmp, ;
+		Command2.SpecialEffect = 1, ;
+		Command2.ToolTipText = "Mes Siguiente", ;
+		Command2.Top = 1, ;
+		Command2.Width = 19
+		*< END OBJECT: BaseClass="commandgroup" />
 
 	ADD OBJECT 'Cntfe' AS container WITH ;
 		BackStyle = 0, ;
@@ -2658,17 +2693,6 @@ DEFINE CLASS cntfrm_manak AS container
 		Top = 1, ;
 		Width = 185
 		*< END OBJECT: ClassLib="mzmanak.vcx" BaseClass="shape" />
-
-	ADD OBJECT 'Spinner1' AS spinner WITH ;
-		BorderColor = 114,136,141, ;
-		FontSize = 8, ;
-		Height = 18, ;
-		Left = 136, ;
-		Name = "Spinner1", ;
-		SpecialEffect = 1, ;
-		Top = 5, ;
-		Width = 17
-		*< END OBJECT: BaseClass="spinner" />
 
 	ADD OBJECT 'Text1' AS textbox WITH ;
 		Alignment = 3, ;
@@ -3676,7 +3700,7 @@ DEFINE CLASS cntfrm_manak AS container
 			.ForeColor=RGB(255,255,255)
 			.FontBold=.t.
 		ENDWITH
-		
+		this.lastfocus=obj
 		lnDay=obj.Value
 		lcName=obj.Name
 		vq=VAL(CHRTRAN(lcName,CHRTRAN(lcName,"1234567890",""),""))
@@ -3931,7 +3955,14 @@ DEFINE CLASS cntfrm_manak AS container
 					
 			ENDIF
 		ENDFOR
+		WITH this.cntfe.semaf1001
+			.irojo.visible=IIF(this.Ano#YEAR(DATE()),.t.,.f.)
+			.iamarillo.visible=IIF(this.ano=YEAR(DATE()) AND this.mes#MONTH(DATE()),.t.,.f.)
+			.iverde.visible=IIF(this.ano=YEAR(DATE()) and this.mes=MONTH(DATE()),.t.,.f.)
+		ENDWITH
 		WITH this
+			_Screen.fechasel=DATE(.ano,.mes,.dia)
+			.lastfocus=.&lcFoco
 			.selmes=Proper(.ZenMes[.mes])
 			.CntFe.glab1.Caption=.Selmes+" de "+LTRIM(STR(.ano))
 			.gmarco3.Visible=!EMPTY(nSumDia)
@@ -3967,6 +3998,7 @@ DEFINE CLASS cntfrm_manak AS container
 		This.AddProperty("objManak",null)
 		this.objManak=NEWOBJECT("funmanak",lcRoot,"",.t.)
 		with this
+			.lastfocus=null
 			.ano=xnAno
 			.mes=xnMes
 			dimension .ZenMes(12)
@@ -4007,7 +4039,7 @@ DEFINE CLASS cntfrm_manak AS container
 			.CntFe.glab1.Caption=.Selmes+" de "+LTRIM(STR(.ano))
 		ENDWITH
 		WITH THIS.Cntfe.semaf1001
-			.vISIBLE=.F.
+			.vISIBLE=.t.
 			.IVERde.Visible=.T.
 			.IROJO.VISIBLE=.F.
 			.IAMARILLO.VISIBLE=.F.
@@ -4027,7 +4059,7 @@ DEFINE CLASS cntfrm_manak AS container
 	PROCEDURE LostFocus
 		WITH this.cntfe
 			.glab1.FontBold=.f.
-			.semaf1001.Visible=.F.
+		*	.semaf1001.Visible=.F.
 		ENDWITH
 		SYS(2002,1)
 		
@@ -4066,26 +4098,79 @@ DEFINE CLASS cntfrm_manak AS container
 		
 	ENDPROC
 
-	PROCEDURE Spinner1.DownClick
-		THIS.Parent.MES=THIS.Parent.MEs - 1
-		IF THIS.Parent.MES=0
-			THIS.Parent.MES=12
-			this.Parent.ano=THIS.Parent.ANO-1
-		ENDIF
-		THIS.Parent.GMEs(this.Parent.ano,this.Parent.mes,.t.)
+	PROCEDURE cmgMeses.Click
+		DO CASE 
+			CASE this.Value=1
 		
+				this.cmdMesAnt.Enabled=.f.
+				THIS.Parent.MES=THIS.Parent.MEs - 1
+				IF THIS.Parent.MES=0
+					THIS.Parent.MES=12
+					this.Parent.ano=THIS.Parent.ANO-1
+				ENDIF
+				THIS.Parent.GMEs(this.Parent.ano,this.Parent.mes,.t.)
+				this.cmdMesAnt.Enabled=.t.
+				
+			CASE this.Value=2
+				this.cmdMessig.Enabled=.f.
+				THIS.Parent.MES=THIS.Parent.MEs + 1
+				IF THIS.Parent.MES=13
+					THIS.Parent.MES=1
+					this.Parent.ano=THIS.Parent.ANO + 1
+				ENDIF
+				THIS.Parent.GMEs(this.Parent.ano,this.Parent.mes,.t.)		
+				this.cmdMesSig.Enabled=.t.
+		ENDCASE
+			
+	ENDPROC
+
+	PROCEDURE Cntfe.Click
+		IF VARTYPE(this.Parent.lastfocus)="O"
+			this.Parent.lastfocus.setfocus
+		ENDIF
 		
 	ENDPROC
 
-	PROCEDURE Spinner1.UpClick
-		THIS.Parent.MES=THIS.Parent.MEs + 1
-		IF THIS.Parent.MES=13
-			THIS.Parent.MES=1
-			this.Parent.ano=THIS.Parent.ANO + 1
+	PROCEDURE Cntfe.DblClick
+		IF VARTYPE(this.Parent.lastfocus)="O"
+			this.Parent.lastfocus.setfocus
 		ENDIF
-		THIS.Parent.GMEs(this.Parent.ano,this.Parent.mes,.t.)
-		
-		
+	ENDPROC
+
+	PROCEDURE Cntfe.Glab1.Click
+		IF VARTYPE(this.Parent.Parent.lastfocus)="O"
+			this.Parent.parent.lastfocus.setfocus
+		ENDIF
+	ENDPROC
+
+	PROCEDURE Cntfe.Glab1.DblClick
+		IF VARTYPE(this.Parent.Parent.lastfocus)="O"
+			this.Parent.parent.lastfocus.setfocus
+		ENDIF
+	ENDPROC
+
+	PROCEDURE Cntfe.Gmarco4.Click
+		IF VARTYPE(this.Parent.Parent.lastfocus)="O"
+			this.Parent.parent.lastfocus.setfocus
+		ENDIF
+	ENDPROC
+
+	PROCEDURE Cntfe.Gmarco4.DblClick
+		IF VARTYPE(this.Parent.Parent.lastfocus)="O"
+			this.Parent.parent.lastfocus.setfocus
+		ENDIF
+	ENDPROC
+
+	PROCEDURE Shape3d1.Click
+		IF VARTYPE(this.Parent.lastfocus)="O"
+			this.Parent.lastfocus.setfocus
+		ENDIF
+	ENDPROC
+
+	PROCEDURE Shape3d1.DblClick
+		IF VARTYPE(this.Parent.lastfocus)="O"
+			this.Parent.lastfocus.setfocus
+		ENDIF
 	ENDPROC
 
 	PROCEDURE Text1.ProgrammaticChange
@@ -8507,6 +8592,7 @@ DEFINE CLASS funmanak AS custom
 		ENDWITH
 		xoForm.NewObject("funsombra1","funsombra",Addbs(_Screen.Classdir)+"mzmanak","",.t.)
 		xoForm.funsombra1.getBind(objCnt,.t.)
+		xoForm.ShowTips=.t.
 		xoform.LockScreen= .F.
 		
 		nas=ASCAN(xoform.gacont,lnPeri)
@@ -9760,6 +9846,51 @@ DEFINE CLASS txfechan AS textbox
 
 	PROCEDURE RightClick
 		this.convoca(-1)
+	ENDPROC
+
+ENDDEFINE
+
+DEFINE CLASS txfechasel AS textbox 
+ 	*< CLASSDATA: Baseclass="textbox" Timestamp="" Scale="Pixels" Uniqueid="" />
+
+	*<DefinedPropArrayMethod>
+		*p: obmanak		&& Objeto Almanque
+		*p: pedido
+	*</DefinedPropArrayMethod>
+
+	Alignment = 3
+	BorderColor = 114,136,141
+	DisabledBackColor = 242,247,243
+	DisabledForeColor = 0,0,0
+	FontSize = 8
+	Format = "D"
+	Height = 21
+	Name = "txfechasel"
+	obmanak = NULL		&& Objeto Almanque
+	pedido = .F.
+	SpecialEffect = 1
+	Value = (CTOD(""))
+	Width = 63
+	
+	PROCEDURE DblClick
+		IF PEMSTATUS(_screen,"fechasel",5)
+			this.Value=_screen.fechasel
+		ENDIF
+		
+		
+	ENDPROC
+
+	PROCEDURE KeyPress
+		LPARAMETERS nKeyCode, nShiftAltCtrl
+		DO case
+			CASE nKeyCode=43
+				IF PEMSTATUS(_screen,"fechasel",5)
+					this.Value=_screen.fechasel
+				ENDIF
+				
+				NODEFAULT
+				
+		ENDCASE
 	ENDPROC
 
 ENDDEFINE

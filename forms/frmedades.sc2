@@ -66,6 +66,14 @@ DEFINE CLASS frmedades AS form
 	*< OBJECTDATA: ObjPath="cntDiaSelect.shpDiaSelect" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cntDiaSelect.lblDiaSelect" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cntDiaSelect.txtDiaSelect" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="cntFechasel_Ini" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="cntFechasel_Ini.shpFechaSel_Ini" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="cntFechasel_Ini.lblFechaSel_Ini" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="cntFechasel_Ini.Txfechasel_Ini" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="cntFechaSel_Fin" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="cntFechaSel_Fin.shpFechaSel_Fin" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="cntFechaSel_Fin.lblFechaSel_Fin" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="cntFechaSel_Fin.Txfechasel_Fin" UniqueID="" Timestamp="" />
 
 	*<DefinedPropArrayMethod>
 		*m: *calcedad
@@ -170,6 +178,84 @@ DEFINE CLASS frmedades AS form
 		Value = (CTOD("")), ;
 		Width = 63
 		*< END OBJECT: BaseClass="textbox" />
+
+	ADD OBJECT 'cntFechaSel_Fin' AS container WITH ;
+		BackStyle = 0, ;
+		BorderWidth = 0, ;
+		Height = 22, ;
+		Left = 407, ;
+		Name = "cntFechaSel_Fin", ;
+		Top = 213, ;
+		Width = 169
+		*< END OBJECT: BaseClass="container" />
+
+	ADD OBJECT 'cntFechaSel_Fin.lblFechaSel_Fin' AS label WITH ;
+		AutoSize = .T., ;
+		BackStyle = 0, ;
+		Caption = "Doble Click ó [+]", ;
+		FontSize = 8, ;
+		Height = 16, ;
+		Left = 5, ;
+		Name = "lblFechaSel_Fin", ;
+		TabIndex = 10, ;
+		Top = 4, ;
+		Width = 78
+		*< END OBJECT: BaseClass="label" />
+
+	ADD OBJECT 'cntFechaSel_Fin.shpFechaSel_Fin' AS shape WITH ;
+		BackColor = 220,228,224, ;
+		BorderColor = 114,136,141, ;
+		Height = 21, ;
+		Left = 1, ;
+		Name = "shpFechaSel_Fin", ;
+		Top = 1, ;
+		Width = 106
+		*< END OBJECT: BaseClass="shape" />
+
+	ADD OBJECT 'cntFechaSel_Fin.Txfechasel_Fin' AS txfechasel WITH ;
+		Left = 104, ;
+		Name = "Txfechasel_Fin", ;
+		Top = 1
+		*< END OBJECT: ClassLib="..\..\..\theodore\libs\mzmanak.vcx" BaseClass="textbox" />
+
+	ADD OBJECT 'cntFechasel_Ini' AS container WITH ;
+		BackStyle = 0, ;
+		BorderWidth = 0, ;
+		Height = 22, ;
+		Left = 407, ;
+		Name = "cntFechasel_Ini", ;
+		Top = 193, ;
+		Width = 169
+		*< END OBJECT: BaseClass="container" />
+
+	ADD OBJECT 'cntFechasel_Ini.lblFechaSel_Ini' AS label WITH ;
+		AutoSize = .T., ;
+		BackStyle = 0, ;
+		Caption = "Doble Click ó [+]", ;
+		FontSize = 8, ;
+		Height = 16, ;
+		Left = 5, ;
+		Name = "lblFechaSel_Ini", ;
+		TabIndex = 10, ;
+		Top = 4, ;
+		Width = 78
+		*< END OBJECT: BaseClass="label" />
+
+	ADD OBJECT 'cntFechasel_Ini.shpFechaSel_Ini' AS shape WITH ;
+		BackColor = 220,228,224, ;
+		BorderColor = 114,136,141, ;
+		Height = 21, ;
+		Left = 1, ;
+		Name = "shpFechaSel_Ini", ;
+		Top = 1, ;
+		Width = 106
+		*< END OBJECT: BaseClass="shape" />
+
+	ADD OBJECT 'cntFechasel_Ini.Txfechasel_Ini' AS txfechasel WITH ;
+		Left = 104, ;
+		Name = "Txfechasel_Ini", ;
+		Top = 1
+		*< END OBJECT: ClassLib="..\..\..\theodore\libs\mzmanak.vcx" BaseClass="textbox" />
 
 	ADD OBJECT 'Label1' AS label WITH ;
 		AutoSize = .T., ;
@@ -869,6 +955,10 @@ DEFINE CLASS frmedades AS form
 		WITH thisform
 			.cntDiaSelect.left=objCreate.left+1
 			.CntDiaSelect.top=objCreate.top+objCreate.Height
+			.cntFechasel_Ini.left=.CntDiaSelect.left
+			.cntFechasel_Ini.top=.CntDiaSelect.top+.CntDiaSelect.Height-1
+			.cntFechaSel_Fin.left=.CntDiaSelect.left
+			.CntFechaSel_Fin.top=.CntFechaSel_Ini.top+.CntFechaSel_ini.Height-1
 			
 			.Width=.shpMarco.left*2+.shpMarco.Width+objCreate.Width
 			.Height=.shpMarco.top*2+.shpMarco.Height
