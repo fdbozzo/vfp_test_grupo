@@ -2397,6 +2397,7 @@ DEFINE CLASS cntfrm_manak AS container
 	*< OBJECTDATA: ObjPath="CntTit.Glab7" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="CntTit.Gmarco8" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmgMeses" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Cnthoy1" UniqueID="" Timestamp="" />
 
 	*<DefinedPropArrayMethod>
 		*m: *bindclick
@@ -2515,6 +2516,18 @@ DEFINE CLASS cntfrm_manak AS container
 		iverde.Name = "iverde", ;
 		iverde.Visible = .T., ;
 		iverde.Width = 20
+		*< END OBJECT: ClassLib="mzmanak.vcx" BaseClass="container" />
+
+	ADD OBJECT 'Cnthoy1' AS cnthoy WITH ;
+		Left = 157, ;
+		Name = "Cnthoy1", ;
+		Top = 160, ;
+		imgHoy.Height = 18, ;
+		imgHoy.Name = "imgHoy", ;
+		imgHoy.Width = 22, ;
+		imgNot.Height = 18, ;
+		imgNot.Name = "imgNot", ;
+		imgNot.Width = 22
 		*< END OBJECT: ClassLib="mzmanak.vcx" BaseClass="container" />
 
 	ADD OBJECT 'CntTit' AS container WITH ;
@@ -3659,7 +3672,8 @@ DEFINE CLASS cntfrm_manak AS container
 		this.cntTit.&loFoco..FontBold=.t.
 		this.dia=lnDay
 		_Screen.Fechasel=DATE(this.ano,this.mes,this.dia)
-		
+		this.cnthoy1.getestado()
+		*!*	this.cmdHoy.enabled=IIF(_screen.fechasel=DATE(),.f.,.t.)
 		*!*	LdFEcha=DATE(this.ano,this.mes,this.dia)
 		*!*	lcFrase=this.adiasem[DOW(ldFEcha)]+" ";
 		*!*		+LTRIM(STR(lnDay))+" de "+this.selmes+" de "+LTRIM(STR(this.ano))
@@ -3678,6 +3692,7 @@ DEFINE CLASS cntfrm_manak AS container
 		lcFrase=LTRIM(STR(lnDay))+" de "+this.selmes+" de "+LTRIM(STR(this.ano))
 		this.dia=lnDay
 		_Screen.Fechasel=DATE(this.ano,this.mes,this.dia)
+		this.cnthoy1.getestado()
 		IF !EMPTY(this.script)
 			EXECSCRIPT(this.script,thisform)
 		ENDIF
@@ -3714,6 +3729,7 @@ DEFINE CLASS cntfrm_manak AS container
 		this.cntTit.&loFoco..FontBold=.t.
 		this.dia=lnDay
 		_Screen.Fechasel=DATE(this.ano,this.mes,this.dia)
+		this.cnthoy1.getestado()
 		LdFEcha=DATE(this.ano,this.mes,this.dia)
 		lcFrase=this.adiasem[DOW(ldFEcha)]+" ";
 			+LTRIM(STR(lnDay))+" de "+this.selmes+" de "+LTRIM(STR(this.ano))
@@ -3849,6 +3865,7 @@ DEFINE CLASS cntfrm_manak AS container
 				
 						
 		ENDCASE
+		this.cnthoy1.getestado()
 		
 	ENDPROC
 
@@ -3962,6 +3979,7 @@ DEFINE CLASS cntfrm_manak AS container
 		ENDWITH
 		WITH this
 			_Screen.fechasel=DATE(.ano,.mes,.dia)
+			.cnthoy1.getestado()	
 			.lastfocus=.&lcFoco
 			.selmes=Proper(.ZenMes[.mes])
 			.CntFe.glab1.Caption=.Selmes+" de "+LTRIM(STR(.ano))
@@ -3973,6 +3991,9 @@ DEFINE CLASS cntfrm_manak AS container
 		*		.gmarco2.top+.gmarco2.Height)-1
 		*
 		*	.Shape3d1.Height=obTop+.gmarco3.Height-.Shape3d1.top+5
+			.cntHoy1.Top=.gmarco3.Top
+		*	.cntHoy1.Left=.gmarco3.Left+.gmarco3.Width-.cntHoy1.Width-1
+			.cntHoy1.Left=.shape3d1.Left+.shape3d1.Width-.cntHoy1.Width-5
 			.Height=.Shape3d1.Top+.Shape3d1.Height+1
 			.Width=.Shape3d1.width+1
 			IF xlFoco
@@ -4044,6 +4065,7 @@ DEFINE CLASS cntfrm_manak AS container
 			.IROJO.VISIBLE=.F.
 			.IAMARILLO.VISIBLE=.F.
 		ENDWITH
+		this.cnthoy1.objmanak=this
 		this.gmes(this.ano,this.mes)
 		*ADDPROPERTY(_screen,"Fechasel",null)
 		
@@ -4381,6 +4403,75 @@ DEFINE CLASS cntfrm_manak AS container
 	PROCEDURE Text9.ProgrammaticChange
 		this.Visible=!EMPTY(this.Value)
 		
+	ENDPROC
+
+ENDDEFINE
+
+DEFINE CLASS cnthoy AS container 
+ 	*< CLASSDATA: Baseclass="container" Timestamp="" Scale="Pixels" Uniqueid="" />
+
+	*-- OBJECTDATA items order determines ZOrder / El orden de los items OBJECTDATA determina el ZOrder 
+	*< OBJECTDATA: ObjPath="imgHoy" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="imgNot" UniqueID="" Timestamp="" />
+
+	*<DefinedPropArrayMethod>
+		*m: *getestado
+		*p: objmanak
+	*</DefinedPropArrayMethod>
+
+	BackStyle = 0
+	BorderColor = 114,136,141
+	BorderWidth = 1
+	Height = 17
+	Name = "cnthoy"
+	objmanak = .F.
+	Width = 20
+
+	ADD OBJECT 'imgHoy' AS image WITH ;
+		Height = 15, ;
+		Left = 1, ;
+		Name = "imgHoy", ;
+		Picture = ..\graphics\almanak1519.bmp, ;
+		ToolTipText = "Ir al dia de la fecha", ;
+		Top = 1, ;
+		Width = 19
+		*< END OBJECT: BaseClass="image" />
+
+	ADD OBJECT 'imgNot' AS image WITH ;
+		BackStyle = 0, ;
+		Height = 15, ;
+		Left = 1, ;
+		Name = "imgNot", ;
+		Picture = ..\graphics\almanak1519n.bmp, ;
+		Top = 1, ;
+		Width = 19
+		*< END OBJECT: BaseClass="image" />
+	
+	PROCEDURE getestado
+		LOCAL dFecha
+		dfecha=DATE(this.objmanak.ano,this.objmanak.mes,this.objmanak.dia)
+		WITH this
+			.imgHoy.Visible=IIF(dFecha=DATE(),.f.,.t.)
+			.imgNot.Visible=IIF(dfecha=DATE(),.t.,.f.)
+			.BorderColor=IIF(.imgHoy.Visible,RGB(0,128,128),RGB(114,136,141))
+		ENDWITH
+		
+		
+		
+		
+	ENDPROC
+
+	PROCEDURE imgHoy.Click
+		LOCAL objManak
+		objManak=this.Parent.objmanak
+		WITH objmanak
+			.dia=DAY(DATE())
+			.mes=MONTH(DATE())
+			.ano=YEAR(DATE())
+		ENDWITH
+		*THIS.Parent.objmanak.GMEs(this.Parent.ano,this.Parent.mes,.t.)	
+		*this.Parent.objmanak.dia=DAY(DATE())
+		objmanak.gMes(objmanak.ano,objManak.mes,.t.)
 	ENDPROC
 
 ENDDEFINE
