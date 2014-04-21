@@ -395,10 +395,11 @@ DEFINE CLASS cntalma AS container
 	*< OBJECTDATA: ObjPath="CntTit.Container7.Glab1" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="Shape3d2" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="Spinner2" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="Spinner3" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="Combo1" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="CmCalc" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="Cmprintform1" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="cmgMeses" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Cnthoy1" UniqueID="" Timestamp="" />
 
 	*<DefinedPropArrayMethod>
 		*m: *binddbl
@@ -446,6 +447,39 @@ DEFINE CLASS cntalma AS container
 		Width = 29
 		*< END OBJECT: BaseClass="commandbutton" />
 
+	ADD OBJECT 'cmgMeses' AS commandgroup WITH ;
+		BorderStyle = 0, ;
+		ButtonCount = 2, ;
+		Height = 17, ;
+		Left = 160, ;
+		Name = "cmgMeses", ;
+		Top = 6, ;
+		Value = 1, ;
+		Width = 40, ;
+		Command1.BackColor = 149,177,171, ;
+		Command1.Caption = "", ;
+		Command1.DisabledPicture = ..\graphics\fle1132leftgn.bmp, ;
+		Command1.Height = 16, ;
+		Command1.Left = 1, ;
+		Command1.Name = "cmdMesAnt", ;
+		Command1.Picture = ..\graphics\fle1132leftg.bmp, ;
+		Command1.SpecialEffect = 1, ;
+		Command1.ToolTipText = "Mes Anterior", ;
+		Command1.Top = 1, ;
+		Command1.Width = 19, ;
+		Command2.BackColor = 149,177,171, ;
+		Command2.Caption = "", ;
+		Command2.DisabledPicture = ..\graphics\fle1132rigthgn.bmp, ;
+		Command2.Height = 16, ;
+		Command2.Left = 20, ;
+		Command2.Name = "cmdMesSig", ;
+		Command2.Picture = ..\graphics\fle1132rightg.bmp, ;
+		Command2.SpecialEffect = 1, ;
+		Command2.ToolTipText = "Mes Siguiente", ;
+		Command2.Top = 1, ;
+		Command2.Width = 19
+		*< END OBJECT: BaseClass="commandgroup" />
+
 	ADD OBJECT 'Cmprintform1' AS cmprintform WITH ;
 		Left = 239, ;
 		Name = "Cmprintform1", ;
@@ -492,6 +526,18 @@ DEFINE CLASS cntalma AS container
 		Top = 1, ;
 		Width = 63
 		*< END OBJECT: BaseClass="textbox" />
+
+	ADD OBJECT 'Cnthoy1' AS cnthoy WITH ;
+		Left = 181, ;
+		Name = "Cnthoy1", ;
+		Top = 171, ;
+		imgHoy.Height = 18, ;
+		imgHoy.Name = "imgHoy", ;
+		imgHoy.Width = 22, ;
+		imgNot.Height = 18, ;
+		imgNot.Name = "imgNot", ;
+		imgNot.Width = 22
+		*< END OBJECT: ClassLib="mzmanak.vcx" BaseClass="container" />
 
 	ADD OBJECT 'CntTit' AS container WITH ;
 		BackStyle = 0, ;
@@ -711,21 +757,6 @@ DEFINE CLASS cntalma AS container
 		SpinnerLowValue = 1980.00, ;
 		Top = 5, ;
 		Width = 60
-		*< END OBJECT: BaseClass="spinner" />
-
-	ADD OBJECT 'Spinner3' AS spinner WITH ;
-		BorderColor = 114,136,141, ;
-		FontSize = 8, ;
-		Height = 20, ;
-		KeyboardHighValue = 12, ;
-		KeyboardLowValue = 1, ;
-		Left = 156, ;
-		Name = "Spinner3", ;
-		SpecialEffect = 1, ;
-		SpinnerHighValue = 13.00, ;
-		SpinnerLowValue = 0.00, ;
-		Top = 5, ;
-		Width = 45
 		*< END OBJECT: BaseClass="spinner" />
 
 	ADD OBJECT 'Text1' AS textbox WITH ;
@@ -1676,6 +1707,7 @@ DEFINE CLASS cntalma AS container
 		lcFrase=LTRIM(STR(lnDay))+" de "+this.selmes+" de "+LTRIM(STR(this.ano))
 		this.dia=lnDay
 		_Screen.Fechasel=DATE(this.ano,this.mes,this.dia)
+		this.cnthoy1.getestado()
 		thisform.Release
 		
 		
@@ -1733,10 +1765,10 @@ DEFINE CLASS cntalma AS container
 					.Selmes=PROPER(.ZenMes[this.mes])
 					.Combo1.REfresh		
 					.spinner2.refresh
-					.Spinner3.refresh
+		
 				ENDWITH
 				
-				this.gmes(this.ano,this.mes)
+				this.gmes(this.ano,this.mes,.t.)
 			CASE nKeyCode=45	&& -
 				NODEFAULT
 				
@@ -1750,9 +1782,9 @@ DEFINE CLASS cntalma AS container
 					.Selmes=PROPER(.ZenMes[this.mes])
 					.Combo1.REfresh		
 					.spinner2.refresh
-					.Spinner3.refresh
+		
 				ENDWITH		
-				this.gmes(this.ano,this.mes)
+				this.gmes(this.ano,this.mes,.t.)
 			CASE nKeyCode=13
 				NODEFAULT
 				
@@ -1760,6 +1792,7 @@ DEFINE CLASS cntalma AS container
 				lcFrase=LTRIM(STR(lnDay))+" de "+this.selmes+" de "+LTRIM(STR(this.ano))
 				this.dia=lnDay
 				_Screen.Fechasel=DATE(this.ano,this.mes,this.dia)
+				this.cnthoy1.getestado()
 				thisform.Release
 			
 			CASE nKeyCode=5		&& UpARr
@@ -1831,7 +1864,7 @@ DEFINE CLASS cntalma AS container
 	ENDPROC
 
 	PROCEDURE gmes
-		LPARAMETERS XNANO,XNMES
+		LPARAMETERS XNANO,XNMES,xlFocus
 		LOCAL nd,fd,ff,bini,lcFoco,lcnum,lnNum,lFeria,oControl,;
 			lcTool,lcText,diafin
 		FD=DATE(XNANO,XNMES,1)
@@ -1921,9 +1954,13 @@ DEFINE CLASS cntalma AS container
 				.gmarco2.top+.gmarco2.Height)-1
 		
 			.Shape3d1.Height=.Cntfe.Top+.Cntfe.Height-.Shape3d1.top+5
+			.Cnthoy1.Top=.cntfe.Top+3
 			.Height=.Shape3d1.Top+.Shape3d1.Height+1
 			.Width=.Shape3d1.width+1
-			.&lcFoco..SetFocus	
+			IF xlFocus
+				.&lcFoco..SetFocus	
+			ENDIF
+			
 		ENDWITH
 		this.Parent.tryforma()
 		
@@ -1989,6 +2026,7 @@ DEFINE CLASS cntalma AS container
 			.requery
 			.refresh
 		ENDWITH
+		this.cnthoy1.objmanak=this
 		
 		
 		
@@ -2019,9 +2057,50 @@ DEFINE CLASS cntalma AS container
 		
 	ENDPROC
 
+	PROCEDURE cmgMeses.Click
+		DO CASE 
+			CASE this.Value=1
+		
+				this.cmdMesAnt.Enabled=.f.
+				WITH this.Parent
+					.MES=.MEs - 1
+					IF .MES=0
+						.MES=12
+						.ano=.ANO-1
+					ENDIF
+					.GMEs(.ano,.mes,.t.)
+				ENDWITH
+				
+				this.cmdMesAnt.Enabled=.t.
+				
+			CASE this.Value=2
+				this.cmdMessig.Enabled=.f.
+				WITH this.Parent
+					.MES=.MEs + 1
+					IF .MES=13
+						.MES=1
+						.ano=.ANO + 1
+					ENDIF
+					.GMEs(.ano,.mes,.t.)		
+				ENDWITH
+				this.cmdMesSig.Enabled=.t.
+		ENDCASE
+		WITH this.Parent
+			.Selmes=PROPER(this.Parent.ZenMes[.mes])
+			.Combo1.REfresh
+			.spinner2.refresh
+		ENDWITH	
+	ENDPROC
+
 	PROCEDURE Cntfe.TxFecha.ProgrammaticChange
 		this.Visible=!EMPTY(this.Value)
+		_Screen.FEchasel=this.Value
+		this.Parent.Parent.cnthoy1.getestado()
 		
+	ENDPROC
+
+	PROCEDURE Cnthoy1.Init
+		this.imgHoy.ToolTipText="Ir al dia "+DTOC(DATE())
 	ENDPROC
 
 	PROCEDURE CntTit.Container1.Init
@@ -2084,34 +2163,13 @@ DEFINE CLASS cntalma AS container
 		NITEM=this.listitemId
 		if nitem>0
 			this.parent.mes=nitem
-			This.parent.Spinner3.Refresh
-			this.parent.gmes(this.Parent.ano,this.Parent.mes)
+			this.parent.gmes(this.Parent.ano,this.Parent.mes,.t.)
 		endif
 	ENDPROC
 
 	PROCEDURE Spinner2.InteractiveChange
 		this.Parent.ano=this.value
-		this.Parent.gmes(this.Parent.ano,this.Parent.mes)
-	ENDPROC
-
-	PROCEDURE Spinner3.InteractiveChange
-		if this.value=13
-			This.Value=1
-			this.Parent.ano=this.Parent.ano+1
-			This.parent.Spinner2.refresh
-		endif
-		if this.value=0
-			This.value=12
-			this.Parent.ano=this.Parent.ano-1
-			This.parent.spinner2.refresh
-		ENDIF
-		WITH this.Parent
-			.mes=this.value
-			.Selmes=PROPER(this.Parent.ZenMes[this.value])
-			.Combo1.REfresh
-		ENDWITH
-		
-		this.Parent.gmes(this.Parent.ano,this.Parent.mes)
+		this.Parent.gmes(this.Parent.ano,this.Parent.mes,.t.)
 	ENDPROC
 
 	PROCEDURE Text1.ProgrammaticChange
@@ -4125,24 +4183,30 @@ DEFINE CLASS cntfrm_manak AS container
 			CASE this.Value=1
 		
 				this.cmdMesAnt.Enabled=.f.
-				THIS.Parent.MES=THIS.Parent.MEs - 1
-				IF THIS.Parent.MES=0
-					THIS.Parent.MES=12
-					this.Parent.ano=THIS.Parent.ANO-1
-				ENDIF
-				THIS.Parent.GMEs(this.Parent.ano,this.Parent.mes,.t.)
+				WITH this.Parent
+					.MES=.MEs - 1
+					IF .MES=0
+						.MES=12
+						.ano=.ANO-1
+					ENDIF
+					.GMEs(.ano,.mes,.t.)
+				ENDWITH
+				
 				this.cmdMesAnt.Enabled=.t.
 				
 			CASE this.Value=2
 				this.cmdMessig.Enabled=.f.
-				THIS.Parent.MES=THIS.Parent.MEs + 1
-				IF THIS.Parent.MES=13
-					THIS.Parent.MES=1
-					this.Parent.ano=THIS.Parent.ANO + 1
-				ENDIF
-				THIS.Parent.GMEs(this.Parent.ano,this.Parent.mes,.t.)		
+				WITH this.Parent
+					.MES=.MEs + 1
+					IF .MES=13
+						.MES=1
+						.ano=.ANO + 1
+					ENDIF
+					.GMEs(.ano,.mes,.t.)		
+				ENDWITH
 				this.cmdMesSig.Enabled=.t.
 		ENDCASE
+		
 			
 	ENDPROC
 
@@ -6721,7 +6785,7 @@ DEFINE CLASS frmanual AS form
 	PROCEDURE CntIns.Check1.Click
 		LOCAL lnAno,lnmes,lnDia
 		IF this.Value
-			lnAno=Thisform.Cnt1.Ano
+			lnAno=Thisform.Cnt_mk1.Ano
 			lnMes=1
 			lnDia=1
 			this.ToolTipText="Volver al inicial"
@@ -6736,7 +6800,7 @@ DEFINE CLASS frmanual AS form
 
 	PROCEDURE CntIns.Spinner1.DownClick
 		LOCAL lnAno,lnMes,lnDia
-		WITH thisform.Cnt1
+		WITH thisform.Cnt_Mk1
 			lnAno=.Ano
 			lnMes=.Mes
 			lnDia=.Dia
@@ -6753,7 +6817,7 @@ DEFINE CLASS frmanual AS form
 
 	PROCEDURE CntIns.Spinner1.UpClick
 		LOCAL lnAno,lnMes,lnDia
-		WITH thisform.Cnt12
+		WITH thisform.Cnt_Mk12
 			lnAno=.Ano
 			lnMes=.Mes
 			lnDia=.Dia
@@ -7865,7 +7929,6 @@ DEFINE CLASS frmmanak AS form
 		ENDWITH
 		WITH thisform.Cntalma1
 			.Spinner2.ControlSource='Thisform.cntAlma1.ano'
-			.Spinner3.ControlSource='Thisform.CntAlma1.mes'
 			.Combo1.ControlSource='thisform.CntAlma1.Selmes'
 			
 		ENDWITH
@@ -7878,7 +7941,7 @@ DEFINE CLASS frmmanak AS form
 				BINDEVENT(ocontrol,"LostFocus",thisform.cntAlma1,"BindLost")
 			ENDIF
 		ENDFOR
-		thisform.Cntalma1.gmes(thisform.cntalma1.ano,thisform.cntalma1.mes)
+		thisform.Cntalma1.gmes(thisform.cntalma1.ano,thisform.cntalma1.mes,.t.)
 		thisform.tryForma()
 		
 		

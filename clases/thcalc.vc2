@@ -131,7 +131,7 @@ DEFINE CLASS cmg AS commandgroup
 			IF PEMSTATUS(_screen,"classDir",5)
 				thisform.NewObject("gCalcu1","gCalcu",LOCFILE(ADDBS(_Screen.ClassDir)+"thcalc.vcx"))
 			ELSE
-				thisform.NewObject("gCalcu1","gCalcu","clases\thcalc")
+				thisform.NewObject("gCalcu1","gCalcu","thcalc")
 			ENDIF
 		ENDIF
 		
@@ -139,7 +139,7 @@ DEFINE CLASS cmg AS commandgroup
 
 	PROCEDURE putraya
 		LPARAMETERS xObjeto
-		LOCAL lntop,lnLeft,lnWid,lnHei,lcRoot
+		LOCAL lntop,lnLeft,lnWid,lnHei
 		IF PCOUNT()=0
 			Thisform.imr2.visible=.f.
 		   RETURN 
@@ -152,7 +152,7 @@ DEFINE CLASS cmg AS commandgroup
 			IF PEMSTATUS(_screen,"classDir",5)
 				thisform.NewObject("imr2","Imaraya",LOCFILE(ADDBS(_Screen.ClassDir)+"thcalc.vcx"))
 			ELSE
-				thisform.NewObject("imr2","Imaraya","clases\thcalc")
+				thisform.NewObject("imr2","Imaraya","thcalc")
 			ENDIF
 		ENDIF
 		
@@ -367,6 +367,7 @@ DEFINE CLASS cntcalcu AS container
 		*< END OBJECT: BaseClass="checkbox" />
 
 	ADD OBJECT 'Cmabre' AS commandbutton WITH ;
+		BackColor = 220,228,224, ;
 		Caption = "", ;
 		DisabledPicture = ..\graphics\scorchabren.bmp, ;
 		FontSize = 8, ;
@@ -464,6 +465,7 @@ DEFINE CLASS cntcalcu AS container
 		*< END OBJECT: BaseClass="commandbutton" />
 
 	ADD OBJECT 'CmCierra' AS commandbutton WITH ;
+		BackColor = 220,228,224, ;
 		Caption = "", ;
 		DisabledPicture = ..\graphics\scorcierran.bmp, ;
 		FontSize = 8, ;
@@ -491,6 +493,7 @@ DEFINE CLASS cntcalcu AS container
 		*< END OBJECT: BaseClass="commandbutton" />
 
 	ADD OBJECT 'cmdDownDecim' AS commandbutton WITH ;
+		BackColor = 220,228,224, ;
 		Caption = "", ;
 		FontSize = 8, ;
 		Height = 19, ;
@@ -542,6 +545,7 @@ DEFINE CLASS cntcalcu AS container
 		*< END OBJECT: BaseClass="commandbutton" />
 
 	ADD OBJECT 'cmdUpDecim' AS commandbutton WITH ;
+		BackColor = 220,228,224, ;
 		Caption = "", ;
 		FontSize = 8, ;
 		Height = 19, ;
@@ -627,10 +631,11 @@ DEFINE CLASS cntcalcu AS container
 		Command11.Name = "Command11", ;
 		Command11.Top = 70, ;
 		Command11.Width = 23, ;
+		Command12.BackColor = 220,228,224, ;
 		Command12.Caption = "", ;
+		Command12.DisabledBackColor = 231,237,234, ;
 		Command12.DisabledPicture = ..\graphics\smasomn.bmp, ;
-		Command12.FontName = "Arial Black", ;
-		Command12.FontSize = 9, ;
+		Command12.Enabled = .F., ;
 		Command12.Height = 22, ;
 		Command12.Left = 50, ;
 		Command12.Name = "Command12", ;
@@ -2577,7 +2582,7 @@ DEFINE CLASS cntcalcu AS container
 			IF PEMSTATUS(_screen,"classDir",5)
 				thisform.NewObject("imr2","Imaraya",LOCFILE(ADDBS(_Screen.ClassDir)+"thcalc.vcx"))
 			ELSE
-				thisform.NewObject("imr2","imaraya","clases\thcalc")
+				thisform.NewObject("imr2","imaraya","thcalc")
 			ENDIF
 		ENDIF
 		
@@ -2830,32 +2835,41 @@ DEFINE CLASS cntcalcu AS container
 
 	PROCEDURE readcust
 		LPARAMETERS xoForm
-		LOCAL xnTop,xnLeft,lnHand
+		LOCAL xnTop,xnLeft,lnHand,OBJ,LcGet
 		lnHand=-1
 		xntop=20
 		xnleft=5
 		
 		IF this.getfopen("frmCalcu.txt",@lnHand,.t.,0)
-			DO WHILE !FEOF(lnHand)
-				lcGet=FGETS(lnHand,1024)
-				obj=this.getvaltag(lcGet,.t.)
-				DO case
-					CASE obj.tag="LEFT"
-						xnleft=EVL(obj.value,xnleft)
-					CASE OBJ.TAG="TOP"
-						xnTop=EVL(obj.value,xnTop)
-					CASE OBJ.TAG="CANCELOP"
-						xoForm.cancelop=obj.value
-					CASE OBJ.TAG="ESTIRAR"
-						xoForm.estirar=obj.value
-					CASE obj.tag="DECIMAL"
-						xoForm.ndezim=EVL(obj.value,2)
-						this.olddecimal=EVL(obj.value,2)
-						this.ndezim=EVL(obj.value,2)
-				ENDCASE
-				obj=null
-			ENDDO
-			=FCLOSE(lnHand)	
+			TRY
+				LOCAL loEx as Exception
+				DO WHILE !FEOF(lnHand)
+					lcGet=FGETS(lnHand,1024)
+					obj=this.getvaltag(lcGet,.t.)
+					DO case
+						CASE obj.tag="LEFT"
+							xnleft=EVL(obj.value,xnleft)
+						CASE OBJ.TAG="TOP"
+							xnTop=EVL(obj.value,xnTop)
+						CASE OBJ.TAG="CANCELOP"
+							xoForm.cancelop=obj.value
+						CASE OBJ.TAG="ESTIRAR"
+							xoForm.estirar=obj.value
+						CASE obj.tag="DECIMAL"
+							xoForm.ndezim=EVL(obj.value,2)
+							this.olddecimal=EVL(obj.value,2)
+							this.ndezim=EVL(obj.value,2)
+					ENDCASE
+		
+				ENDDO
+			CATCH TO loEx
+				loEx.UserValue=PROGRAM()
+				this.showerror(LOEX)
+			FINALLY
+				=FCLOSE(lnHand)	
+				OBJ=NULL
+			ENDTRY
+			
 		ENDIF
 		WITH xoForm
 			.top=xnTop
@@ -3348,6 +3362,12 @@ DEFINE CLASS cntcalcu AS container
 		This.Parent.Parent.Text14.value="Operador "+this.caption
 	ENDPROC
 
+	PROCEDURE CmBas.Init
+		FOR i=1 TO this.ButtonCount
+			this.Buttons(i).backColor = RGB(220,228,224)
+		NEXT
+	ENDPROC
+
 	PROCEDURE CmBorrope.Click
 		This.parent.limpiar()
 	ENDPROC
@@ -3830,6 +3850,14 @@ DEFINE CLASS cntcalcu AS container
 		This.Parent.Parent.Text14.Value="Número "+this.caption
 	ENDPROC
 
+	PROCEDURE CmNum.Init
+		FOR i=1 TO this.ButtonCount
+			this.Buttons(i).backColor = RGB(220,228,224)
+		
+		NEXT
+		
+	ENDPROC
+
 	PROCEDURE CmRaiz.Click
 		LOCAL nValor,nRaiz
 		nValor=abs(This.Parent.Acum)
@@ -4125,7 +4153,7 @@ DEFINE CLASS cntcalcu AS container
 	PROCEDURE Grilla.DblClick
 		LOCAL lRecalcu,tnDezim,cMask,lcRoot
 		
-		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"thcalc.vcx"),"clases\thcalc")
+		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"thcalc.vcx"),"thcalc")
 		lRecalcu=.f.
 		tndezim=This.Parent.ndezim
 		cMask=this.column3.InputMask
@@ -4577,7 +4605,7 @@ DEFINE CLASS frmcons AS form
 	PROCEDURE Init
 		LPARAMETERS xcCaption,xcEdit,xcBoton1,xcBoton2,xnPref
 		local lcRoot
-		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"thcalc.vcx"),"clases\thcalc")
+		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"thcalc.vcx"),"thcalc")
 		ADDPROPERTY(_Screen,"ThBoton",0)
 		thisform.NewObject("cmdClose1","cmdClose",lcRoot)
 		
@@ -4735,9 +4763,8 @@ DEFINE CLASS frmzcalcu AS form
 
 	PROCEDURE Init
 		PARAMETERS xnWin,xoFormCall,xoObjRef,xlCapture,xcMetodo,xnDecimal
-		SET SAFETY OFF
 		LOCAL nat,i,lcDecimalPart,lcNueve,lcRoot
-		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"thcalc.vcx"),"clases\thcalc")
+		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"thcalc.vcx"),"thcalc")
 		
 		thisform.NewObject("CntCalcu1","CntCalcu",lcRoot)
 		
@@ -4959,7 +4986,7 @@ DEFINE CLASS frmzcalcu2 AS form
 	stparen = .F.
 	tooltake = .F.
 	Top = 0
-	Width = 738
+	Width = 323
 	
 	PROCEDURE Destroy
 		LOCAL cConfStat
@@ -5001,10 +5028,9 @@ DEFINE CLASS frmzcalcu2 AS form
 	ENDPROC
 
 	PROCEDURE Init
-		SET SAFETY OFF
 		LOCAL nat,i,lcDecimalPart,lcNueve 
 		LOCAL xnTop,xnLeft,xlCApture,obj,lnHand,lcGet,lcRoot
-		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"thcalc.vcx"),"clases\thcalc")
+		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"thcalc.vcx"),"thcalc")
 		
 		thisform.NewObject("CntCalcu1","CntCalcu",lcRoot)
 		
@@ -5860,7 +5886,7 @@ DEFINE CLASS gcalcu AS custom
 	PROCEDURE putraya
 		LPARAMETERS xObjeto
 		LOCAL lntop,lnLeft,lnWid,lnHei,lcRoot
-		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"thcalc.vcx"),"clases\thcalc")
+		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"thcalc.vcx"),"thcalc")
 		IF PCOUNT()=0
 			Thisform.imr2.visible=.f.
 		   RETURN 
@@ -6697,7 +6723,7 @@ DEFINE CLASS telchain AS form
 		parameters xoForm,xcLista,xcAccion
 		
 		local lcRoot
-		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"thcalc.vcx"),"clases\thcalc")
+		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"thcalc.vcx"),"thcalc")
 		ADDPROPERTY(_Screen,"ThCadena","")
 		thisform.NewObject("cmdClose1","cmdClose",lcRoot)
 		thisform.NewObject("gCalcu1","gCalcu",lcRoot)
@@ -6945,7 +6971,7 @@ DEFINE CLASS telimpor AS form
 	PROCEDURE Init
 		PARAMETERS xcCaption,xcTexto,xnNumero,xnInt,xnDec
 		local lcRoot
-		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"thcalc.vcx"),"clases\thcalc")
+		lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"thcalc.vcx"),"thcalc")
 		thisform.NewObject("cmdClose1","cmdClose",lcRoot)
 		thisform.NewObject("gCalcu1","gCalcu",lcRoot)
 		IF VARTYPE(xnNumero)#"N"
@@ -7085,7 +7111,7 @@ DEFINE CLASS txtcalc AS textbox
 		LPARAMETERS nKeyCode, nShiftAltCtrl
 		IF nKeyCode=43
 			local lcRoot
-			lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"thcalc.vcx"),"clases\thcalc")
+			lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"thcalc.vcx"),"thcalc")
 			if vartype(_Screen.zCalcu1)="O"
 				thisform.zCalcu1.release
 			endif
@@ -7161,7 +7187,7 @@ DEFINE CLASS ztext AS textbox
 		LPARAMETERS nKeyCode, nShiftAltCtrl
 		IF nKeyCode=43
 			local lcRoot
-			lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"thcalc.vcx"),"clases\thcalc")
+			lcRoot=iif(pemstatus(_Screen,"Classdir",5),LOCFILE(ADDBS(_Screen.ClassDir)+"thcalc.vcx"),"thcalc")
 			RELEASE zCalcu
 			PUBLIC zCalcu
 			zCalcu=NEWOBJECT("FrmZCalcu",lcRoot,"",0,;
