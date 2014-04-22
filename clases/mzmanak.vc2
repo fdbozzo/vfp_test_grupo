@@ -1707,7 +1707,7 @@ DEFINE CLASS cntalma AS container
 		lcFrase=LTRIM(STR(lnDay))+" de "+this.selmes+" de "+LTRIM(STR(this.ano))
 		this.dia=lnDay
 		_Screen.Fechasel=DATE(this.ano,this.mes,this.dia)
-		this.cnthoy1.getestado()
+		
 		thisform.Release
 		
 		
@@ -1730,13 +1730,9 @@ DEFINE CLASS cntalma AS container
 		
 		lnDay=obj.Value
 		this.dia=lnDay
-		LdFEcha=DATE(this.ano,this.mes,this.dia)
-		lcFrase=this.adiasem[DOW(ldFEcha)]+" ";
-			+LTRIM(STR(lnDay))+" de "+this.selmes+" de "+LTRIM(STR(this.ano))
-		WITH This.CntFe
-			.edit1.Value=lcFrase
-			.TxFecha.Value=ldFecha
-		ENDWITH
+		this.cntfe.txfecha.Value=DATE(this.ano,this.mes,this.dia)
+		
+		
 		
 	ENDPROC
 
@@ -1792,7 +1788,7 @@ DEFINE CLASS cntalma AS container
 				lcFrase=LTRIM(STR(lnDay))+" de "+this.selmes+" de "+LTRIM(STR(this.ano))
 				this.dia=lnDay
 				_Screen.Fechasel=DATE(this.ano,this.mes,this.dia)
-				this.cnthoy1.getestado()
+		
 				thisform.Release
 			
 			CASE nKeyCode=5		&& UpARr
@@ -1948,10 +1944,13 @@ DEFINE CLASS cntalma AS container
 					
 			ENDIF
 		ENDFOR
+		
 		WITH this
 			.gmarco3.Visible=!EMPTY(nSumDia)
 			.CntFe.top=IIF(.gmarco3.visible,.gmarco3.top+.gmarco3.Height,;
 				.gmarco2.top+.gmarco2.Height)-1
+		
+			.cntfe.txfecha.Value=DATE(.ano,.mes,.dia)
 		
 			.Shape3d1.Height=.Cntfe.Top+.Cntfe.Height-.Shape3d1.top+5
 			.Cnthoy1.Top=.cntfe.Top+3
@@ -2093,14 +2092,22 @@ DEFINE CLASS cntalma AS container
 	ENDPROC
 
 	PROCEDURE Cntfe.TxFecha.ProgrammaticChange
+		LOCAL objParent
+		objParent=this.Parent.Parent
 		this.Visible=!EMPTY(this.Value)
 		_Screen.FEchasel=this.Value
-		this.Parent.Parent.cnthoy1.getestado()
+		objParent.cnthoy1.getestado()
 		
-	ENDPROC
-
-	PROCEDURE Cnthoy1.Init
-		this.imgHoy.ToolTipText="Ir al dia "+DTOC(DATE())
+		this.Parent.edit1.Value=objParent.adiasem[DOW(this.value)]+" ";
+			+TRANSFORM(DAY(this.Value));
+			+" de ";
+			+PROPER(objParent.ZenMes[MONTH(this.Value)] ) ;
+			+" de ";
+			+TRANSFORM(YEAR(this.Value))	
+		
+		
+		
+		
 	ENDPROC
 
 	PROCEDURE CntTit.Container1.Init
@@ -4525,6 +4532,10 @@ DEFINE CLASS cnthoy AS container
 		
 	ENDPROC
 
+	PROCEDURE Init
+		this.imgHoy.ToolTipText="Ir al dia "+DTOC(DATE())
+	ENDPROC
+
 	PROCEDURE imgHoy.Click
 		LOCAL objManak
 		objManak=this.Parent.objmanak
@@ -4536,6 +4547,15 @@ DEFINE CLASS cnthoy AS container
 		*THIS.Parent.objmanak.GMEs(this.Parent.ano,this.Parent.mes,.t.)	
 		*this.Parent.objmanak.dia=DAY(DATE())
 		objmanak.gMes(objmanak.ano,objManak.mes,.t.)
+		IF objmanak.class="Cntalma"
+			WITH objmanak
+				.Selmes=PROPER(objManak.ZenMes[.mes])
+				.Combo1.REfresh
+				.spinner2.refresh
+			ENDWITH	
+		ENDIF
+		
+		
 	ENDPROC
 
 ENDDEFINE
@@ -5849,6 +5869,7 @@ DEFINE CLASS cntmanak AS container
 		ENDFOR
 		this.cntTit.&loFoco..FontBold=.t.
 		this.dia=lnDay
+		thisform.cntins.pofechoy1.getEstado(this)
 		LdFEcha=DATE(this.ano,this.mes,this.dia)
 		lcFrase=this.adiasem[DOW(ldFEcha)]+" ";
 			+LTRIM(STR(lnDay))+" de "+this.selmes+" de "+LTRIM(STR(this.ano))
@@ -5982,6 +6003,7 @@ DEFINE CLASS cntmanak AS container
 				
 						
 		ENDCASE
+		*thisform.cntins.pofechoy1.getEstado(this)
 		
 	ENDPROC
 
@@ -6101,7 +6123,7 @@ DEFINE CLASS cntmanak AS container
 				.&lcFoco..SetFocus	
 			endif
 		ENDWITH
-		
+		*thisform.cntins.pofechoy1.getEstado(this)
 		
 	ENDPROC
 
@@ -6432,8 +6454,10 @@ DEFINE CLASS frmanual AS form
 	*< OBJECTDATA: ObjPath="CntIns.Glab4" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="CntIns.Gmarco6" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="CntIns.Glab5" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="CntIns.Spinner1" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="CntIns.Check1" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="CntIns.cmgMeses" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="CntIns.Pofechoy1" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="TxFecha" UniqueID="" Timestamp="" />
 
 	*<DefinedPropArrayMethod>
 		*m: *genmanak
@@ -6461,7 +6485,7 @@ DEFINE CLASS frmanual AS form
 	ShowTips = .T.
 	ShowWindow = 1
 	Top = 0
-	Width = 721
+	Width = 793
 
 	ADD OBJECT 'CntIns' AS container WITH ;
 		BackStyle = 0, ;
@@ -6470,7 +6494,7 @@ DEFINE CLASS frmanual AS form
 		Left = 3, ;
 		Name = "CntIns", ;
 		Top = 97, ;
-		Width = 698
+		Width = 760
 		*< END OBJECT: BaseClass="container" />
 
 	ADD OBJECT 'CntIns.Check1' AS checkbox WITH ;
@@ -6478,21 +6502,57 @@ DEFINE CLASS frmanual AS form
 		Caption = "", ;
 		DownPicture = ..\graphics\mnualmanaf.bmp, ;
 		Height = 20, ;
-		Left = 623, ;
+		Left = 706, ;
 		Name = "Check1", ;
 		Picture = ..\graphics\mnualmanak.bmp, ;
 		SpecialEffect = 0, ;
 		Style = 1, ;
 		ToolTipText = "Año Calendario", ;
-		Top = 1, ;
+		Top = 2, ;
 		Value = .F., ;
 		Width = 22
 		*< END OBJECT: BaseClass="checkbox" />
 
+	ADD OBJECT 'CntIns.cmgMeses' AS commandgroup WITH ;
+		BackColor = 221,226,222, ;
+		BorderColor = 114,136,141, ;
+		BorderStyle = 1, ;
+		ButtonCount = 2, ;
+		Height = 21, ;
+		Left = 665, ;
+		Name = "cmgMeses", ;
+		SpecialEffect = 1, ;
+		Top = 1, ;
+		Value = 1, ;
+		Width = 40, ;
+		Command1.BackColor = 149,177,171, ;
+		Command1.Caption = "", ;
+		Command1.DisabledPicture = ..\graphics\fle1132leftgn.bmp, ;
+		Command1.Height = 16, ;
+		Command1.Left = 3, ;
+		Command1.Name = "cmdMesAnt", ;
+		Command1.Picture = ..\graphics\fle1132leftg.bmp, ;
+		Command1.SpecialEffect = 2, ;
+		Command1.ToolTipText = "Año Anterior", ;
+		Command1.Top = 3, ;
+		Command1.Width = 17, ;
+		Command2.BackColor = 149,177,171, ;
+		Command2.Caption = "", ;
+		Command2.DisabledPicture = ..\graphics\fle1132rigthgn.bmp, ;
+		Command2.Height = 16, ;
+		Command2.Left = 20, ;
+		Command2.Name = "cmdMesSig", ;
+		Command2.Picture = ..\graphics\fle1132rightg.bmp, ;
+		Command2.SpecialEffect = 2, ;
+		Command2.ToolTipText = "Año Siguiente", ;
+		Command2.Top = 3, ;
+		Command2.Width = 17
+		*< END OBJECT: BaseClass="commandgroup" />
+
 	ADD OBJECT 'CntIns.Glab1' AS glab WITH ;
 		Caption = "[+]=Mes Siguente", ;
 		FontBold = .T., ;
-		Left = 5, ;
+		Left = 67, ;
 		Name = "Glab1", ;
 		Top = 4
 		*< END OBJECT: ClassLib="mzmanak.vcx" BaseClass="label" />
@@ -6500,7 +6560,7 @@ DEFINE CLASS frmanual AS form
 	ADD OBJECT 'CntIns.Glab2' AS glab WITH ;
 		Caption = "[-]=Mes Anterior", ;
 		FontBold = .T., ;
-		Left = 111, ;
+		Left = 173, ;
 		Name = "Glab2", ;
 		Top = 4
 		*< END OBJECT: ClassLib="mzmanak.vcx" BaseClass="label" />
@@ -6509,7 +6569,7 @@ DEFINE CLASS frmanual AS form
 		Caption = "[Enter]=Seleccionar", ;
 		FontBold = .T., ;
 		ForeColor = 0,64,128, ;
-		Left = 211, ;
+		Left = 273, ;
 		Name = "Glab3", ;
 		Top = 4
 		*< END OBJECT: ClassLib="mzmanak.vcx" BaseClass="label" />
@@ -6518,7 +6578,7 @@ DEFINE CLASS frmanual AS form
 		Caption = "[DblClick]=Seleccionar", ;
 		FontBold = .T., ;
 		ForeColor = 0,64,128, ;
-		Left = 326, ;
+		Left = 388, ;
 		Name = "Glab4", ;
 		Top = 4
 		*< END OBJECT: ClassLib="mzmanak.vcx" BaseClass="label" />
@@ -6526,14 +6586,14 @@ DEFINE CLASS frmanual AS form
 	ADD OBJECT 'CntIns.Glab5' AS glab WITH ;
 		Caption = "[PgDn] [PgUp]=Columnas", ;
 		FontBold = .T., ;
-		Left = 458, ;
+		Left = 520, ;
 		Name = "Glab5", ;
 		Top = 4
 		*< END OBJECT: ClassLib="mzmanak.vcx" BaseClass="label" />
 
 	ADD OBJECT 'CntIns.Gmarco1' AS gmarco WITH ;
 		Height = 21, ;
-		Left = 1, ;
+		Left = 63, ;
 		Name = "Gmarco1", ;
 		Top = 1, ;
 		Width = 106
@@ -6541,7 +6601,7 @@ DEFINE CLASS frmanual AS form
 
 	ADD OBJECT 'CntIns.Gmarco2' AS gmarco WITH ;
 		Height = 21, ;
-		Left = 106, ;
+		Left = 168, ;
 		Name = "Gmarco2", ;
 		Top = 1, ;
 		Width = 101
@@ -6549,7 +6609,7 @@ DEFINE CLASS frmanual AS form
 
 	ADD OBJECT 'CntIns.Gmarco3' AS gmarco WITH ;
 		Height = 21, ;
-		Left = 206, ;
+		Left = 268, ;
 		Name = "Gmarco3", ;
 		Top = 1, ;
 		Width = 116
@@ -6557,39 +6617,50 @@ DEFINE CLASS frmanual AS form
 
 	ADD OBJECT 'CntIns.Gmarco4' AS gmarco WITH ;
 		Height = 21, ;
-		Left = 321, ;
+		Left = 383, ;
 		Name = "Gmarco4", ;
 		Top = 1, ;
 		Width = 132
 		*< END OBJECT: ClassLib="mzmanak.vcx" BaseClass="shape" />
 
 	ADD OBJECT 'CntIns.Gmarco5' AS gmarco WITH ;
-		Left = 1, ;
+		Left = 63, ;
 		Name = "Gmarco5", ;
 		Top = 1
 		*< END OBJECT: ClassLib="mzmanak.vcx" BaseClass="shape" />
 
 	ADD OBJECT 'CntIns.Gmarco6' AS gmarco WITH ;
 		Height = 21, ;
-		Left = 452, ;
+		Left = 514, ;
 		Name = "Gmarco6", ;
 		Top = 1, ;
 		Width = 152
 		*< END OBJECT: ClassLib="mzmanak.vcx" BaseClass="shape" />
 
-	ADD OBJECT 'CntIns.Spinner1' AS spinner WITH ;
+	ADD OBJECT 'CntIns.Pofechoy1' AS pofechoy WITH ;
+		Left = 1, ;
+		Name = "Pofechoy1", ;
+		Top = 1
+		*< END OBJECT: ClassLib="mzmanak.vcx" BaseClass="textbox" />
+
+	ADD OBJECT 'TxFecha' AS textbox WITH ;
+		Alignment = 3, ;
 		BorderColor = 114,136,141, ;
 		DisabledBackColor = 242,247,243, ;
-		DisabledForeColor = 0,0,0, ;
+		DisabledForeColor = 89,89,89, ;
 		FontSize = 8, ;
+		ForeColor = 81,81,81, ;
+		Format = "D", ;
 		Height = 21, ;
-		Left = 603, ;
-		Name = "Spinner1", ;
+		Left = 110, ;
+		Name = "TxFecha", ;
+		ReadOnly = .T., ;
 		SpecialEffect = 1, ;
-		ToolTipText = "Año Siguiente - Año Anterior", ;
-		Top = 1, ;
-		Width = 18
-		*< END OBJECT: BaseClass="spinner" />
+		ToolTipText = "Hoy es", ;
+		Top = 160, ;
+		Visible = .F., ;
+		Width = 63
+		*< END OBJECT: BaseClass="textbox" />
 	
 	PROCEDURE Activate
 		SYS(2002)
@@ -6752,7 +6823,7 @@ DEFINE CLASS frmanual AS form
 			.oridia=xnDia
 			DIMENSION .gacont(12,3)
 		ENDWITH
-		
+		this.cntIns.pofechoy1.Value=DATE()
 		thisform.genmanak(xnAno,xnMes,xnDia)	
 		
 		
@@ -6798,40 +6869,84 @@ DEFINE CLASS frmanual AS form
 		Thisform.genmanak(lnAno,lnMes,lndia)
 	ENDPROC
 
-	PROCEDURE CntIns.Spinner1.DownClick
+	PROCEDURE CntIns.cmgMeses.Click
 		LOCAL lnAno,lnMes,lnDia
-		WITH thisform.Cnt_Mk1
-			lnAno=.Ano
-			lnMes=.Mes
-			lnDia=.Dia
-		ENDWITH
-		LnAno=lnAno-1
-		*lnmes=lnMes+1
+		DO CASE 
+			CASE this.Value=1
+				WITH thisform.Cnt_Mk1
+					lnAno=.Ano
+					lnMes=.Mes
+					lnDia=.Dia
+				ENDWITH
+				LnAno=lnAno-1
+				*lnmes=lnMes+1
 		
-		Veriday=DAY(thisform.FunManak1.Findemes(lnAno,lnMes))
-		IF lnDia>Veriday
-			lnDia=Veriday
-		ENDIF
-		Thisform.genmanak(lnAno,lnMes,lndia)
+				Veriday=DAY(thisform.FunManak1.Findemes(lnAno,lnMes))
+				IF lnDia>Veriday
+					lnDia=Veriday
+				ENDIF
+				Thisform.genmanak(lnAno,lnMes,lndia)
+				
+			CASE this.Value=2
+				
+				WITH thisform.Cnt_Mk12
+					lnAno=.Ano
+					lnMes=.Mes
+					lnDia=.Dia
+				ENDWITH
+				lnmes=lnMes+1
+				IF lnMes>12
+					lnMes=1
+					lnAno=lnAno+1
+				ENDIF
+				Veriday=DAY(thisform.FunManak1.Findemes(lnAno,lnMes))
+				IF lnDia>Veriday
+					lnDia=Veriday
+				ENDIF
+				Thisform.genmanak(lnAno,lnMes,lndia)
+		
+		ENDCASE
+		
+			
 	ENDPROC
 
-	PROCEDURE CntIns.Spinner1.UpClick
-		LOCAL lnAno,lnMes,lnDia
-		WITH thisform.Cnt_Mk12
-			lnAno=.Ano
-			lnMes=.Mes
-			lnDia=.Dia
-		ENDWITH
-		lnmes=lnMes+1
-		IF lnMes>12
-			lnMes=1
-			lnAno=lnAno+1
+	PROCEDURE TxFecha.Click
+		lnPeri=VAL(LEFT(DTOS(this.Value),6))
+		xnDia=DAY(this.Value)
+		nas=ASCAN(thisform.gacont,lnPeri)
+		*lcCont=IIF(nas#0,thisform.gacont(nas+1),"cnt_Mk1")
+		IF nas#0
+			lcCont=thisform.gaCont(nas+1)
+			IF PEMSTATUS(thisform,lcCont,5)
+				lobj=thisform.&lcCont
+				WITH lobj
+					*.Dia=DAY(DATE())
+					.dia=xndia
+					.gmes(lobj.ano,lobj.mes,.t.)
+				ENDWITH
+			ENDIF
+		ELSE
+			lnAno=YEAR(DATE())
+			lnMes=MONTH(DATE())
+			lnDia=DAY(DATE())
+			thisform.Cnt_Mk1.dia=DAY(DATE())
+			Thisform.genmanak(lnAno,lnMes,lndia)
+		
+		
 		ENDIF
-		Veriday=DAY(thisform.FunManak1.Findemes(lnAno,lnMes))
-		IF lnDia>Veriday
-			lnDia=Veriday
-		ENDIF
-		Thisform.genmanak(lnAno,lnMes,lndia)
+		
+	ENDPROC
+
+	PROCEDURE TxFecha.ProgrammaticChange
+		LOCAL objParent
+		objParent=this.Parent.Parent
+		this.Visible=!EMPTY(this.Value)
+		_Screen.FEchasel=this.Value
+		*objParent.cnthoy1.getestado()
+		
+		
+		
+		
 		
 	ENDPROC
 
@@ -9760,6 +9875,86 @@ DEFINE CLASS imaraya AS image
 	Picture = ..\graphics\raya.bmp
 	Visible = .F.
 	Width = 22
+
+ENDDEFINE
+
+DEFINE CLASS pofechoy AS textbox 
+ 	*< CLASSDATA: Baseclass="textbox" Timestamp="" Scale="Pixels" Uniqueid="" />
+
+	*<DefinedPropArrayMethod>
+		*m: *convoca
+		*m: *getestado
+		*m: *gshut
+		*p: obmanak		&& Objeto Almanque
+		*p: pedido
+	*</DefinedPropArrayMethod>
+
+	Alignment = 3
+	BorderColor = 114,136,141
+	DisabledBackColor = 220,228,224
+	DisabledForeColor = 0,0,0
+	FontSize = 8
+	Format = "D"
+	Height = 21
+	Name = "pofechoy"
+	obmanak = NULL		&& Objeto Almanque
+	pedido = .F.
+	ReadOnly = .T.
+	SpecialEffect = 1
+	Value = (CTOD(""))
+	Width = 63
+	
+	PROCEDURE Click
+		IF this.ForeColor#RGB(0,0,255)
+			RETURN
+		ENDIF
+		LOCAL lnPeri,lnAno,lnMes,lnDia
+		lnPeri=VAL(LEFT(DTOS(this.Value),6))
+		lnDia=DAY(this.Value)
+		lnAno=YEAR(this.Value)
+		lnMes=MONTH(this.value)
+		nas=ASCAN(thisform.gacont,lnPeri)
+		*lcCont=IIF(nas#0,thisform.gacont(nas+1),"cnt_Mk1")
+		IF nas#0
+			lcCont=thisform.gaCont(nas+1)
+			IF PEMSTATUS(thisform,lcCont,5)
+				lobj=thisform.&lcCont
+				WITH lobj
+					*.Dia=DAY(DATE())
+					.dia=Lndia
+					.gmes(lobj.ano,lobj.mes,.t.)
+				ENDWITH
+			ENDIF
+		ELSE
+		
+			thisform.Cnt_Mk1.dia=DAY(DATE())
+			Thisform.genmanak(lnAno,lnMes,lndia)
+		
+		
+		ENDIF
+		
+	ENDPROC
+
+	PROCEDURE convoca
+	ENDPROC
+
+	PROCEDURE getestado
+		LPARAMETERS poManak
+		*MESSAGEBOX("Sucede "+poManak.name)
+		LOCAL dFecha
+		dfecha=DATE(poManak.ano,poManak.mes,poManak.dia)
+		WITH this
+			.ToolTipText=IIF(dfecha=this.Value,"","Enfocar el "+DTOC(this.Value))
+			.DisabledBackColor=IIF(dfecha=this.Value,RGB(220,228,224),RGB(242,247,243))
+			.MousePointer=IIF(dfecha=this.Value,0,15)
+			.DisabledForeColor=IIF(dfecha=this.value,RGB(0,0,0), RGB(0,0,255))
+			.ForeColor=IIF(dfecha=this.value,RGB(0,0,0), RGB(0,0,255))
+		ENDWITH
+		
+	ENDPROC
+
+	PROCEDURE gshut
+	ENDPROC
 
 ENDDEFINE
 
